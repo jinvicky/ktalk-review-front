@@ -1,7 +1,13 @@
-interface Review {
-  name?: string;
+interface ReviewRegister {
+  applyId: string;
   content: string;
-  createdAt: Array<number>;
+}
+interface Review {
+  id: string;
+  applyId: string;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
-export { Review };
+export { Review, ReviewRegister };
