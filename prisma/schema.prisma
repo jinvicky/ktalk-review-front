@@ -1,0 +1,22 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+// This is your Prisma schema file
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql" // MySQL 데이터베이스를 사용합니다.
+  url      = env("DATABASE_URL") // 환경변수에서 데이터베이스 URL을 가져옵니다.
+}
+
+// 모델 정의
+model Review {
+  id      Int    @id @default(autoincrement()) // ID는 자동 증가합니다.
+  name    String // 리뷰의 작성자 이름
+  content String // 리뷰 내용
+}
