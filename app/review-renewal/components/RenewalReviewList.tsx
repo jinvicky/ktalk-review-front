@@ -1,8 +1,9 @@
 "use client";
 
-import { ApiResult } from "@/types/api.type";
+import { useEffect, useMemo, useState } from "react";
+
+import { ApiResult, CustPage } from "@/types/api.type";
 import { Review } from "@/types/review.type";
-import { useEffect, useState } from "react";
 
 const RenewalReviewList = () => {
   const size = 5;
@@ -18,13 +19,20 @@ const RenewalReviewList = () => {
         "&size=" +
         size
     );
-    let reviews: ApiResult<Review[]> = await data.json();
-    setReviewList([...reviewList, ...reviews.data]);
+    let reviews: ApiResult<CustPage<Review>> = await data.json();
+    setReviewList([...reviewList, ...reviews.data.list]);
   };
 
   useEffect(() => {
     updateData();
   }, [page]);
+
+  /**
+   * 모든 데이터를 가져왔는지 여부
+   */
+  const fetchedAllData = useMemo(() => {
+    return reviewList.length >= size * (page + 1);
+  }, [reviewList, size, page])
 
   const render = () => {
     return reviewList.map((review: Review, index: number) => (
@@ -43,14 +51,16 @@ const RenewalReviewList = () => {
 
   return (
     <>
-      <div className="renewal-review-list">
-        <div className="renewal-review-list__header">
+      <div>
+        <div>
           <h1>Renewal Review List</h1>
         </div>
         <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-6 w-full">
           {render()}
         </ul>
-        <button onClick={() => setPage(page + 1)}>더보기</button>
+        {fetchedAllData && (
+          <button onClick={() => setPage(page + 1)}>더보기</button>
+        )}
       </div>
     </>
   );

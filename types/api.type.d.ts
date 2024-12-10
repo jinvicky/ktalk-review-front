@@ -4,4 +4,15 @@ interface ApiResult<T> {
     data: T;
 }
 
-export { ApiResult };
+interface PageInfo {
+    page: number;
+    size: number;
+    totalCount: number;
+}
+
+interface CustPage<T> {
+    list: T[];
+    pageInfo: PageInfo;
+}
+
+export { ApiResult, PageInfo, CustPage };
