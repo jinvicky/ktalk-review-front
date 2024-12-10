@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script src="https://lite.payapp.kr/public/api/v2/payapp-lite.js"></script>
+<script>
+    PayApp.setDefault('userid',     'jinvicky');
+    PayApp.setDefault('shopname',   '펫키지');
+    function payappPay(){
+        PayApp.setParam('goodname', 'USB');
+        PayApp.setParam('price', '1000');
+        PayApp.setParam('recvphone', '01000000000');
+        PayApp.setParam('smsuse', 'n');
+        PayApp.setParam('redirectpay', '1');
+        PayApp.setParam('skip_cstpage', 'y');
+        PayApp.call();
+    }
+</script>
+
+<form name="MyForm">
+    <input type="hidden" name="userid"   value="payapptest">
+    <input type="hidden" name="shopname" value="펫키지">
+    <input type="hidden" name="goodname" value="USB">
+    <input type="hidden" name="price"    value="1000">
+</form>
+
+<a href="#" onclick="payappPay();">결제하기</a>
+</body>
+</html>

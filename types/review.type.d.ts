@@ -6,6 +6,7 @@ interface Review {
   id: string;
   applyId: string;
   content: string;
+  username: string;
   createdAt: string;
   updatedAt: string;
 }
