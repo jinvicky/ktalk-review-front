@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import {TailMasking} from "@/utils/masking.util"; // Adjust the import path as necessary
 import { useInView } from "react-intersection-observer";
 
 import { Review } from "@/types/review.type";
@@ -37,7 +38,7 @@ const RenewalReviewListWithInfiniteScroll = () => {
    * 모든 데이터를 가져왔는지 여부 체크
    */
   const fetchedAllData = useMemo(() => {
-    // return reviewList.length >= viewLimitCount * (page + 1);
+    // before:: return reviewList.length >= viewLimitCount * (page + 1);
     return reviewList.length >= totalCount;
   }, [reviewList, viewLimitCount, page]); 
 
@@ -58,7 +59,7 @@ const RenewalReviewListWithInfiniteScroll = () => {
       >
         <div className="text-lg font-semibold mb-2">{review.content}</div>
         <div className="flex justify-between items-end">
-          <span className="text-sm text-gray-600">{review.username}</span>
+          <span className="text-sm text-gray-600">{TailMasking.shortMasking(review.username, 3)}</span>
           <span className="text-sm text-gray-400">{review.createdAt}</span>
         </div>
       </li>

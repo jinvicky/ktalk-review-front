@@ -7,6 +7,7 @@ import { Review } from "@/types/review.type";
 const RenewalReviewListWithButton = () => {
   const size = 5;
   const [page, setPage] = useState(0);
+  const [totalCount, setTotalCount] = useState(5);
   const [reviewList, setReviewList] = useState<Review[]>([]);
 
   const updateData = async () => {
@@ -19,7 +20,13 @@ const RenewalReviewListWithButton = () => {
         size
     );
     let reviews: ApiResult<CustPage<Review>> = await data.json();
-    setReviewList([...reviewList, ...reviews.data.list]);
+
+    if (reviews.data.list.length) {
+      setTotalCount(reviews.data.pageInfo.totalCount);
+      setReviewList((prev: Review[]) => {
+        return [...prev, ...reviews.data.list];
+      });
+    }
   };
 
   useEffect(() => {
@@ -30,8 +37,8 @@ const RenewalReviewListWithButton = () => {
    * 모든 데이터를 가져왔는지 여부
    */
   const fetchedAllData = useMemo(() => {
-    return reviewList.length >= size * (page + 1);
-  }, [reviewList, size, page])
+    return reviewList.length >= totalCount;
+  }, [reviewList, size, page]);
 
   const render = () => {
     return reviewList.map((review: Review, index: number) => (
