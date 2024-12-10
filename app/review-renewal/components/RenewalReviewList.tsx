@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useState } from "react";
 
-import { ApiResult, CustPage } from "@/types/api.type";
 import { Review } from "@/types/review.type";
 
 const RenewalReviewList = () => {
