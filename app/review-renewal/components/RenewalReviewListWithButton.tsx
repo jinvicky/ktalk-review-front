@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 
 import { Review } from "@/types/review.type";
 
-const RenewalReviewList = () => {
+const RenewalReviewListWithButton = () => {
   const size = 5;
   const [page, setPage] = useState(0);
   const [reviewList, setReviewList] = useState<Review[]>([]);
@@ -65,4 +65,4 @@ const RenewalReviewList = () => {
   );
 };
 
-export default RenewalReviewList;
+export default RenewalReviewListWithButton;
