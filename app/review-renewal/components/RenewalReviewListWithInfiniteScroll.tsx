@@ -7,6 +7,8 @@ import { useInView } from "react-intersection-observer";
 import { Review } from "@/types/review.type";
 import CustomModal from "@/components/Modal";
 
+import "@/styles/review/reviewList.scss";
+
 const RenewalReviewListWithInfiniteScroll = () => {
   const viewLimitCount = 5; // size, 최대 출력 개수
   const [page, setPage] = useState(0);
@@ -51,17 +53,20 @@ const RenewalReviewListWithInfiniteScroll = () => {
     }
   }, [inView]);
 
+  
   const render = () => {
     return reviewList.map((review: Review, index: number) => (
       <li
         key={`review-${index}`}
-        className="min-w-20 p-4 mb-4 rounded-lg shadow-sm bg-white"
+        className="min-w-20 p-4 mb-4 rounded-lg shadow-sm bg-white flex flex-col justify-between"
         onClick={() => {
           setModalOpen(true);
           setReviewIdx(index);
         }}
       >
-        <div className="text-lg font-semibold mb-2">{review.content}</div>
+        <div className="text-lg font-semibold mb-2 review-text-ellipsis">
+          {review.content}
+          </div>
         <div className="flex justify-between items-end">
           <span className="text-sm text-gray-600">
             {TailMasking.shortMasking(review.username, 3)}

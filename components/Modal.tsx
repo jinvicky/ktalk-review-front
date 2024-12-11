@@ -34,17 +34,13 @@ const CustomModal = ({
         aria-describedby="modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-title" variant="h6" component="h2">
-            Modal Title
-          </Typography>
           <Typography id="modal-description" sx={{ mt: 2 }}>
-            상속받은 내용들:
             {children}
           </Typography>
           <Button
             onClick={setOpen}
             variant="contained"
-            sx={{ mt: 2 }}
+            sx={{ mt: 2, position: "relative", left: "50%", transform: "translateX(-50%)" }}
           >
             Close
           </Button>
