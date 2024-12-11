@@ -7,7 +7,7 @@ import { useInView } from "react-intersection-observer";
 import { Review } from "@/types/review.type";
 import CustomModal from "@/components/Modal";
 
-import "@/styles/review/reviewList.scss";
+import "@/styles/review-renewal/reviewList.scss";
 
 const RenewalReviewListWithInfiniteScroll = () => {
   const viewLimitCount = 5; // size, 최대 출력 개수
