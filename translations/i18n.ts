@@ -1,15 +1,22 @@
 import i18next from 'i18next';
 import { initReactI18next } from 'react-i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
 
 import enTranslations from '@/translations/json/en.json';
 import koTranslations from '@/translations/json/ko.json';
-import jpTranslations from '@/translations/json/jp.json';
+import jaTranslations from '@/translations/json/ja.json';
+
+const languageDetectorOptions = {
+    order: ['navigator', 'querystring', 'cookie', 'localStorage', 'subdomain', 'header'],
+};
 
 i18next
+    .use(LanguageDetector)
     .use(initReactI18next)
     .init({
-        lng: 'ko',
-        fallbackLng: 'ja',
+        // lng: 'ko',
+        detection: languageDetectorOptions,
+        fallbackLng: 'ko',
         resources: {
             en: {
                 translation: enTranslations,
@@ -17,8 +24,8 @@ i18next
             ko: {
                 translation: koTranslations,
             },
-            jp: {
-                translation: jpTranslations,
+            ja: {
+                translation: jaTranslations,
             }
         },
         interpolation: {
