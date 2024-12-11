@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { TranslationProviders } from "@/components/TranslationProvider";
+import NavBar from "@/components/Navbar";
 
 import "./globals.css";
 
@@ -20,6 +21,7 @@ export default function RootLayout({
         <body
         // className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
+          <NavBar />
           {children}
         </body>
       </html>
