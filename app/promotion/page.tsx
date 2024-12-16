@@ -14,8 +14,6 @@ const PromotionPage = () => {
 
   return (
     <>
-      <div>{t("HELLO")}</div>
-      <div>현재 브라우저 언어 : {i18n.language}</div>
       <Image
         src={"/assets/image/AC_NOTE1.jpg"}
         alt="AC_NOTE1"
