@@ -16,6 +16,13 @@ import "@/styles/promotion/promotionPage.scss";
 
 gsap.registerPlugin(ScrollTrigger, Draggable, MotionPathPlugin);
 
+/**
+ * lenis를 사용하면 부드러운 스크롤을 준다. 
+ * 
+ * 차라리 페이지를 만들 때 내가 이 페이지를 만들었는데! 여기에 뭐가 들어갔는지
+ * 공유함 ㅇㅅㅇ은 어떤지?
+ */
+
 const PromotionPage = () => {
   const { t, i18n } = useTranslation();
 
