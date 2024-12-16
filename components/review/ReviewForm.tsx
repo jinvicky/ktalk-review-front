@@ -87,7 +87,7 @@ const ReviewForm = () => {
     );
   };
   return (
-    <div className="w-11/12 sm:w-6/12 mx-auto">
+    <div className="w-11/12 sm:w-6/12 mx-auto py-5">
       <form
         className="flex flex-col space-y-4 p-6 bg-white rounded-lg shadow-md"
         ref={formRef}
@@ -103,11 +103,12 @@ const ReviewForm = () => {
           placeholder="리뷰 내용을 입력해 주세요"
           name="content"
           className="border border-gray-300 rounded-md p-2 focus:outline-none resize-none"
+          rows={7}
         />
         {renderErrors()}
         <button
           type="submit"
-          className="bg-rose-400 text-white font-semibold rounded-md p-2 hover:bg-rose-700 transition duration-200"
+          className="bg-blue-400 text-white font-semibold rounded-md p-2 hover:bg-blue-700 transition duration-200"
         >
           제출
         </button>

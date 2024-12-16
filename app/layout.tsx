@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 
-import { TranslationProviders } from "@/components/TranslationProvider";
 import NavBar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import { TranslationProviders } from "@/components/TranslationProvider";
 
 import "./globals.css";
 
@@ -23,6 +24,7 @@ export default function RootLayout({
         >
           <NavBar />
           {children}
+          <Footer />
         </body>
       </html>
     </TranslationProviders>
