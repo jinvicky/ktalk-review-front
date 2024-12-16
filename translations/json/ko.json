@@ -1,8 +1,12 @@
 {
     "HELLO": "안녕하세요",
     "COMMISSION": "커미션",
+    "ANIMAL_CROSSING": {
+        "LONG-ALIAS": "모여봐요 동물의 숲",
+        "SHORT-ALIAS": "모동숲"
+    },
     "REVIEW": {
-        "TITLE" : "리뷰",
+        "TITLE": "리뷰",
         "DESC_1": "커미션에 만족하신 신청자분들의 후기입니다."
     }
 }

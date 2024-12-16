@@ -7,8 +7,8 @@ import { TranslationProviders } from "@/components/TranslationProvider";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "jinvicky's ktalk-review",
-  description: "jinvicky's commission review page",
+  title: "Jinvicky's Commission",
+  description: "jinvicky's commission",
 };
 
 export default function RootLayout({

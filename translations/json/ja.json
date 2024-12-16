@@ -1,6 +1,10 @@
 {
     "HELLO": "こんにちは",
     "COMMISSION": "コミッション",
+    "ANIMAL_CROSSING": {
+        "LONG-ALIAS": "集まる動物の森",
+        "SHORT-ALIAS": "あつ森"
+    },
     "REVIEW": {
         "TITLE": "レビュー",
         "DESC_1": "コミッションに満足している申請者のレビューです。"

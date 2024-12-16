@@ -1,6 +1,10 @@
 {
     "HELLO": "Hello",
     "COMMISSION": "Commission",
+    "ANIMAL_CROSSING": {
+        "LONG-ALIAS": "Animal Crossing",
+        "SHORT-ALIAS": "ACNH"
+    },
     "REVIEW": {
         "TITLE": "Review",
         "DESC_1": "Reviews from applicants who are satisfied with the commission."
