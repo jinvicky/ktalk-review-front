@@ -13,8 +13,6 @@ import { TailMasking } from "@/utils/masking.util";
 import "@/styles/review-renewal/reviewList.scss";
 
 const RenewalReviewListWithInfiniteScroll = () => {
-  const viewLimitCount = 5; // size, 최대 출력 개수
-
   const [page, setPage] = useState(0);
   const [totalCount, setTotalCount] = useState(5);
   const [reviewList, setReviewList] = useState<Review[]>([]);
@@ -23,9 +21,9 @@ const RenewalReviewListWithInfiniteScroll = () => {
   const [reviewIdx, setReviewIdx] = useState<number>(0);
 
   const updateData = async () => {
+    if (reviewList.length >= totalCount) return;
     const limitByDevice = window.innerWidth < 768 ? 5 : 12;
-
-    let data = await fetch(
+    const data = await fetch(
       process.env.NEXT_PUBLIC_DOMAIN_URL +
         "/api/renewal/review/all" +
         "?page=" +
@@ -35,30 +33,28 @@ const RenewalReviewListWithInfiniteScroll = () => {
     );
     const reviews: ApiResult<CustPage<Review>> = await data.json();
 
-    if (reviews.data.list.length) {
-      setPage(page + 1);
+    if (reviews.data.list.length > 0) {
+      setReviewList((prev: Review[]) => [...prev, ...reviews.data.list]);
+
+      // 함수형 업데이트로 최신 상태 관리
+      setPage((prevPage) => prevPage + 1);
       setTotalCount(reviews.data.pageInfo.totalCount);
-      setReviewList((prev: Review[]) => {
-        return [...prev, ...reviews.data.list];
-      });
     }
   };
 
-  /**
-   * 모든 데이터를 가져왔는지 여부 체크
-   */
   const fetchedAllData = useMemo(() => {
     return reviewList.length >= totalCount;
-  }, [reviewList, viewLimitCount, page]);
+  }, [reviewList.length, totalCount]);
 
   useEffect(() => {
-    if (inView) {
-      if (fetchedAllData) {
-        return;
-      }
+    updateData();
+  }, []);
+
+  useEffect(() => {
+    if (inView && reviewList.length > 0) {
       updateData();
     }
-  }, [inView]);
+  }, [inView, reviewList.length]);
 
   const render = () => {
     return reviewList.map((review: Review, index: number) => (
@@ -102,9 +98,7 @@ const RenewalReviewListWithInfiniteScroll = () => {
       <div className="mb-4">
         totalCount : <span>{totalCount} </span>
       </div>
-      <ul className="grid sm:grid-cols-1 lg:grid-cols-3 gap-4">
-        {render()}
-      </ul>
+      <ul className="grid sm:grid-cols-1 lg:grid-cols-3 gap-4">{render()}</ul>
       <CustomModal open={modalOpen} setOpen={() => setModalOpen(!modalOpen)}>
         <>{reviewList[reviewIdx] && modalDetail(reviewList[reviewIdx])}</>
       </CustomModal>
