@@ -1,249 +1,122 @@
 "use client";
 
-import Image from "next/image";
 import { useTranslation } from "react-i18next";
 
-import { useEffect, useState } from "react";
+import PromotionCard from "@/components/promotion/PromotionCard";
 
-import gasp from "gsap"; // 필요
-import { gsap, ScrollTrigger, Draggable, MotionPathPlugin } from "gsap/all";
-
-import { twJoin } from "tailwind-merge";
-
-import "@/styles/global/animation/slideLeftReturn.scss"; // 스무스한 효과를 위해 필요
-import "@/styles/global/animation/slideRightReturn.scss"; // 스무스한 효과를 위해 필요
 import "@/styles/promotion/promotionPage.scss";
 
-gsap.registerPlugin(ScrollTrigger, Draggable, MotionPathPlugin);
-
-/**
- * lenis를 사용하면 부드러운 스크롤을 준다. 
- * 
- * 차라리 페이지를 만들 때 내가 이 페이지를 만들었는데! 여기에 뭐가 들어갔는지
- * 공유함 ㅇㅅㅇ은 어떤지?
- */
-
 const PromotionPage = () => {
-  const { t, i18n } = useTranslation();
-
-  const tagStyle = "px-4 py-2 rounded-lg text-md";
-
-  useEffect(() => {
-    gsap.from(".slideLeftReturn", {
-      scrollTrigger: {
-        trigger: ".slideLeftReturn",
-        start: "top bottom",
-        end: "top center",
-        scrub: true,
-        onEnter: () => console.log("trigger"),
-      },
-      opacity: 1,
-      duration: 1.0,
-    });
-
-    gsap.from(".slideRightReturn", {
-      scrollTrigger: {
-        trigger: ".slideRightReturn",
-        start: "top bottom",
-        end: "top center",
-        scrub: true,
-      },
-      opacity: 1,
-      duration: 1.0, // 애니메이션 지속 시간
-    });
-  }, []);
+  const { t } = useTranslation();
 
   const renderAcnhSection = () => {
     const hashTagKeywords = [
-      "모동숲커미션",
-      "동숲공지표커미션",
-      "모여봐요 동물의 숲",
-      "걍진커미션",
-      "SD커미션",
+      t("ANIMAL_CROSSING.HASH_TAG.1"),
+      t("ANIMAL_CROSSING.HASH_TAG.2"),
+      t("ANIMAL_CROSSING.HASH_TAG.3"),
     ];
+
+    const content = (
+      // md:[&>.desc]:text-left
+      <div className="sm:[&>.desc]:text-center">
+        <div className="desc">{t("ANIMAL_CROSSING.PRODUCT.COUPLE.DESC_1")}</div>
+        <div className="desc">{t("ANIMAL_CROSSING.PRODUCT.INVITE.DESC_1")}</div>
+        <div className="desc">{t("ANIMAL_CROSSING.PRODUCT.INVITE.DESC_2")}</div>
+        <div className="desc">{t("ANIMAL_CROSSING.PRODUCT.INVITE.DESC_3")}</div>
+        <div className="p-5 text-md font-semibold text-gray-400 text-center">
+          🌟 {t("APPLY_CLICK_HERE")} 🌟
+        </div>
+      </div>
+    );
     return (
       <>
-        <div>
-          <div className="grid grid-cols-2 items-center">
-            <Image
-              className="slideLeftReturn"
-              src={"/assets/image/AC_NOTE1.jpg"}
-              alt="AC_NOTE1"
-              width={600}
-              height={300}
-            />
-            <div className="slideRightReturn">
-              <div className="text-2xl font-bold text-center">
-                💗 공지표, 초대장 💗
-              </div>
-              <div className="py-5 flex justify-center flex-wrap gap-2">
-                {hashTagKeywords.map((item: string, index: number) => (
-                  <span
-                    key={index}
-                    className={twJoin(tagStyle, "bg-blue-100 text-blue-600")}
-                  >
-                    #{item}
-                  </span>
-                ))}
-              </div>
-              <div className="animal-crossing-notice-desc">
-                <div className="text-lg font-semibold text-center">
-                  {"🌟 게임을 함께할 커뮤니티를 모집하세요! 🌟"}
-                </div>
-                <div>
-                  {
-                    "원하시는 컨셉과 분위기에 맞추어 공지표를 제작해드립니다. 분위기와 색상을 말씀해주세요! 🎨"
-                  }
-                </div>
-                <div>
-                  {
-                    "프로필 등으로 사용할 수 있도록 캐릭터와 주민 일러스트를 별도 전송해 드립니다! 💌"
-                  }
-                </div>
-                <div>
-                  {
-                    "같은 디자인에 2종류 다른 문구를 지원합니다. 2가지 버전을 모두 신청서에 첨부해 주세요 📝"
-                  }
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <PromotionCard
+          hashTagKeywords={hashTagKeywords}
+          hashTagColorStyle={"bg-blue-100 text-blue-600"}
+          imgSrc={"/assets/image/acnh_couple.jpeg"}
+          title={
+            <>
+              💗 {t("ANIMAL_CROSSING.PRODUCT.COUPLE.TITLE")},{" "}
+              {t("ANIMAL_CROSSING.PRODUCT.INVITE.TITLE")} 💗
+            </>
+          }
+          content={content}
+        />
       </>
     );
   };
 
-  const renderAcnhCoupleSection = () => {
+  const renderPartyCommission = () => {
     const hashTagKeywords = [
-      "모동숲커미션",
-      "모동숲커플커미션",
-      "동숲프로필커미션",
-      "걍진커미션",
-      "SD커미션",
+      t("PARTY.HASH_TAG.1"),
+      t("PARTY.HASH_TAG.2"),
+      t("PARTY.HASH_TAG.3"),
+      t("PARTY.HASH_TAG.4"),
     ];
-    return (
-      <>
-        <div className="py-10">
-          <div className="grid grid-cols-2 items-center">
-            <Image
-              className="slideLeftReturn"
-              src={"/assets/image/AC_NOTE1.jpg"}
-              alt="AC_NOTE1"
-              width={600}
-              height={300}
-            />
-            <div>
-              <div className="text-2xl font-bold text-center ">
-                💗 커플 프로필 💗
-              </div>
-              <div className="py-5 flex justify-center flex-wrap gap-2">
-                {hashTagKeywords.map((item: string, index: number) => (
-                  <span
-                    key={index}
-                    className={twJoin(tagStyle, "bg-green-100 text-green-600")}
-                  >
-                    #{item}
-                  </span>
-                ))}
-              </div>
-              <div className="animal-crossing-notice-desc">
-                <div className="text-lg font-semibold text-center">
-                  {"🌟 게임을 함께할 커뮤니티를 모집하세요! 🌟"}
-                </div>
-                <div>
-                  {
-                    "원하시는 컨셉과 분위기에 맞추어 공지표를 제작해드립니다. 분위기와 색상을 말씀해주세요! 🎨"
-                  }
-                </div>
-                <div>
-                  {
-                    "프로필 등으로 사용할 수 있도록 캐릭터와 주민 일러스트를 별도 전송해 드립니다! 💌"
-                  }
-                </div>
-                <div>
-                  {
-                    "이펙트와 배경을 추가하면 더 예쁜 그림을 얻을 수 있습니다. 📝"
-                  }
-                </div>
-              </div>
-            </div>
-          </div>
+
+    const content = (
+      <div className="sm:[&>.desc]:text-center">
+        <div className="desc">{t("PARTY.PRODUCT.DESC_1")}</div>
+        <div className="desc">{t("PARTY.PRODUCT.DESC_2")}</div>
+        <div className="p-5 text-md font-semibold text-gray-400 text-center">
+          🌟 {t("APPLY_CLICK_HERE")} 🌟
         </div>
-      </>
+      </div>
+    );
+    return (
+      <PromotionCard
+        hashTagKeywords={hashTagKeywords}
+        hashTagColorStyle={"bg-orange-100 text-orange-600"}
+        imgSrc={"/assets/image/party_smp1.jpeg"}
+        title={<>💗 {t("PARTY.LONG_ALIAS")} 💗</>}
+        content={content}
+      />
     );
   };
 
   const renderLostArkSection = () => {
     const hashTagKeywords = [
-      "로스트아크",
-      "로스트아크커미션",
-      "게임커미션",
-      "걍진커미션",
-      "SD커미션",
+      t("LOST_ARK.HASH_TAG.1"),
+      t("LOST_ARK.HASH_TAG.2"),
+      t("LOST_ARK.HASH_TAG.3"),
+      t("LOST_ARK.HASH_TAG.4"),
     ];
+
+    const content = (
+      // md:[&>.desc]:text-left
+      <div className="sm:[&>.desc]:text-center">
+        <div className="desc">{t("LOST_ARK.PRODUCT.DESC_1")}</div>
+        <div className="desc">{t("LOST_ARK.PRODUCT.DESC_2")}</div>
+        <div className="p-5 text-md font-semibold text-gray-400 text-center">
+          🌟 {t("APPLY_CLICK_HERE")} 🌟
+        </div>
+      </div>
+    );
     return (
       <>
-        <div className="py-10">
-          <div className="grid grid-cols-2 items-center">
-            <Image
-              className="slideLeftReturn"
-              src={"/assets/image/AC_NOTE1.jpg"}
-              alt="AC_NOTE1"
-              width={600}
-              height={300}
-            />
-            <div>
-              <div className="text-2xl font-bold text-center ">
-                💗 로스트아크 커미션 💗
-              </div>
-              <div className="py-5 flex justify-center flex-wrap gap-2">
-                {hashTagKeywords.map((item: string, index: number) => (
-                  <span
-                    key={index}
-                    className={twJoin(
-                      tagStyle,
-                      "bg-orange-100 text-orange-600"
-                    )}
-                  >
-                    #{item}
-                  </span>
-                ))}
-              </div>
-              <div className="animal-crossing-notice-desc">
-                <div className="text-lg font-semibold text-center">
-                  {"🌟 게임을 함께할 커뮤니티를 모집하세요! 🌟"}
-                </div>
-                <div>
-                  {
-                    "원하시는 컨셉과 분위기에 맞추어 공지표를 제작해드립니다. 분위기와 색상을 말씀해주세요! 🎨"
-                  }
-                </div>
-                <div>
-                  {
-                    "프로필 등으로 사용할 수 있도록 캐릭터와 주민 일러스트를 별도 전송해 드립니다! 💌"
-                  }
-                </div>
-                <div>
-                  {
-                    "이펙트와 배경을 추가하면 더 예쁜 그림을 얻을 수 있습니다. 📝"
-                  }
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <PromotionCard
+          hashTagKeywords={hashTagKeywords}
+          hashTagColorStyle={"bg-green-100 text-green-600"}
+          imgSrc={"/assets/image/lostark_couple.jpeg"}
+          title={<>💗 {t("LOST_ARK.LONG_ALIAS")} 💗</>}
+          content={content}
+        />
       </>
     );
   };
 
   return (
-    <div className="px-5">
-      <div className="py-5 text-center font-bold text-2xl">
-        {t("ANIMAL_CROSSING.LONG-ALIAS")} ({t("ANIMAL_CROSSING.SHORT-ALIAS")})
+    <div className="p-5">
+      <div>
+        <div className="text-3xl font-bold text-center">
+          {t("SD_COMMISSION")}
+        </div>
       </div>
-      {renderAcnhSection()}
-      {renderAcnhCoupleSection()}
+      <a href="https://crepe.cm/@jinvicky/crf0exx" target="_blank">
+        {renderAcnhSection()}
+      </a>
       {renderLostArkSection()}
+      {renderPartyCommission()}
     </div>
   );
 };

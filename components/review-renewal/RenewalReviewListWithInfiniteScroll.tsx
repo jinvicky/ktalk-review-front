@@ -36,7 +36,6 @@ const RenewalReviewListWithInfiniteScroll = () => {
     if (reviews.data.list.length > 0) {
       setReviewList((prev: Review[]) => [...prev, ...reviews.data.list]);
 
-      // 함수형 업데이트로 최신 상태 관리
       setPage((prevPage) => prevPage + 1);
       setTotalCount(reviews.data.pageInfo.totalCount);
     }

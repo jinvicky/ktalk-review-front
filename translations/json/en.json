@@ -1,12 +1,60 @@
 {
-    "HELLO": "Hello",
-    "COMMISSION": "Commission",
-    "ANIMAL_CROSSING": {
-        "LONG-ALIAS": "Animal Crossing",
-        "SHORT-ALIAS": "ACNH"
+  "HELLO": "Hello",
+  "COMMISSION": "Commission",
+  "SD_COMMISSION": "SD Commission",
+  "JINVICKY": {
+    "NAME": "jinvicky"
+  },
+  "APPLY_CLICK_HERE": "Click here to go to the application page.",
+  "LOST_ARK": {
+    "LONG_ALIAS": "Lost Ark",
+    "PRODUCT": {
+      "DESC_1": "We will draw characters, weapons, effects, and more in detail. We have extensive experience with individuals, couples, and groups.",
+      "DESC_2": "We support various game characters, including not only Lost Ark but also MapleStory, Tales Runner, and Blue Archive."
     },
-    "REVIEW": {
-        "TITLE": "Review",
-        "DESC_1": "Reviews from applicants who are satisfied with the commission."
+    "HASH_TAG": {
+      "1": "LostArk Commission",
+      "2": "LostArkCommission",
+      "3": "GameCharacter",
+      "4": "GameCommission"
     }
+  },
+  "PARTY": {
+    "LONG_ALIAS": "Party, Group, Gathering",
+    "PRODUCT": {
+      "DESC_1": "We create character illustrations for groups of 3 or more. We have extensive experience with various events such as Christmas, camping, and more.",
+      "DESC_2": "We support various options including animal pajamas, effects, and events."
+    },
+    "HASH_TAG": {
+      "1": "anime commission",
+      "2": "anime sd",
+      "3": "vtuber commssion",
+      "4": "vtuber illust"
+    }
+  },
+  "ANIMAL_CROSSING": {
+    "LONG-ALIAS": "Animal Crossing",
+    "SHORT-ALIAS": "ACNH",
+    "PRODUCT": {
+      "COUPLE": {
+        "TITLE": "Animal Crossing Couple",
+        "DESC_1": "We will draw your main character and villagers as a cute couple. Each can also be done individually."
+      },
+      "INVITE": {
+        "TITLE": "Animal Crossing Notice & Invitation",
+        "DESC_1": "We will create a notice according to your desired concept and atmosphere. Please let us know your preferred vibe and colors! 🎨",
+        "DESC_2": "We will also send you illustrations of the characters and villagers for use as profiles! 💌",
+        "DESC_3": "The notice includes two different phrases in the same design for free. Please attach both versions in your application form. 📝"
+      }
+    },
+    "HASH_TAG": {
+      "1": "ACNHCommission",
+      "2": "animalCrossingCommssion",
+      "3": "animalCrossing"
+    }
+  },
+  "REVIEW": {
+    "TITLE": "Review",
+    "DESC_1": "Reviews from applicants who are satisfied with the commission."
+  }
 }
