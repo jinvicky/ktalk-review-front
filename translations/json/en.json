@@ -56,5 +56,7 @@
   "REVIEW": {
     "TITLE": "Review",
     "DESC_1": "Reviews from applicants who are satisfied with the commission."
-  }
+  },
+  "CLOSE": "Close",
+  "SUBMIT": "Submit"
 }

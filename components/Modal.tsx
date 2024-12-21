@@ -1,4 +1,8 @@
-import React, { ReactElement, useState } from "react";
+"use client";
+
+import React, { ReactElement } from "react";
+import { useTranslation } from "react-i18next";
+
 import { Button, Modal, Box, Typography } from "@mui/material";
 
 const style = {
@@ -22,6 +26,7 @@ const CustomModal = ({
   setOpen: () => void;
   children?: ReactElement;
 }) => {
+  const { t } = useTranslation();
   if (!open) {
     return <></>;
   }
@@ -47,7 +52,7 @@ const CustomModal = ({
               transform: "translateX(-50%)",
             }}
           >
-            닫기
+            {t("CLOSE")}
           </Button>
         </Box>
       </Modal>

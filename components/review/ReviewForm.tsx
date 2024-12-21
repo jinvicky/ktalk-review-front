@@ -1,14 +1,20 @@
 "use client";
 
+import { useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
+
+import { ZodIssue } from "zod";
+
 import {
   isExistingApplyId,
   reviewValidCond,
 } from "@/app/review/action/formValidate";
-import { useRef, useState } from "react";
-import { ZodIssue } from "zod";
+
 import { ReviewRegister } from "@/types/review.type";
 
 const ReviewForm = () => {
+  const { t } = useTranslation();
+
   const formRef = useRef<HTMLFormElement>(null);
   const [errors, setErrors] = useState<ZodIssue[] | null>(null);
 
@@ -110,7 +116,7 @@ const ReviewForm = () => {
           type="submit"
           className="bg-blue-400 text-white font-semibold rounded-md p-2 hover:bg-blue-700 transition duration-200"
         >
-          제출
+          {t("SUBMIT")}
         </button>
       </form>
     </div>
