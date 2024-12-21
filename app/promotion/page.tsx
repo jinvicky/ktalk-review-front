@@ -115,8 +115,12 @@ const PromotionPage = () => {
       <a href="https://crepe.cm/@jinvicky/crf0exx" target="_blank">
         {renderAcnhSection()}
       </a>
-      {renderLostArkSection()}
-      {renderPartyCommission()}
+      <a href="https://crepe.cm/@jinvicky/crf0exx" target="_blank">
+        {renderLostArkSection()}
+      </a>
+      <a href="https://crepe.cm/@jinvicky/crf0exx" target="_blank">
+        {renderPartyCommission()}
+      </a>
     </div>
   );
 };

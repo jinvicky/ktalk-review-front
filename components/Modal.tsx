@@ -21,10 +21,12 @@ const CustomModal = ({
   open,
   setOpen,
   children,
+  hideButton,
 }: {
   open: boolean;
   setOpen: () => void;
   children?: ReactElement;
+  hideButton?: boolean;
 }) => {
   const { t } = useTranslation();
   if (!open) {
@@ -38,22 +40,24 @@ const CustomModal = ({
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
       >
-        <Box sx={style}>
+        <Box sx={style} className="outline-none">
           <Typography id="modal-description" sx={{ mt: 2 }}>
             {children}
           </Typography>
-          <Button
-            onClick={setOpen}
-            variant="contained"
-            sx={{
-              mt: 2,
-              position: "relative",
-              left: "50%",
-              transform: "translateX(-50%)",
-            }}
-          >
-            {t("CLOSE")}
-          </Button>
+          {!hideButton && (
+            <Button
+              onClick={setOpen}
+              variant="contained"
+              sx={{
+                mt: 2,
+                position: "relative",
+                left: "50%",
+                transform: "translateX(-50%)",
+              }}
+            >
+              {t("CLOSE")}
+            </Button>
+          )}
         </Box>
       </Modal>
     </div>
