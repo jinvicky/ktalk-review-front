@@ -6,7 +6,7 @@ const ReviewList = () => {
   const [reviews, setReviews] = useState<Review[]>([]);
 
   useEffect(() => {
-    fetch(process.env.NEXT_PUBLIC_DOMAIN_URL + "/review/all").then(
+    fetch(process.env.NEXT_PUBLIC_DOMAIN_URL + "/api/review/all").then(
       (response) => {
         response.json().then((data) => {
           setReviews(data);
