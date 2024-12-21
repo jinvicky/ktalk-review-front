@@ -1,12 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Image from "next/image";
 
 import CustomModal from "@/components/Modal";
+import AddCartBox from "./AddCartBox";
 
 interface Product {
+  id: string;
   name: string;
   shortDescription: string;
   description?: string;
@@ -21,6 +23,7 @@ const ProductList = () => {
 
   const productList: Product[] = [
     {
+      id: "P100",
       name: "포토카드 A",
       shortDescription: "괴수 8호 나루미 포토카드",
       description: "앞뒤가 다릅니다.",
@@ -32,6 +35,7 @@ const ProductList = () => {
       price: 1000,
     },
     {
+      id: "P101",
       name: "포토카드 B",
       shortDescription: "괴수 8호 호시나 포토카드",
       description: "앞뒤가 다릅니다.",
@@ -43,6 +47,7 @@ const ProductList = () => {
       price: 1000,
     },
     {
+      id: "P102",
       name: "포토카드 C",
       shortDescription: "괴수 8호 나루미 포토카드",
       description: "앞뒤가 다릅니다.",
@@ -54,6 +59,7 @@ const ProductList = () => {
       price: 1000,
     },
     {
+      id: "P103",
       name: "포토카드 D",
       shortDescription: "괴수 8호 호시나 포토카드",
       description: "앞뒤가 다릅니다.",
@@ -70,13 +76,15 @@ const ProductList = () => {
     return (
       <div
         className="bg-white rounded-lg shadow-lg w-64 overflow-hidden"
-        key={seq} // key를 div에 직접 설정
-        onClick={() => {
-          setProductIndex(seq);
-          setOpen(!open);
-        }}
+        key={seq}
       >
-        <div className="relative w-full h-full">
+        <div
+          className="relative w-full h-full"
+          onClick={() => {
+            setProductIndex(seq);
+            setOpen(!open);
+          }}
+        >
           <Image
             src={item.thumbnail}
             alt="상품 이미지"
@@ -87,11 +95,9 @@ const ProductList = () => {
         </div>
         <div className="p-4">
           <h2 className="text-lg font-semibold">{item.name}</h2>
-          <p className="text-gray-600 mt-2">{item.description}</p>
+          <p className="text-gray-600 mt-2">{item.shortDescription}</p>
           <p className="text-md font-bold mt-2">₩{item.price}</p>
-          <button className="mt-4 bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600 text-sm">
-            구매하기
-          </button>
+          <AddCartBox productId={item.id} />
         </div>
       </div>
     );
