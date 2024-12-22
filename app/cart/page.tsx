@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import CartList from "@/components/cart/CartList";
 import PaymentForm from "@/components/payment/PaymentForm";
@@ -9,7 +9,7 @@ const CartPage = () => {
 
   return (
     <>
-      <div className="flex justify-center items-center gap-5 min-h-screen">
+      <div className="flex justify-center gap-5 min-h-screen">
         <CartList updateTotalPrice={setTotalPrice} />
         <PaymentForm totalPrice={totalPrice} />
       </div>

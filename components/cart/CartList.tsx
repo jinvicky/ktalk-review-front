@@ -7,6 +7,7 @@ import Image from "next/image";
 import { Product } from "@/types/product.type";
 
 import QuantityControl from "@/components/QuantityControl";
+import { addCommaKRW } from "@/utils/number.util";
 
 interface CartListProps {
   updateTotalPrice: (totalPrice: number) => void;
@@ -91,7 +92,8 @@ const CartList = ({ updateTotalPrice }: CartListProps) => {
                 />
               </div>
               <span className="text-lg">
-                가격: {quantities[product.id] * product.price}
+                가격:{" "}
+                {addCommaKRW(quantities[product.id] * product.price, true)}
               </span>
               <div className="flex space-x-2">
                 <QuantityControl
