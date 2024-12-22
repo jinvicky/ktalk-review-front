@@ -1,10 +1,14 @@
 import ReviewForm from "../review/ReviewForm";
 
-const PaymentForm = () => {
+interface PaymentFormProps {
+  totalPrice: number;
+}
+
+const PaymentForm = ({ totalPrice }: PaymentFormProps) => {
   return (
     <>
       <div className="bg-blue-300">
-        결제 폼입니다.
+        {totalPrice}원 결제 예정입니다. 결제 폼입니다.
         <ReviewForm />
       </div>
     </>

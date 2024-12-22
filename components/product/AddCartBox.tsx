@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import QuantityControl from "./QuantityControl";
+import QuantityControl from "../QuantityControl";
 
 interface AddCartBoxProps {
   productId: string;
