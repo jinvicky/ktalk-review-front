@@ -1,3 +1,5 @@
+import { twMerge } from "tailwind-merge";
+
 interface QuanntityControlProps {
   quantity: number;
   setQuantity: (quantity: number) => void;
@@ -18,7 +20,10 @@ const QuantityControl = ({ quantity, setQuantity }: QuanntityControlProps) => {
     <div className="flex items-center space-x-4">
       <button
         onClick={decreaseQuantity}
-        className="bg-red-500 text-white py-1 px-2 rounded hover:bg-red-600"
+        className={twMerge(
+          "bg-red-500 text-white py-1 px-2 rounded hover:bg-red-600",
+          quantity <= 1 && "cursor-not-allowed bg-gray-500 hover:bg-gray-600"
+        )}
       >
         -
       </button>
