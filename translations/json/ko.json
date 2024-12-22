@@ -5,7 +5,7 @@
   "JINVICKY": {
     "NAME": "걍진"
   },
-  "APPLY_CLICK_HERE": "클릭 시 신청 페이지로 이동합니다.",
+  "APPLY_CLICK_HERE": "이미지 클릭 시 신청 페이지로 이동합니다.",
   "LOST_ARK": {
     "LONG_ALIAS": "로스트아크 & 게임 캐릭터",
     "SHORT_ALIAS": "로아",
@@ -59,5 +59,6 @@
     "DESC_1": "커미션에 만족하신 신청자분들의 후기입니다."
   },
   "CLOSE": "닫기",
-  "SUBMIT": "제출"
+  "SUBMIT": "제출",
+  "NOT_SUPPORT_GO": "죄송합니다. 해외 주문을 지원하지 않습니다."
 }

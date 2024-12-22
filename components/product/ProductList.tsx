@@ -5,72 +5,23 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 
 import CustomModal from "@/components/Modal";
-import AddCartBox from "./AddCartBox";
+import AddCartBox from "@/components/product/AddCartBox";
 
-interface Product {
-  id: string;
-  name: string;
-  shortDescription: string;
-  description?: string;
-  thumbnail: string;
-  images: string[];
-  price: number;
-}
+import { Product } from "@/types/product.type";
 
 const ProductList = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [productIndex, setProductIndex] = useState<number>(0);
+  const [productList, setProductList] = useState<Product[]>([]);
 
-  const productList: Product[] = [
-    {
-      id: "P100",
-      name: "포토카드 A",
-      shortDescription: "괴수 8호 나루미 포토카드",
-      description: "앞뒤가 다릅니다.",
-      thumbnail: "/assets/image/product/P100_thumbnail1.jpg",
-      images: [
-        "/assets/image/product/P100_thumbnail1.jpg",
-        "/assets/image/product/P100_thumbnail2.jpg",
-      ],
-      price: 1000,
-    },
-    {
-      id: "P101",
-      name: "포토카드 B",
-      shortDescription: "괴수 8호 호시나 포토카드",
-      description: "앞뒤가 다릅니다.",
-      thumbnail: "/assets/image/product/P101_thumbnail1.jpg",
-      images: [
-        "/assets/image/product/P101_thumbnail1.jpg",
-        "/assets/image/product/P101_thumbnail2.jpg",
-      ],
-      price: 1000,
-    },
-    {
-      id: "P102",
-      name: "포토카드 C",
-      shortDescription: "괴수 8호 나루미 포토카드",
-      description: "앞뒤가 다릅니다.",
-      thumbnail: "/assets/image/product/P102_thumbnail1.jpg",
-      images: [
-        "/assets/image/product/P102_thumbnail1.jpg",
-        "/assets/image/product/P102_thumbnail2.jpg",
-      ],
-      price: 1000,
-    },
-    {
-      id: "P103",
-      name: "포토카드 D",
-      shortDescription: "괴수 8호 호시나 포토카드",
-      description: "앞뒤가 다릅니다.",
-      thumbnail: "/assets/image/product/P103_thumbnail1.jpg",
-      images: [
-        "/assets/image/product/P103_thumbnail1.jpg",
-        "/assets/image/product/P103_thumbnail2.jpg",
-      ],
-      price: 1000,
-    },
-  ];
+  useEffect(() => {
+    fetch(process.env.NEXT_PUBLIC_DOMAIN_URL + "/api/product/all").then(
+      async (res) => {
+        const data = (await res.json()) as ApiResult<Product[]>;
+        setProductList(data.data);
+      }
+    );
+  }, []);
 
   const renderProductCard = (item: Product, seq: number) => {
     return (
@@ -130,7 +81,6 @@ const ProductList = () => {
   return (
     <>
       <div className="container p-6 bg-orange-300">
-        <h1 className="text-2xl font-bold mb-6">상품 리스트</h1>
         <div className="flex items-center justify-center gap-6 flex-wrap">
           {productList.map((item, idx) => renderProductCard(item, idx))}
         </div>

@@ -93,7 +93,7 @@ const ReviewForm = () => {
     );
   };
   return (
-    <div className="w-11/12 sm:w-6/12 mx-auto py-5">
+    <div className="w-full mx-auto p-5">
       <form
         className="flex flex-col space-y-4 p-6 bg-white rounded-lg shadow-md"
         ref={formRef}

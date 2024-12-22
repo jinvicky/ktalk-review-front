@@ -16,13 +16,13 @@ const AddCartBox = ({ productId }: AddCartBoxProps) => {
     if (cartItem === null) {
       localStorage.setItem(
         "cartItem",
-        JSON.stringify([{ productId, quantity }])
+        JSON.stringify({ [productId]: quantity })
       );
     } else {
-      localStorage.setItem(
-        "cartItem",
-        JSON.stringify([...JSON.parse(cartItem), { productId, quantity }])
-      );
+      const toParse = JSON.parse(cartItem);
+      toParse[productId] = quantity;
+
+      localStorage.setItem("cartItem", JSON.stringify(toParse));
     }
   };
   return (
@@ -32,6 +32,7 @@ const AddCartBox = ({ productId }: AddCartBoxProps) => {
           className="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600 text-sm"
           onClick={() => {
             onAddCart(quantity);
+            alert("장바구니에 담겼습니다.");
           }}
         >
           장바구니 담기
