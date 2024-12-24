@@ -37,7 +37,9 @@ const NavBar = () => {
   return (
     <nav className="bg-gray-800 p-4">
       <div className="container mx-auto flex justify-between items-center">
-        <div className="text-white text-lg font-bold">{"Jinvicky's Blog"}</div>
+        <Link href="/" className="text-white text-lg font-bold">
+          Jinvicky Blog
+        </Link>
         <ul className="flex center gap-5 text-white text-lg">
           {menuList.map((menu) => (
             <li key={menu.path} className={twMerge(isLinkActive(menu.path))}>
