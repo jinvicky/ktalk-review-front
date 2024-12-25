@@ -51,7 +51,7 @@ const ReviewForm = () => {
       content: formData.get("content") as string,
     };
 
-    fetch(process.env.NEXT_PUBLIC_DOMAIN_URL + "/review", {
+    fetch(process.env.NEXT_PUBLIC_DOMAIN_URL + "/api/review", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

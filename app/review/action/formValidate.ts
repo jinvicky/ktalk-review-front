@@ -3,7 +3,7 @@ import { z } from "zod";
 export const isExistingApplyId = async (applyId: string) => {
   const resp = await fetch(
     process.env.NEXT_PUBLIC_DOMAIN_URL +
-      "/application/is-exist?applyId=" +
+      "/api/application/is-exist?applyId=" +
       applyId
   );
   return await resp.json();
