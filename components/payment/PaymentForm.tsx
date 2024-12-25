@@ -26,7 +26,7 @@ const PaymentForm = ({ totalPrice }: PaymentFormProps) => {
       ordUsername: "강지수",
       deliveryType: "EMAIL",
       deliveryAddr: "jinvicky@naver.com",
-      ordAmount: "10000",
+      ordAmount: totalPrice,
       ordStatus: "ORDERED",
     };
 
