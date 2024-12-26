@@ -1,13 +1,15 @@
 "use client";
 
-import { Drawer } from "@mui/material";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-
 import { useTranslation } from "react-i18next";
-import { twMerge } from "tailwind-merge";
+
+import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
+
+import { twMerge } from "tailwind-merge";
+
+import { Drawer } from "@mui/material";
 
 const NavBar = () => {
   const { i18n } = useTranslation();
