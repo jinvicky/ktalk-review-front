@@ -17,5 +17,11 @@ declare global {
         pageInfo: PageInfo;
     }
 
+    interface PayApp {
+        setDefault: (key: string, value: string) => void;
+        setParam: (key: string, value: string) => void;
+        call: () => void;
+    }
+
 }
-export {};
+export { };

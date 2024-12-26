@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect } from "react";
+
 import { addCommaKRW } from "@/utils/number.util";
 import { generateUniqueIdByPrfix } from "@/utils/uniqueId.util";
 import { Button, TextField } from "@mui/material";
@@ -9,9 +11,36 @@ interface PaymentFormProps {
   totalPrice: number;
 }
 
+declare const PayApp: PayApp;
+
 const PaymentForm = ({ totalPrice }: PaymentFormProps) => {
   const ordId = generateUniqueIdByPrfix("ORD");
   const [phone, setPhone] = useState("");
+
+  useEffect(() => {
+    // payapp-lite.js 스크립트 추가
+    const scriptTag = document.createElement("script");
+    scriptTag.src = "https://lite.payapp.kr/public/api/v2/payapp-lite.js";
+    document.body.appendChild(scriptTag);
+  }, []);
+
+  const onSubmitPayment = () => {
+    PayApp.setDefault("userid", "payapptest"); // 테스트 후에 jinvicky로 수정 예정
+    PayApp.setDefault("shopname", "jinvickyCommission");
+
+    PayApp.setParam("goodname", "???"); // 1개일때는 선택한 상품명, 2개 이상일 때는 맨 처음 상품명 왜 n개로 표시
+    PayApp.setParam("price", totalPrice.toString());
+    // PayApp.setParam("recvphone", "01000000000");
+    PayApp.setParam("smsuse", "n");
+    PayApp.setParam("redirectpay", "1");
+    PayApp.setParam("skip_cstpage", "y");
+    PayApp.setParam("var1", ordId); // 중복방지를 위해서 주문번호를 var1로 전달
+    PayApp.setParam(
+      "feedbackurl",
+      "https://ktalk-review-image-latest.onrender.com/api/temp-payment/save"
+    );
+    PayApp.call();
+  }
 
   // 주문 post api 호출 테스트
   const onSubmitOrder = () => {
@@ -41,7 +70,13 @@ const PaymentForm = ({ totalPrice }: PaymentFormProps) => {
       body: JSON.stringify(json),
     }).then((resp) => {
       console.log(resp);
+
+      // resp.json().then((data) => {}), -> 관련 코드는 ApiResult 타입 검색해서 참고, 성공시 onSubmitPayment() 호출
+      // onSubmitPayment();
     });
+
+    // 모든 것이 끝나면 localStorage 초기화 
+    localStorage.removeItem("cartItem");
   };
 
   const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
