@@ -75,7 +75,7 @@ const PaymentForm = ({ totalPrice }: PaymentFormProps) => {
       // onSubmitPayment();
     });
 
-    // 모든 것이 끝나면 localStorage 초기화 
+    // 모든 것이 끝나면 localStorage 초기화
     localStorage.removeItem("cartItem");
   };
 
@@ -83,29 +83,42 @@ const PaymentForm = ({ totalPrice }: PaymentFormProps) => {
     // 숫자만 입력되도록 체크
     const newValue = event.target.value;
     setPhone(newValue.replace(/[^0-9]/g, ""));
-  }
+  };
 
   return (
     <>
       <div className="border-t-2 border-black p-4">
         <h2 className="text-2xl font-bold mb-4">주문정보</h2>
-        <div className="w-full mx-auto
+        <div
+          className="w-full mx-auto
         [&_div>p]:text-red-600
           [&_div>p]:mb-2
-        ">
+        "
+        >
           <div>
-            <TextField id="orderName" label="주문자명" variant="outlined" required={true} sx={{ width: "100%" }} />
-            <p>
-              *신청서 문의 시 주문자명으로 구분합니다.
-            </p>
+            <TextField
+              id="orderName"
+              label="주문자명"
+              variant="outlined"
+              required={true}
+              sx={{ width: "100%" }}
+            />
+            <p>*신청서 문의 시 주문자명으로 구분합니다.</p>
           </div>
           <div>
-            <TextField id="orderAddress" label="이메일" variant="outlined" required={true} sx={{ width: "100%" }} />
-            <p>
-              *결제 완료 후, 상세 내역을 이메일로 전달드립니다.
-            </p>
+            <TextField
+              id="orderAddress"
+              label="이메일"
+              variant="outlined"
+              required={true}
+              sx={{ width: "100%" }}
+            />
+            <p>*결제 완료 후, 상세 내역을 이메일로 전달드립니다.</p>
           </div>
-          <TextField id="orderPhone" label="전화번호" variant="outlined"
+          <TextField
+            id="orderPhone"
+            label="전화번호"
+            variant="outlined"
             value={phone}
             helperText="숫자만 입력해주세요"
             slotProps={{
@@ -118,11 +131,16 @@ const PaymentForm = ({ totalPrice }: PaymentFormProps) => {
           />
         </div>
         <div className="flex mt-5 justify-between items-center">
-          <p className="font-bold text-lg">총 금액: {addCommaKRW(totalPrice, true)}</p>
-          <Button variant="contained" size="large" onClick={onSubmitOrder}
+          <p className="font-bold text-lg">
+            총 금액: {addCommaKRW(totalPrice, true)}
+          </p>
+          <Button
+            variant="contained"
+            size="large"
+            onClick={onSubmitOrder}
             sx={{
               width: "100%",
-              maxWidth: 300
+              maxWidth: 300,
             }}
           >
             결제
