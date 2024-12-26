@@ -11,7 +11,7 @@ interface PaymentFormProps {
   totalPrice: number;
 }
 
-declare const PayApp: PayApp;
+// declare const PayApp: PayApp;
 
 const PaymentForm = ({ totalPrice }: PaymentFormProps) => {
   const ordId = generateUniqueIdByPrfix("ORD");
@@ -24,23 +24,23 @@ const PaymentForm = ({ totalPrice }: PaymentFormProps) => {
     document.body.appendChild(scriptTag);
   }, []);
 
-  const onSubmitPayment = () => {
-    PayApp.setDefault("userid", "payapptest"); // 테스트 후에 jinvicky로 수정 예정
-    PayApp.setDefault("shopname", "jinvickyCommission");
+  // const onSubmitPayment = () => {
+  //   PayApp.setDefault("userid", "payapptest"); // 테스트 후에 jinvicky로 수정 예정
+  //   PayApp.setDefault("shopname", "jinvickyCommission");
 
-    PayApp.setParam("goodname", "???"); // 1개일때는 선택한 상품명, 2개 이상일 때는 맨 처음 상품명 왜 n개로 표시
-    PayApp.setParam("price", totalPrice.toString());
-    // PayApp.setParam("recvphone", "01000000000");
-    PayApp.setParam("smsuse", "n");
-    PayApp.setParam("redirectpay", "1");
-    PayApp.setParam("skip_cstpage", "y");
-    PayApp.setParam("var1", ordId); // 중복방지를 위해서 주문번호를 var1로 전달
-    PayApp.setParam(
-      "feedbackurl",
-      "https://ktalk-review-image-latest.onrender.com/api/temp-payment/save"
-    );
-    PayApp.call();
-  }
+  //   PayApp.setParam("goodname", "???"); // 1개일때는 선택한 상품명, 2개 이상일 때는 맨 처음 상품명 왜 n개로 표시
+  //   PayApp.setParam("price", totalPrice.toString());
+  //   // PayApp.setParam("recvphone", "01000000000");
+  //   PayApp.setParam("smsuse", "n");
+  //   PayApp.setParam("redirectpay", "1");
+  //   PayApp.setParam("skip_cstpage", "y");
+  //   PayApp.setParam("var1", ordId); // 중복방지를 위해서 주문번호를 var1로 전달
+  //   PayApp.setParam(
+  //     "feedbackurl",
+  //     "https://ktalk-review-image-latest.onrender.com/api/temp-payment/save"
+  //   );
+  //   PayApp.call();
+  // }
 
   // 주문 post api 호출 테스트
   const onSubmitOrder = () => {
