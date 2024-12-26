@@ -9,7 +9,7 @@ const CartPage = () => {
 
   return (
     <>
-      <div className="flex justify-center gap-5 min-h-screen">
+      <div className="flex flex-col gap-5 min-h-screen">
         <CartList updateTotalPrice={setTotalPrice} />
         <PaymentForm totalPrice={totalPrice} />
       </div>

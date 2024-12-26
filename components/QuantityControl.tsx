@@ -21,7 +21,7 @@ const QuantityControl = ({ quantity, setQuantity }: QuanntityControlProps) => {
       <button
         onClick={decreaseQuantity}
         className={twMerge(
-          "bg-red-500 text-white py-1 px-2 rounded hover:bg-red-600",
+          "w-10 bg-red-500 text-white py-1 px-2 rounded hover:bg-red-600",
           quantity <= 1 && "cursor-not-allowed bg-gray-500 hover:bg-gray-600"
         )}
       >
@@ -30,7 +30,7 @@ const QuantityControl = ({ quantity, setQuantity }: QuanntityControlProps) => {
       <span className="text-lg font-semibold">{quantity}</span>{" "}
       <button
         onClick={increaseQuantity}
-        className="bg-green-500 text-white py-1 px-2 rounded hover:bg-green-600"
+        className="w-10 bg-green-500 text-white py-1 px-2 rounded hover:bg-green-600"
       >
         +
       </button>

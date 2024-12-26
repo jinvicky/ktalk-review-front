@@ -8,6 +8,7 @@ import { Product } from "@/types/product.type";
 
 import QuantityControl from "@/components/QuantityControl";
 import { addCommaKRW } from "@/utils/number.util";
+import { Button } from "@mui/material";
 
 interface CartListProps {
   updateTotalPrice: (totalPrice: number) => void;
@@ -70,7 +71,7 @@ const CartList = ({ updateTotalPrice }: CartListProps) => {
   };
 
   return (
-    <div className="w-1/2 min-h-52 p-4 bg-white rounded-lg shadow-md">
+    <div className="w-full min-h-52 p-4 bg-white rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-4">장바구니</h2>
       {remoteCartItems.length === 0 ? (
         <p className="text-center text-gray-500">장바구니가 비어 있습니다.</p>
@@ -102,12 +103,9 @@ const CartList = ({ updateTotalPrice }: CartListProps) => {
                     updateQuantity(product.id, quantity)
                   }
                 />
-                <button
-                  onClick={() => handleRemove(product.id)}
-                  className="px-2 py-1 text-gray-500 border border-gray-500 bg-white rounded hover:bg-gray-200"
-                >
-                  x
-                </button>
+                <Button variant="contained" size="small" onClick={() => handleRemove(product.id)}>
+                  X
+                </Button>
               </div>
             </li>
           ))}
