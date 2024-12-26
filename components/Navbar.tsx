@@ -133,7 +133,7 @@ const NavBar = () => {
             KO
           </button>
         </div>
-        <div className="block md:hidden cursor-pointer">
+        <div className="block md:hidden cursor-pointer text-white">
           <Image
             src={"/assets/image/menu.png"}
             alt="메뉴 아이콘"
