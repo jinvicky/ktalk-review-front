@@ -1,15 +1,34 @@
 "use client";
 
+import { Drawer } from "@mui/material";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 import { twMerge } from "tailwind-merge";
+import Image from "next/image";
 
 const NavBar = () => {
   const { i18n } = useTranslation();
   const [currentLanguage, setCurrentLanguage] = useState<string>("ko");
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const currentPath = usePathname();
+  const menuList = [
+    { name: "Promotion", path: "/promotion" },
+    { name: "Review", path: "/review-renewal" },
+    { name: "Product", path: "/product" },
+    { name: "Cart", path: "/cart" },
+  ];
+  const drawerWidth = 240;
+  const container = typeof window !== 'undefined' ? window.document.body : undefined
+
+  const isLinkActive = (path: string) =>
+    currentPath === path ? "text-blue-200" : "text-white";
+
+  const handleDrawerToggle = () => {
+    setMobileOpen((prevState) => !prevState);
+  };
 
   const updateLngStyle = (lng: "en" | "ja" | "ko") => {
     return twMerge(
@@ -23,31 +42,60 @@ const NavBar = () => {
     setCurrentLanguage(i18n.language);
   }, [i18n.language]);
 
-  const currentPath = usePathname();
-
-  const isLinkActive = (path: string) =>
-    currentPath === path ? "text-blue-200" : "text-white";
-
-  const menuList = [
-    { name: "Promotion", path: "/promotion" },
-    { name: "Review", path: "/review-renewal" },
-    { name: "Product", path: "/product" },
-  ];
+  /** 사이드 메뉴 */
+  const drawer = (
+    <div className="flex flex-col text-lg" onClick={handleDrawerToggle}>
+      <Link className="w-full font-bold p-3 border-b-4 text-center" href="/">Jinvicky Blog</Link>
+      <div className="flex flex-col w-full">
+        {menuList.map((menu) => (
+          <Link
+            key={`drawer-${menu.path}`}
+            className="p-3 w-full border-b-2 text-center"
+            href={menu.path}>
+            {menu.name}
+          </Link>
+        ))}
+        <div className="flex gap-5 justify-center mt-10">
+          <button
+            className={twMerge(currentLanguage === "en" && "text-blue-600")}
+            onClick={() => i18n.changeLanguage("en")}
+          >
+            EN
+          </button>
+          /
+          <button
+            className={twMerge(currentLanguage === "ja" && "text-blue-600")}
+            onClick={() => i18n.changeLanguage("ja")}
+          >
+            JA
+          </button>
+          /
+          <button
+            className={twMerge(currentLanguage === "ko" && "text-blue-600")}
+            onClick={() => i18n.changeLanguage("ko")}
+          >
+            KO
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 
   return (
     <nav className="bg-gray-800 p-4">
-      <div className="container mx-auto flex justify-between items-center">
+      <div className="flex justify-between items-center">
         <Link href="/" className="text-white text-lg font-bold">
           Jinvicky Blog
         </Link>
-        <ul className="flex center gap-5 text-white text-lg">
-          {menuList.map((menu) => (
-            <li key={menu.path} className={twMerge(isLinkActive(menu.path))}>
+        <ul className="hidden center gap-5 text-white text-lg md:flex">
+          {menuList.map((menu) => {
+            if (menu.name === "Cart") return null;
+            return <li key={menu.path} className={twMerge(isLinkActive(menu.path))}>
               <Link href={menu.path}>{menu.name}</Link>
             </li>
-          ))}
+          })}
         </ul>
-        <div className="flex space-x-4">
+        <div className="hidden space-x-4 md:flex">
           <Link href="/cart">
             <div className="flex items-center justify-center p-4">
               <svg
@@ -85,8 +133,34 @@ const NavBar = () => {
             KO
           </button>
         </div>
+        <div className="block md:hidden cursor-pointer">
+          <Image
+            src={"/assets/image/menu.png"}
+            alt="메뉴 아이콘"
+            width={30}
+            height={30}
+            onClick={handleDrawerToggle}
+          />
+        </div>
       </div>
-    </nav>
+      <nav>
+        <Drawer
+          container={container}
+          variant="temporary"
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          ModalProps={{
+            keepMounted: true, // Better open performance on mobile.
+            disableScrollLock: true, // Scroll Lock을 비활성화
+          }}
+          sx={{
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+          }}
+        >
+          {drawer}
+        </Drawer>
+      </nav>
+    </nav >
   );
 };
 
