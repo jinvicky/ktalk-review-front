@@ -31,6 +31,7 @@ const PaymentForm = ({ totalPrice }: PaymentFormProps) => {
     PayApp.setParam("smsuse", "n");
     PayApp.setParam("redirectpay", "1");
     PayApp.setParam("skip_cstpage", "y");
+    PayApp.setParam("var1", ordId); // 중복방지를 위해서 주문번호를 var1로 전달
     PayApp.setParam(
       "feedbackurl",
       "https://ktalk-review-image-latest.onrender.com/api/temp-payment/save"
