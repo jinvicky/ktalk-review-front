@@ -1,17 +1,16 @@
 "use client";
 
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import { addCommaKRW } from "@/utils/number.util";
 import { generateUniqueIdByPrfix } from "@/utils/uniqueId.util";
 import { Button, TextField } from "@mui/material";
-import { useState } from "react";
 
 interface PaymentFormProps {
   totalPrice: number;
 }
 
-// declare const PayApp: PayApp;
+declare const PayApp: PayApp;
 
 const PaymentForm = ({ totalPrice }: PaymentFormProps) => {
   const ordId = generateUniqueIdByPrfix("ORD");
@@ -24,23 +23,26 @@ const PaymentForm = ({ totalPrice }: PaymentFormProps) => {
     document.body.appendChild(scriptTag);
   }, []);
 
-  // const onSubmitPayment = () => {
-  //   PayApp.setDefault("userid", "payapptest"); // 테스트 후에 jinvicky로 수정 예정
-  //   PayApp.setDefault("shopname", "jinvickyCommission");
+  const onSubmitPayment = () => {
+    PayApp.setDefault("userid", "payapptest"); // 테스트 후에 jinvicky로 수정 예정
+    PayApp.setDefault("shopname", "jinvickyCommission");
 
-  //   PayApp.setParam("goodname", "???"); // 1개일때는 선택한 상품명, 2개 이상일 때는 맨 처음 상품명 왜 n개로 표시
-  //   PayApp.setParam("price", totalPrice.toString());
-  //   // PayApp.setParam("recvphone", "01000000000");
-  //   PayApp.setParam("smsuse", "n");
-  //   PayApp.setParam("redirectpay", "1");
-  //   PayApp.setParam("skip_cstpage", "y");
-  //   PayApp.setParam("var1", ordId); // 중복방지를 위해서 주문번호를 var1로 전달
-  //   PayApp.setParam(
-  //     "feedbackurl",
-  //     "https://ktalk-review-image-latest.onrender.com/api/temp-payment/save"
-  //   );
-  //   PayApp.call();
-  // }
+    PayApp.setParam("goodname", "???"); // 1개일때는 선택한 상품명, 2개 이상일 때는 맨 처음 상품명 왜 n개로 표시
+    PayApp.setParam("price", totalPrice.toString());
+    PayApp.setParam("recvphone", phone);
+    PayApp.setParam("smsuse", "n");
+    PayApp.setParam("redirectpay", "1");
+    PayApp.setParam("skip_cstpage", "y");
+    PayApp.setParam("var1", ordId); // 중복방지를 위해서 주문번호를 var1로 전달
+    PayApp.setParam(
+      "feedbackurl",
+      "https://ktalk-review-image-latest.onrender.com/api/temp-payment/save"
+    );
+    PayApp.setParam("skip_cstpage", "n"); // n이어야 returnurl 에러 안남
+    PayApp.setParam('returnurl', 'https://ktalk-review.netlify.app/');
+    PayApp.setTarget('_self');
+    PayApp.call();
+  }
 
   // 주문 post api 호출 테스트
   const onSubmitOrder = () => {
@@ -68,11 +70,12 @@ const PaymentForm = ({ totalPrice }: PaymentFormProps) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(json),
-    }).then((resp) => {
-      console.log(resp);
+    }).then(async (resp) => {
+      const data = (await resp.json()) as ApiResult<number>;
 
-      // resp.json().then((data) => {}), -> 관련 코드는 ApiResult 타입 검색해서 참고, 성공시 onSubmitPayment() 호출
-      // onSubmitPayment();
+      if (data.status === 'OK' && data.data > 0) {
+        onSubmitPayment();
+      }
     });
 
     // 모든 것이 끝나면 localStorage 초기화

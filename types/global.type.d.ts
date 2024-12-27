@@ -14,6 +14,7 @@ declare global {
   interface PayApp {
     setDefault: (key: string, value: string) => void;
     setParam: (key: string, value: string) => void;
+    setTarget: (target: string) => void;
     call: () => void;
   }
 }
