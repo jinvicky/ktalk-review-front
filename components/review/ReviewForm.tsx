@@ -8,7 +8,7 @@ import { ZodIssue } from "zod";
 import {
   isExistingApplyId,
   reviewValidCond,
-} from "@/app/review/action/formValidate";
+} from "@/app/server-action/review/formValidate";
 
 import { ReviewRegister } from "@/types/review.type";
 
