@@ -11,6 +11,11 @@ declare global {
     totalCount: number;
   }
 
+  interface CustPage<T> {
+    list: T[];
+    pageInfo: PageInfo;
+  }
+
   interface PayApp {
     setDefault: (key: string, value: string) => void;
     setParam: (key: string, value: string) => void;
@@ -18,4 +23,4 @@ declare global {
     call: () => void;
   }
 }
-export {};
+export { };
