@@ -12,22 +12,16 @@ const ProductList = () => {
   const [productList, setProductList] = useState<EventProduct[]>([]);
 
   useEffect(() => {
-    fetch(process.env.NEXT_PUBLIC_DOMAIN_URL + "/api/event-product/all").then(
-      async (res) => {
-        const data = (await res.json()) as ApiResult<EventProduct[]>;
-        setProductList(data.data);
-      }
-    );
+    fetch(
+      process.env.NEXT_PUBLIC_DOMAIN_URL + "/api/event-sale/product/all"
+    ).then(async (res) => {
+      const data = (await res.json()) as ApiResult<EventProduct[]>;
+      setProductList(data.data);
+    });
   }, []);
 
   const renderProductCard = (item: EventProduct, seq: number) => {
-    const onClickAddCart = () => {
-      // 장바구니에 하나만 담고 바로 결제로 이동
-      const cartItem = {
-        [item.id]: 1,
-      };
-
-      localStorage.setItem("cartItem", JSON.stringify(cartItem));
+    const routeToPayment = () => {
       location.href = "/pay?prodId=" + item.id;
     };
     return (
@@ -48,7 +42,7 @@ const ProductList = () => {
           <h2 className="text-lg font-semibold">{item.name}</h2>
           <p className="text-gray-600 mt-2">{item.summary}</p>
           <p className="text-md font-bold mt-2">₩{item.price}</p>
-          <Button className="bg-blue-500 text-white" onClick={onClickAddCart}>
+          <Button className="bg-blue-500 text-white" onClick={routeToPayment}>
             결제하기
           </Button>
         </div>

@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 
@@ -14,7 +15,7 @@ const EventPayPage = () => {
 
   useEffect(() => {
     fetch(
-      process.env.NEXT_PUBLIC_DOMAIN_URL + "/api/event-product/" + prodId
+      process.env.NEXT_PUBLIC_DOMAIN_URL + "/api/event-sale/product/" + prodId
     ).then(async (res) => {
       const data = (await res.json()) as ApiResult<EventProduct>;
       setProductDetail(data.data);

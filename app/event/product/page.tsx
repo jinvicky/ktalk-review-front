@@ -1,9 +1,11 @@
+import EventProductList from "@/components/event/EventProductList";
+
 const EventProductPage = () => {
-    return (
-        <div>
-        <h1>Event Product Page</h1>
-        </div>
-    );
-}
+  return (
+    <div>
+      <EventProductList />
+    </div>
+  );
+};
 
 export default EventProductPage;
