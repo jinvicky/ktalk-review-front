@@ -1,9 +1,9 @@
 "use client";
-
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { addCommaKRW } from "@/utils/number.util";
 import { generateUniqueIdByPrfix } from "@/utils/uniqueId.util";
+
 import { Button, TextField } from "@mui/material";
 
 interface PaymentFormProps {
@@ -39,12 +39,11 @@ const PaymentForm = ({ totalPrice }: PaymentFormProps) => {
       "https://ktalk-review-image-latest.onrender.com/api/temp-payment/save"
     );
     PayApp.setParam("skip_cstpage", "n"); // n이어야 returnurl 에러 안남
-    PayApp.setParam('returnurl', 'https://ktalk-review.netlify.app/');
-    PayApp.setTarget('_self');
+    PayApp.setParam("returnurl", "https://ktalk-review.netlify.app/");
+    PayApp.setTarget("_self");
     PayApp.call();
-  }
+  };
 
-  // 주문 post api 호출 테스트
   const onSubmitOrder = () => {
     const cartItem = JSON.parse(localStorage.getItem("cartItem") || "{}");
     const cartItemList = [];
@@ -73,13 +72,10 @@ const PaymentForm = ({ totalPrice }: PaymentFormProps) => {
     }).then(async (resp) => {
       const data = (await resp.json()) as ApiResult<number>;
 
-      if (data.status === 'OK' && data.data > 0) {
+      if (data.status === "OK" && data.data > 0) {
         onSubmitPayment();
       }
     });
-
-    // 모든 것이 끝나면 localStorage 초기화
-    localStorage.removeItem("cartItem");
   };
 
   const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -116,7 +112,7 @@ const PaymentForm = ({ totalPrice }: PaymentFormProps) => {
               required={true}
               sx={{ width: "100%" }}
             />
-            <p>*결제 완료 후, 상세 내역을 이메일로 전달드립니다.</p>
+            {/* <p>*결제 완료 후, 상세 내역을 이메일로 전달드립니다.</p> */}
           </div>
           <TextField
             id="orderPhone"

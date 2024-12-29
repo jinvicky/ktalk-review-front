@@ -1,7 +1,7 @@
 "use client";
 import { useTranslation } from "react-i18next";
 
-import ProductList from "@/components/product/ProductList";
+import EventProductList from "@/components/product/EventProductList";
 
 const ProductPage = () => {
   const { t } = useTranslation();
@@ -9,7 +9,8 @@ const ProductPage = () => {
     <>
       <div className="py-5 text-center font-bold">{t("NOT_SUPPORT_GO")}</div>
       <div className="mx-auto flex justify-center">
-        <ProductList />
+        {/* <ProductList /> */}
+        <EventProductList />
       </div>
     </>
   );

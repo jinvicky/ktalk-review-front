@@ -23,7 +23,8 @@ const NavBar = () => {
     { name: "Cart", path: "/cart" },
   ];
   const drawerWidth = 240;
-  const container = typeof window !== 'undefined' ? window.document.body : undefined
+  const container =
+    typeof window !== "undefined" ? window.document.body : undefined;
 
   const isLinkActive = (path: string) =>
     currentPath === path ? "text-blue-200" : "text-white";
@@ -47,13 +48,16 @@ const NavBar = () => {
   /** 사이드 메뉴 */
   const drawer = (
     <div className="flex flex-col text-lg" onClick={handleDrawerToggle}>
-      <Link className="w-full font-bold p-3 border-b-4 text-center" href="/">Jinvicky Blog</Link>
+      <Link className="w-full font-bold p-3 border-b-4 text-center" href="/">
+        Jinvicky Blog
+      </Link>
       <div className="flex flex-col w-full">
         {menuList.map((menu) => (
           <Link
             key={`drawer-${menu.path}`}
             className="p-3 w-full border-b-2 text-center"
-            href={menu.path}>
+            href={menu.path}
+          >
             {menu.name}
           </Link>
         ))}
@@ -92,13 +96,15 @@ const NavBar = () => {
         <ul className="hidden center gap-5 text-white text-lg md:flex">
           {menuList.map((menu) => {
             if (menu.name === "Cart") return null;
-            return <li key={menu.path} className={twMerge(isLinkActive(menu.path))}>
-              <Link href={menu.path}>{menu.name}</Link>
-            </li>
+            return (
+              <li key={menu.path} className={twMerge(isLinkActive(menu.path))}>
+                <Link href={menu.path}>{menu.name}</Link>
+              </li>
+            );
           })}
         </ul>
         <div className="hidden space-x-4 md:flex">
-          <Link href="/cart">
+          {/* <Link href="/cart">
             <div className="flex items-center justify-center p-4">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -115,7 +121,7 @@ const NavBar = () => {
                 />
               </svg>
             </div>
-          </Link>
+          </Link> */}
           <button
             className={updateLngStyle("en")}
             onClick={() => i18n.changeLanguage("en")}
@@ -156,13 +162,16 @@ const NavBar = () => {
             disableScrollLock: true, // Scroll Lock을 비활성화
           }}
           sx={{
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              width: drawerWidth,
+            },
           }}
         >
           {drawer}
         </Drawer>
       </nav>
-    </nav >
+    </nav>
   );
 };
 

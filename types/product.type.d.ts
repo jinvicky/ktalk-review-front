@@ -8,3 +8,14 @@ export interface Product {
   price: number;
   cartQuantity: number;
 }
+
+export interface EventProduct {
+  id: string;
+  name: string;
+  summary: string;
+  content: string;
+  thumbnail: string;
+  price: number;
+  quantity: number;
+  soldOut: boolean;
+}
