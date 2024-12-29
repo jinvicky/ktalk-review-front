@@ -22,7 +22,7 @@ const ProductList = () => {
 
   const renderProductCard = (item: EventProduct, seq: number) => {
     const routeToPayment = () => {
-      location.href = "/pay?prodId=" + item.id;
+      location.href = "/event/payment?prodId=" + item.id;
     };
     return (
       <div

@@ -19,7 +19,8 @@ const NavBar = () => {
   const menuList = [
     { name: "Promotion", path: "/promotion" },
     { name: "Review", path: "/review-renewal" },
-    { name: "Product", path: "/product" },
+    { name: "Event", path: "/event/product" },
+    // { name: "Product", path: "/product" },
     { name: "Cart", path: "/cart" },
   ];
   const drawerWidth = 240;

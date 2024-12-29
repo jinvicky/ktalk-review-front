@@ -1,11 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
 
-import { useSearchParams } from "next/navigation";
+import { redirect, useSearchParams } from "next/navigation";
 import Image from "next/image";
 
-import PaymentForm from "@/components/payment/PaymentForm";
 import { EventProduct } from "@/types/product.type";
+
+import EventPaymentForm from "@/components/event/EventPaymentForm";
 
 const EventPayPage = () => {
   const searchParams = useSearchParams();
@@ -24,6 +25,9 @@ const EventPayPage = () => {
   }, [searchParams]);
 
   const renderProductDetail = (product: EventProduct) => {
+    if (prodId === null) {
+      return redirect("/event/product");
+    }
     return (
       <>
         <div className="flex flex-col sm:flex-row justify-center align-center gap-2">
@@ -39,6 +43,7 @@ const EventPayPage = () => {
           <div className="sm:">
             <h2 className="text-2xl font-semibold">{product.name}</h2>
             <p className="text-gray-600 mt-2">{product.summary}</p>
+            <p className="text-gray-600 mt-2">{product.content}</p>
             <p className="text-md font-bold mt-2">₩{product.price}</p>
           </div>
         </div>
@@ -50,7 +55,7 @@ const EventPayPage = () => {
     <div>
       {productDetail && renderProductDetail(productDetail)}
       {productDetail?.price && (
-        <PaymentForm totalPrice={productDetail?.price} />
+        <EventPaymentForm totalPrice={productDetail?.price} prodId={prodId!} />
       )}
     </div>
   );
