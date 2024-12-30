@@ -55,11 +55,21 @@ const ProductList = () => {
             ₩ {addPayappFee(item.discountedPrice)}
           </p>
           <Button
+            onClick={routeToPayment}
+            disableElevation
             className={twMerge(
               "w-full mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold",
               item.soldOut && "bg-gray-500 hover:bg-gray-500 cursor-not-allowed"
             )}
+          >
+            {item.soldOut ? "품절" : "결제하기"}
+          </Button>
+          <Button
             onClick={routeToPayment}
+            className={twMerge(
+              "w-full mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold",
+              item.soldOut && "bg-gray-500 hover:bg-gray-500 cursor-not-allowed"
+            )}
           >
             {item.soldOut ? "품절" : "결제하기"}
           </Button>
