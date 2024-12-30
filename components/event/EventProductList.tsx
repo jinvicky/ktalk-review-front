@@ -1,17 +1,11 @@
 "use client";
 
 import React from "react";
-
 import useSWR from "swr";
-
 import Image from "next/image";
-
 import { fetchGetEventProductList } from "@/api/eventSale.service";
-
 import { EventProduct } from "@/types/product.type";
-
 import { addPayappFee } from "@/utils/number.util";
-
 import { twMerge } from "tailwind-merge";
 import { Button } from "@mui/material";
 
@@ -56,20 +50,12 @@ const ProductList = () => {
           </p>
           <Button
             onClick={routeToPayment}
-            disableElevation
-            className={twMerge(
-              "w-full mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold",
-              item.soldOut && "bg-gray-500 hover:bg-gray-500 cursor-not-allowed"
-            )}
-          >
-            {item.soldOut ? "품절" : "결제하기"}
-          </Button>
-          <Button
-            onClick={routeToPayment}
-            className={twMerge(
-              "w-full mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold",
-              item.soldOut && "bg-gray-500 hover:bg-gray-500 cursor-not-allowed"
-            )}
+            sx={{
+              width: "100%",
+              marginTop: "10px",
+              cursor: item.soldOut ? "not-allowed" : "cursor",
+            }}
+            variant="contained"
           >
             {item.soldOut ? "품절" : "결제하기"}
           </Button>
