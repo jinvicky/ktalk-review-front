@@ -21,6 +21,11 @@ const EventPayPage = () => {
       process.env.NEXT_PUBLIC_DOMAIN_URL + "/api/event-sale/product/" + prodId
     ).then(async (res) => {
       const data = (await res.json()) as ApiResult<EventProduct>;
+
+      if (data.data.soldOut) {
+        alert("품절된 상품입니다.");
+        return router.push("/event/product");
+      }
       setProductDetail(data.data);
       return res;
     });
