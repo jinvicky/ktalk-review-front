@@ -46,10 +46,6 @@ const EventPaymentForm = ({ totalPrice, prodId, prodQuantity }: PaymentFormProps
       "feedbackurl",
       "https://ktalk-review-image-latest.onrender.com/api/event-sale/payapp-feedback"
     );
-
-    /**
-     * 이건 창을 self로 여는 기준으로 만든 코드라서 수정 필요함. returnurl은 백단 개발완료 -> /event/payment/complete으로 이동함
-     */
     PayApp.setParam("skip_cstpage", "n"); // n이어야 returnurl 에러 안남
     PayApp.setParam("returnurl", "https://ktalk-review-image-latest.onrender.com/api/event-sale/payapp-redirect");
     PayApp.setTarget("_self");
