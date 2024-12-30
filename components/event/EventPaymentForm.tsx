@@ -9,11 +9,12 @@ import { Button, TextField } from "@mui/material";
 interface PaymentFormProps {
   totalPrice: number;
   prodId: string;
+  prodQuantity: number;
 }
 
 declare const PayApp: PayApp;
 
-const EventPaymentForm = ({ totalPrice, prodId }: PaymentFormProps) => {
+const EventPaymentForm = ({ totalPrice, prodId, prodQuantity }: PaymentFormProps) => {
   const ordId = generateUniqueIdByPrfix("ORD");
   const [phone, setPhone] = useState("");
   const [userName, setUserName] = useState("");
@@ -45,8 +46,12 @@ const EventPaymentForm = ({ totalPrice, prodId }: PaymentFormProps) => {
       "feedbackurl",
       "https://ktalk-review-image-latest.onrender.com/api/event-sale/payapp-feedback"
     );
+
+    /**
+     * 이건 창을 self로 여는 기준으로 만든 코드라서 수정 필요함. returnurl은 백단 개발완료 -> /event/payment/complete으로 이동함
+     */
     PayApp.setParam("skip_cstpage", "n"); // n이어야 returnurl 에러 안남
-    PayApp.setParam("returnurl", "https://ktalk-review.netlify.app/");
+    PayApp.setParam("returnurl", "https://ktalk-review-image-latest.onrender.com/api/event-sale/payapp-redirect");
     PayApp.setTarget("_self");
     PayApp.call();
   };
@@ -59,7 +64,8 @@ const EventPaymentForm = ({ totalPrice, prodId }: PaymentFormProps) => {
       userEmail: email,
       price: totalPriceWithFee,
       phone: phone,
-      quantity: 1,
+      quantity: 1, // 주문한 상품의 개수 (이벤트 상품은 1개만 주문 가능)
+      prodQuantity: prodQuantity,  // 상품의 총 재고 개수
     };
 
     fetch(process.env.NEXT_PUBLIC_DOMAIN_URL + "/api/event-sale/order", {

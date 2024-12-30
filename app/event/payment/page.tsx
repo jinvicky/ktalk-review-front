@@ -55,7 +55,11 @@ const EventPayPage = () => {
     <div>
       {productDetail && renderProductDetail(productDetail)}
       {productDetail?.price && (
-        <EventPaymentForm totalPrice={productDetail?.price} prodId={prodId!} />
+        <EventPaymentForm
+          prodQuantity={productDetail?.quantity}
+          totalPrice={productDetail?.price}
+          prodId={prodId!}
+        />
       )}
     </div>
   );

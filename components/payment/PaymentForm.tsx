@@ -36,10 +36,14 @@ const PaymentForm = ({ totalPrice }: PaymentFormProps) => {
     PayApp.setParam("var1", ordId); // 중복방지를 위해서 주문번호를 var1로 전달
     PayApp.setParam(
       "feedbackurl",
-      "https://ktalk-review-image-latest.onrender.com/api/temp-payment/save"
+      "https://ktalk-review-image-latest.onrender.com/api/event-sale/payapp-feedback"
     );
+
+    /**
+     * 이건 창을 self로 여는 기준으로 만든 코드라서 수정 필요함. returnurl은 백단 개발완료 -> /event/payment/complete으로 이동함
+     */
     PayApp.setParam("skip_cstpage", "n"); // n이어야 returnurl 에러 안남
-    PayApp.setParam("returnurl", "https://ktalk-review.netlify.app/");
+    PayApp.setParam("returnurl", "https://ktalk-review-image-latest.onrender.com/api/event-sale/payapp-redirect");
     PayApp.setTarget("_self");
     PayApp.call();
   };
