@@ -11,7 +11,6 @@ import { twMerge } from "tailwind-merge";
 import { Drawer } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu'; // Material-UI Menu 아이콘
 
-
 const NavBar = () => {
   const { i18n } = useTranslation();
   const [currentLanguage, setCurrentLanguage] = useState<string>("ko");
