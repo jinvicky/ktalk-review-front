@@ -44,7 +44,6 @@ const PaymentForm = ({ totalPrice }: PaymentFormProps) => {
      */
     PayApp.setParam("skip_cstpage", "n"); // n이어야 returnurl 에러 안남
     PayApp.setParam("returnurl", "https://ktalk-review-image-latest.onrender.com/api/event-sale/payapp-redirect");
-    PayApp.setTarget("_self");
     PayApp.call();
   };
 

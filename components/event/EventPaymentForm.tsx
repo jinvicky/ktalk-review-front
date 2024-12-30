@@ -19,6 +19,14 @@ const EventPaymentForm = ({ totalPrice, prodId, prodQuantity }: PaymentFormProps
   const [phone, setPhone] = useState("");
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
+  const [userNameError, setUserNameError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
+
+  const totalPriceWithFee = useMemo(
+    () => addPayappFee(totalPrice),
+    [totalPrice]
+  );
 
   useEffect(() => {
     // payapp-lite.js 스크립트 추가
@@ -27,12 +35,17 @@ const EventPaymentForm = ({ totalPrice, prodId, prodQuantity }: PaymentFormProps
     document.body.appendChild(scriptTag);
   }, []);
 
-  const totalPriceWithFee = useMemo(
-    () => addPayappFee(totalPrice),
-    [totalPrice]
-  );
+  /** 입력한 상품정보 체크 */
+  const vaildateInfo = () => {
+    setUserNameError(!userName);
+    setEmailError(!email);
+
+    if (!(userName || email)) return false;
+    return true;
+  }
 
   const onSubmitPayment = () => {
+    if (!vaildateInfo()) return;
     PayApp.setDefault("userid", "payapptest"); // 테스트 후에 jinvicky로 수정 예정
     PayApp.setDefault("shopname", "jinvickyCommission");
     PayApp.setParam("goodname", "이벤트 주문"); // 1개일때는 선택한 상품명, 2개 이상일 때는 맨 처음 상품명 왜 n개로 표시
@@ -48,11 +61,12 @@ const EventPaymentForm = ({ totalPrice, prodId, prodQuantity }: PaymentFormProps
     );
     PayApp.setParam("skip_cstpage", "n"); // n이어야 returnurl 에러 안남
     PayApp.setParam("returnurl", "https://ktalk-review-image-latest.onrender.com/api/event-sale/payapp-redirect");
-    PayApp.setTarget("_self");
     PayApp.call();
   };
 
   const onSubmitOrder = () => {
+    if (buttonDisabled) return;
+    setButtonDisabled(true);
     const json = {
       id: ordId,
       eventProdId: prodId,
@@ -75,6 +89,7 @@ const EventPaymentForm = ({ totalPrice, prodId, prodQuantity }: PaymentFormProps
 
       if (data.status === "OK" && data.data > 0) {
         onSubmitPayment();
+        setButtonDisabled(false);
       }
     });
   };
@@ -105,12 +120,13 @@ const EventPaymentForm = ({ totalPrice, prodId, prodQuantity }: PaymentFormProps
               label="주문자명"
               variant="outlined"
               required={true}
-              onChange={(e) =>
+              onChange={(e) => {
+                setUserNameError(!e.target.value);
                 setUserName((e.target as HTMLInputElement).value)
-              }
+              }}
               value={userName}
               helperText="실명 또는 닉네임을 입력해 주세요 ., 익명 식으로 입력하시면 진행이 어렵습니다"
-
+              error={userNameError}
               sx={{ width: "100%" }}
             />
           </div>
@@ -120,8 +136,12 @@ const EventPaymentForm = ({ totalPrice, prodId, prodQuantity }: PaymentFormProps
               label="이메일"
               variant="outlined"
               required={true}
-              onChange={(e) => setEmail((e.target as HTMLInputElement).value)}
+              onChange={(e) => {
+                setEmailError(!e.target.value);
+                setEmail((e.target as HTMLInputElement).value)
+              }}
               value={email}
+              error={emailError}
               sx={{ width: "100%" }}
             />
           </div>
@@ -141,9 +161,9 @@ const EventPaymentForm = ({ totalPrice, prodId, prodQuantity }: PaymentFormProps
           />
         </div>
         <div className="text-gray-500 py-3 text-sm">
-        <p>*결제 후 이메일 주소로 내역이 발송됩니다.</p>
-        <p>*결제 후 1일 내로 오픈카톡으로 신청서를 주시지 않으면 자동 주문 취소됩니다.</p>
-        <p>*이벤트 상품은 통합 1개만 결제 가능합니다.</p>
+          <p>*결제 후 이메일 주소로 내역이 발송됩니다.</p>
+          <p>*결제 후 1일 내로 오픈카톡으로 신청서를 주시지 않으면 자동 주문 취소됩니다.</p>
+          <p>*이벤트 상품은 통합 1개만 결제 가능합니다.</p>
         </div>
         <div className="flex mt-5 justify-between items-center">
           <p className="font-bold text-lg">총 금액: {formattedTotalPrice}</p>
@@ -155,6 +175,7 @@ const EventPaymentForm = ({ totalPrice, prodId, prodQuantity }: PaymentFormProps
               width: "100%",
               maxWidth: 300,
             }}
+            disabled={buttonDisabled}
           >
             결제
           </Button>
