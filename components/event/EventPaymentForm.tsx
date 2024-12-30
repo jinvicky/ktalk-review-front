@@ -5,7 +5,7 @@ import { addCommaKRW, addPayappFee } from "@/utils/number.util";
 import { generateUniqueIdByPrfix } from "@/utils/uniqueId.util";
 
 import { Button, TextField } from "@mui/material";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 interface PaymentFormProps {
   totalPrice: number;
@@ -24,6 +24,7 @@ const EventPaymentForm = ({ totalPrice, prodId, prodQuantity }: PaymentFormProps
   const [emailError, setEmailError] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
   // const [popupDisplay, setPopupDisplay] = useState(false);
+  const router = useRouter();
 
   const totalPriceWithFee = useMemo(
     () => addPayappFee(totalPrice),
@@ -51,9 +52,8 @@ const EventPaymentForm = ({ totalPrice, prodId, prodQuantity }: PaymentFormProps
     console.log("Received message from payment window:", event);
     // TODO:: 결제 실패 토스트 추가
     // setPopupDisplay(true);
-    redirect("/event/payment/complete");
-    
-    window.removeEventListener("message", handleMessage);
+    router.push("/event/payment/complete");
+    // window.removeEventListener("message", handleMessage);
   };
 
   const onSubmitPayment = () => {
