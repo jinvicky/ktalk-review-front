@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import useSWR from 'swr';
+import useSWR from "swr";
 
 import Image from "next/image";
 
@@ -18,12 +18,15 @@ import { Button } from "@mui/material";
 import Loading from "../Loading";
 
 const ProductList = () => {
-  const { data: productList, error } = useSWR<EventProduct[]>("/api/event-sale/product/all", fetchGetEventProductList);
+  const { data: productList, error } = useSWR<EventProduct[]>(
+    "/api/event-sale/product/all",
+    fetchGetEventProductList
+  );
 
   const renderProductCard = (item: EventProduct, seq: number) => {
     const routeToPayment = () => {
-      if (item.soldOut) { 
-        alert("품절된 상품입니다."); 
+      if (item.soldOut) {
+        alert("품절된 상품입니다.");
         return;
       }
       location.href = "/event/payment?prodId=" + item.id;
@@ -48,13 +51,16 @@ const ProductList = () => {
         <div className="p-4">
           <h2 className="text-lg font-semibold">{item.name}</h2>
           <p className="text-gray-600 mt-2">{item.summary}</p>
-          <p className="text-md font-bold mt-2">₩ {addPayappFee(item.price)}</p>
+          <p className="text-md font-bold mt-2">
+            ₩ {addPayappFee(item.discountedPrice)}
+          </p>
           <Button
             className={twMerge(
               "w-full mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold",
               item.soldOut && "bg-gray-500 hover:bg-gray-500 cursor-not-allowed"
             )}
-            onClick={routeToPayment}>
+            onClick={routeToPayment}
+          >
             {item.soldOut ? "품절" : "결제하기"}
           </Button>
         </div>
@@ -63,18 +69,20 @@ const ProductList = () => {
   };
 
   if (error) {
-    return <div>Error</div>
+    return <div>Error</div>;
   }
 
   if (!productList) {
-    return <Loading />
+    return <Loading />;
   }
 
   return (
     <>
       <div className="p-6">
         <div className="flex items-center justify-center gap-6 flex-wrap">
-          {productList.map((item: EventProduct, idx: number) => renderProductCard(item, idx))}
+          {productList.map((item: EventProduct, idx: number) =>
+            renderProductCard(item, idx)
+          )}
         </div>
       </div>
     </>

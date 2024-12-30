@@ -47,10 +47,17 @@ const EventPayPage = () => {
               <p className="text-lg">({product.summary})</p>
             </div>
             <p className="text-pink-400 my-2">{product.content}</p>
-            <p className="text-gray-500 text-sm line-through mt-4">{addCommaKRW(8500, true)}</p>
+            {/* -표시한 원래 제품 원가*/}
+            {product.discountRate > 0 && (
+              <p className="text-gray-500 text-sm line-through mt-4">
+                {addCommaKRW(product.price, true)}
+              </p>
+            )}
             <div className="flex gap-2 text-xl font-bold">
-              <span className="text-pink-400">63%</span>
-              <p className="">{addCommaKRW(addPayappFee(product.price), true)}</p>
+              {product.discountRate > 0 && (
+                <span className="text-pink-400">{product.discountRate}%</span>
+              )}
+              <p>{addCommaKRW(addPayappFee(product.discountedPrice), true)}</p>
             </div>
           </div>
         </div>
@@ -64,7 +71,7 @@ const EventPayPage = () => {
       {productDetail?.price && (
         <EventPaymentForm
           prodQuantity={productDetail?.quantity}
-          totalPrice={productDetail?.price}
+          totalPrice={productDetail?.discountedPrice}
           prodId={prodId!}
         />
       )}
