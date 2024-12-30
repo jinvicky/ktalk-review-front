@@ -19,9 +19,7 @@ export default function RootLayout({
   return (
     <TranslationProviders>
       <html lang="en">
-        <body
-        // className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
+        <body>
           <NavBar />
           {children}
           <Footer />

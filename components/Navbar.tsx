@@ -89,7 +89,7 @@ const NavBar = () => {
   );
 
   return (
-    <nav className="bg-gray-800 p-4">
+    <nav className="sticky top-0 w-full p-4 backdrop-blur bg-gray-700/90 z-10">
       <div className="flex justify-between items-center">
         <Link href="/" className="text-white text-lg font-bold">
           Jinvicky Blog
