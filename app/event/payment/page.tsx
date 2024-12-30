@@ -7,6 +7,7 @@ import Image from "next/image";
 import { EventProduct } from "@/types/product.type";
 
 import EventPaymentForm from "@/components/event/EventPaymentForm";
+import { addCommaKRW, addPayappFee } from "@/utils/number.util";
 
 const EventPayPage = () => {
   const searchParams = useSearchParams();
@@ -30,7 +31,7 @@ const EventPayPage = () => {
     }
     return (
       <>
-        <div className="flex flex-col sm:flex-row justify-center align-center gap-2">
+        <div className="flex flex-col gap-20 sm:flex-row justify-center align-center py-9 px-4">
           <div className="relative h-96">
             <Image
               src={product.thumbnail}
@@ -40,11 +41,17 @@ const EventPayPage = () => {
               height={1023}
             />
           </div>
-          <div className="sm:">
-            <h2 className="text-2xl font-semibold">{product.name}</h2>
-            <p className="text-gray-600 mt-2">{product.summary}</p>
-            <p className="text-gray-600 mt-2">{product.content}</p>
-            <p className="text-md font-bold mt-2">₩{product.price}</p>
+          <div className="">
+            <div className="flex items-center border-b border-gray-300 flex-wrap">
+              <h2 className="text-3xl font-bold mr-2">{product.name}</h2>
+              <p className="text-lg">({product.summary})</p>
+            </div>
+            <p className="text-pink-400 my-2">{product.content}</p>
+            <p className="text-gray-500 text-sm line-through mt-4">{addCommaKRW(8500, true)}</p>
+            <div className="flex gap-2 text-xl font-bold">
+              <span className="text-pink-400">63%</span>
+              <p className="">{addCommaKRW(addPayappFee(product.price), true)}</p>
+            </div>
           </div>
         </div>
       </>

@@ -113,7 +113,7 @@ const EventPaymentForm = ({ totalPrice, prodId, prodQuantity }: PaymentFormProps
             />
             <p>*신청서 문의 시 주문자명으로 구분합니다.</p>
           </div>
-          <div>
+          <div className="mb-2">
             <TextField
               id="orderAddress"
               label="이메일"
