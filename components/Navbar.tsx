@@ -4,12 +4,13 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 import { twMerge } from "tailwind-merge";
 
 import { Drawer } from "@mui/material";
+import MenuIcon from '@mui/icons-material/Menu'; // Material-UI Menu 아이콘
+
 
 const NavBar = () => {
   const { i18n } = useTranslation();
@@ -143,11 +144,8 @@ const NavBar = () => {
           </button>
         </div>
         <div className="block md:hidden cursor-pointer text-white">
-          <Image
-            src={"/assets/image/menu.png"}
-            alt="메뉴 아이콘"
-            width={30}
-            height={30}
+          <MenuIcon
+            className="w-8 h-8 text-white"
             onClick={handleDrawerToggle}
           />
         </div>
