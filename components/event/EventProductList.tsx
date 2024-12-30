@@ -72,7 +72,7 @@ const ProductList = () => {
 
   return (
     <>
-      <div className="container p-6">
+      <div className="p-6">
         <div className="flex items-center justify-center gap-6 flex-wrap">
           {productList.map((item: EventProduct, idx: number) => renderProductCard(item, idx))}
         </div>
