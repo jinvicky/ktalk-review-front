@@ -1,5 +1,6 @@
 import React from 'react';
-import { SvgIcon } from '@mui/material'; // Material-UI의 SvgIcon을 사용
+
+import { SvgIcon } from '@mui/material';
 
 const EventPaymentCompletePage = () => {
     return (
