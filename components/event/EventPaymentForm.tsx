@@ -5,6 +5,7 @@ import { addCommaKRW, addPayappFee } from "@/utils/number.util";
 import { generateUniqueIdByPrfix } from "@/utils/uniqueId.util";
 
 import { Button, TextField } from "@mui/material";
+import { redirect } from "next/navigation";
 
 interface PaymentFormProps {
   totalPrice: number;
@@ -22,6 +23,7 @@ const EventPaymentForm = ({ totalPrice, prodId, prodQuantity }: PaymentFormProps
   const [userNameError, setUserNameError] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
+  // const [popupDisplay, setPopupDisplay] = useState(false);
 
   const totalPriceWithFee = useMemo(
     () => addPayappFee(totalPrice),
@@ -44,6 +46,16 @@ const EventPaymentForm = ({ totalPrice, prodId, prodQuantity }: PaymentFormProps
     return true;
   }
 
+  /** 결제완료창에서 주는 메시지 받는 리스너 */
+  const handleMessage = (event: MessageEvent) => {
+    console.log("Received message from payment window:", event);
+    // TODO:: 결제 실패 토스트 추가
+    // setPopupDisplay(true);
+    redirect("/event/payment/complete");
+    
+    window.removeEventListener("message", handleMessage);
+  };
+
   const onSubmitPayment = () => {
     if (!vaildateInfo()) return;
     PayApp.setDefault("userid", "payapptest"); // 테스트 후에 jinvicky로 수정 예정
@@ -59,9 +71,10 @@ const EventPaymentForm = ({ totalPrice, prodId, prodQuantity }: PaymentFormProps
       "feedbackurl",
       "https://ktalk-review-image-latest.onrender.com/api/event-sale/payapp-feedback"
     );
-    PayApp.setParam("skip_cstpage", "n"); // n이어야 returnurl 에러 안남
+    PayApp.setParam("skip_cstpage", "y");
     PayApp.setParam("returnurl", "https://ktalk-review-image-latest.onrender.com/api/event-sale/payapp-redirect");
     PayApp.call();
+    window.addEventListener("message", handleMessage);
   };
 
   const onSubmitOrder = () => {
@@ -125,7 +138,7 @@ const EventPaymentForm = ({ totalPrice, prodId, prodQuantity }: PaymentFormProps
                 setUserName((e.target as HTMLInputElement).value)
               }}
               value={userName}
-              helperText="실명 또는 닉네임을 입력해 주세요 ., 익명 식으로 입력하시면 진행이 어렵습니다"
+              helperText={`실명 또는 닉네임을 입력해 주세요 "."익명 식으로 입력하시면 진행이 어렵습니다`}
               error={userNameError}
               sx={{ width: "100%" }}
             />

@@ -1,8 +1,21 @@
-import React from 'react';
+"use client";
 
+import React, { useLayoutEffect, useState } from 'react';
 import { SvgIcon } from '@mui/material';
 
 const EventPaymentCompletePage = () => {
+    const [urlParams, setUrlParams] = useState<URLSearchParams>();
+    console.log("?? searchParams:", urlParams?.get("type"));
+
+    useLayoutEffect(() => {
+        setUrlParams(new URLSearchParams(location.search));
+        if (window.opener) {
+            window.opener.postMessage("Hello from child1");
+            window.close();
+        }
+    }, []);
+
+    /** TODO:: 결제 성공/실패 분기처리 할 예정 */
     return (
         <div className="flex flex-col items-center justify-center h-screen p-3 bg-white">
             <SvgIcon sx={{ fontSize: 100 }} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
