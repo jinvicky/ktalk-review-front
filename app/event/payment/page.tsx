@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 
-import { redirect, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 
 import { EventProduct } from "@/types/product.type";
@@ -14,12 +14,18 @@ const EventPayPage = () => {
   const prodId = searchParams.get("prodId");
 
   const [productDetail, setProductDetail] = useState<EventProduct>();
+  const router = useRouter();
 
   useEffect(() => {
     fetch(
       process.env.NEXT_PUBLIC_DOMAIN_URL + "/api/event-sale/product/" + prodId
     ).then(async (res) => {
       const data = (await res.json()) as ApiResult<EventProduct>;
+
+      if (data.data.soldOut) {
+        alert("품절된 상품입니다.");
+        return router.push("/event/product");
+      }
       setProductDetail(data.data);
       return res;
     });
@@ -27,7 +33,7 @@ const EventPayPage = () => {
 
   const renderProductDetail = (product: EventProduct) => {
     if (prodId === null) {
-      return redirect("/event/product");
+      return router.push("/event/product");
     }
     return (
       <>
