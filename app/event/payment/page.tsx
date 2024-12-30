@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 
-import { redirect, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 
 import { EventProduct } from "@/types/product.type";
@@ -14,6 +14,7 @@ const EventPayPage = () => {
   const prodId = searchParams.get("prodId");
 
   const [productDetail, setProductDetail] = useState<EventProduct>();
+  const router = useRouter();
 
   useEffect(() => {
     fetch(
@@ -27,7 +28,9 @@ const EventPayPage = () => {
 
   const renderProductDetail = (product: EventProduct) => {
     if (prodId === null) {
-      return redirect("/event/product");
+      alert("상품 정보가 없습니다.");
+      router.push("/event/product");
+      return <></>;
     }
     return (
       <>
