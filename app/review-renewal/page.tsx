@@ -1,7 +1,7 @@
 "use client";
 import { useTranslation } from "react-i18next";
 
-import ReviewForm from "@/components/review/ReviewForm";
+import ReviewForm from "@/components/review-renewal/ReviewForm";
 import RenewalReviewListWithInfiniteScroll from "@/components/review-renewal/RenewalReviewListWithInfiniteScroll";
 
 const RenewalReviewPage = () => {

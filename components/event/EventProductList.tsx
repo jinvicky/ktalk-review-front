@@ -10,6 +10,8 @@ import { fetchGetEventProductList } from "@/api/eventSale.service";
 
 import { EventProduct } from "@/types/product.type";
 
+import { addPayappFee } from "@/utils/number.util";
+
 import { twMerge } from "tailwind-merge";
 import { Button } from "@mui/material";
 
@@ -46,7 +48,7 @@ const ProductList = () => {
         <div className="p-4">
           <h2 className="text-lg font-semibold">{item.name}</h2>
           <p className="text-gray-600 mt-2">{item.summary}</p>
-          <p className="text-md font-bold mt-2">₩{item.price}</p>
+          <p className="text-md font-bold mt-2">₩ {addPayappFee(item.price)}</p>
           <Button
             className={twMerge(
               "w-full mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold",
