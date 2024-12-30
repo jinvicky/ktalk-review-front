@@ -33,7 +33,9 @@ const EventPayPage = () => {
 
   const renderProductDetail = (product: EventProduct) => {
     if (prodId === null) {
-      return router.push("/event/product");
+      alert("상품 정보가 없습니다.");
+      router.push("/event/product");
+      return null;
     }
     return (
       <>
