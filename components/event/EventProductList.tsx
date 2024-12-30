@@ -5,7 +5,9 @@ import useSWR from "swr";
 import Image from "next/image";
 import { fetchGetEventProductList } from "@/api/eventSale.service";
 import { EventProduct } from "@/types/product.type";
-import { addPayappFee } from "@/utils/number.util";
+
+import { addCommaKRW, addPayappFee } from "@/utils/number.util";
+
 import { twMerge } from "tailwind-merge";
 import { Button } from "@mui/material";
 
@@ -46,7 +48,7 @@ const ProductList = () => {
           <h2 className="text-lg font-semibold">{item.name}</h2>
           <p className="text-gray-600 mt-2">{item.summary}</p>
           <p className="text-md font-bold mt-2">
-            ₩ {addPayappFee(item.discountedPrice)}
+            {addCommaKRW(addPayappFee(item.discountedPrice), true)}
           </p>
           <Button
             onClick={routeToPayment}
