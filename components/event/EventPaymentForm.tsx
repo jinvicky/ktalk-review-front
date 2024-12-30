@@ -109,9 +109,10 @@ const EventPaymentForm = ({ totalPrice, prodId, prodQuantity }: PaymentFormProps
                 setUserName((e.target as HTMLInputElement).value)
               }
               value={userName}
+              helperText="실명 또는 닉네임을 입력해 주세요 ., 익명 식으로 입력하시면 진행이 어렵습니다"
+
               sx={{ width: "100%" }}
             />
-            <p>*신청서 문의 시 주문자명으로 구분합니다.</p>
           </div>
           <div className="mb-2">
             <TextField
@@ -138,6 +139,11 @@ const EventPaymentForm = ({ totalPrice, prodId, prodQuantity }: PaymentFormProps
             sx={{ width: "100%" }}
             onChange={handlePhoneChange}
           />
+        </div>
+        <div className="text-gray-500 py-3 text-sm">
+        <p>*결제 후 이메일 주소로 내역이 발송됩니다.</p>
+        <p>*결제 후 1일 내로 오픈카톡으로 신청서를 주시지 않으면 자동 주문 취소됩니다.</p>
+        <p>*이벤트 상품은 통합 1개만 결제 가능합니다.</p>
         </div>
         <div className="flex mt-5 justify-between items-center">
           <p className="font-bold text-lg">총 금액: {formattedTotalPrice}</p>
