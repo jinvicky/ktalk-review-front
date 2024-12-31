@@ -1,12 +1,14 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
+
+import { useRouter } from "next/navigation";
+
+import { PaymentInfo, PaymentState } from "@/types/payment.type";
 
 import { addCommaKRW, addPayappFee } from "@/utils/number.util";
 import { generateUniqueIdByPrfix } from "@/utils/uniqueId.util";
 
 import { Button, TextField } from "@mui/material";
-import { useRouter } from "next/navigation";
-import { PaymentInfo, PaymentState } from "@/types/payment.type";
 import { useAlert } from "../alert/alertContext";
 
 interface PaymentFormProps {
@@ -69,6 +71,8 @@ const EventPaymentForm = ({
 
   /** 입력한 상품정보 체크 */
   const validateInfo = () => {
+    const emailRegexr =
+      /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
     const errors = [
       {
         condition: !userName,
@@ -79,6 +83,11 @@ const EventPaymentForm = ({
         condition: !email,
         setError: setEmailError,
         message: "이메일을 입력해주세요.",
+      },
+      {
+        condition: !emailRegexr.test(email),
+        setError: setEmailError,
+        message: "이메일 형식이 올바르지 않습니다.",
       },
     ];
 
@@ -98,7 +107,7 @@ const EventPaymentForm = ({
   };
 
   const onSubmitPayment = () => {
-    PayApp.setDefault("userid", "jinvicky"); // 테스트 후에 jinvicky로 수정 예정
+    PayApp.setDefault("userid", "jinvicky"); // 테스트 : payapptest
     PayApp.setDefault("shopname", "jinvickyCommission");
     PayApp.setParam("goodname", "이벤트 주문"); // 1개일때는 선택한 상품명, 2개 이상일 때는 맨 처음 상품명 왜 n개로 표시
     PayApp.setParam("price", totalPriceWithFee.toString());
