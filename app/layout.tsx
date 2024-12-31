@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { TranslationProviders } from "@/components/TranslationProvider";
 import "./globals.css";
 import SubLayout from "./layout/subLayout";
+import { AlertProvider } from "@/components/alert/alertProvider";
 
 export const metadata: Metadata = {
   title: "Jinvicky's Commission",
@@ -17,7 +18,9 @@ export default function RootLayout({
     <TranslationProviders>
       <html lang="en">
         <body>
-          <SubLayout>{children}</SubLayout>
+          <AlertProvider>
+            <SubLayout>{children}</SubLayout>
+          </AlertProvider>
         </body>
       </html>
     </TranslationProviders>

@@ -29,6 +29,7 @@
     "sass": "^1.82.0",
     "swr": "^2.3.0",
     "tailwind-merge": "^2.5.5",
+    "uuid": "^11.0.3",
     "zod": "^3.23.8"
   },
   "devDependencies": {

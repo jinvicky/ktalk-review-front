@@ -7,6 +7,7 @@ import { generateUniqueIdByPrfix } from "@/utils/uniqueId.util";
 import { Button, TextField } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { PaymentInfo, PaymentState } from "@/types/payment.type";
+import { useAlert } from "../alert/alertContext";
 
 interface PaymentFormProps {
   totalPrice: number;
@@ -26,6 +27,7 @@ const EventPaymentForm = ({ totalPrice, prodId, prodQuantity }: PaymentFormProps
   const [buttonDisabled, setButtonDisabled] = useState(false);
   // const [popupDisplay, setPopupDisplay] = useState(false);
   const router = useRouter();
+  const { addAlert } = useAlert();
 
   const totalPriceWithFee = useMemo(
     () => addPayappFee(totalPrice),
@@ -37,7 +39,6 @@ const EventPaymentForm = ({ totalPrice, prodId, prodQuantity }: PaymentFormProps
     scriptTag.src = "https://lite.payapp.kr/public/api/v2/payapp-lite.js";
     document.body.appendChild(scriptTag);
   }, []);
-
 
   useEffect(() => {
     /** 결제완료창에서 주는 메시지 받는 리스너 */
@@ -58,19 +59,32 @@ const EventPaymentForm = ({ totalPrice, prodId, prodQuantity }: PaymentFormProps
     return () => {
       window.removeEventListener("message", handleMessage);
     };
-  }, [router])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   /** 입력한 상품정보 체크 */
-  const vaildateInfo = () => {
-    setUserNameError(!userName);
-    setEmailError(!email);
+  const validateInfo = () => {
+    const errors = [
+      { condition: !userName, setError: setUserNameError, message: "주문자명을 입력해주세요." },
+      { condition: !email, setError: setEmailError, message: "이메일을 입력해주세요." },
+    ];
 
-    if (!(userName || email)) return false;
+    for (const { condition, setError, message } of errors) {
+      setError(condition);
+      if (condition) {
+        addAlert({
+          type: "error",
+          message: message,
+          title: "결제실패",
+        });
+        return false;
+      }
+    }
+
     return true;
-  }
+  };
 
   const onSubmitPayment = () => {
-    if (!vaildateInfo()) return;
     PayApp.setDefault("userid", "payapptest"); // 테스트 후에 jinvicky로 수정 예정
     PayApp.setDefault("shopname", "jinvickyCommission");
     PayApp.setParam("goodname", "이벤트 주문"); // 1개일때는 선택한 상품명, 2개 이상일 때는 맨 처음 상품명 왜 n개로 표시
@@ -95,6 +109,7 @@ const EventPaymentForm = ({ totalPrice, prodId, prodQuantity }: PaymentFormProps
   };
 
   const onSubmitOrder = () => {
+    if (!validateInfo()) return;
     if (buttonDisabled) return;
     setButtonDisabled(true);
     const json = {
