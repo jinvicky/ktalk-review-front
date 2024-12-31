@@ -5,6 +5,12 @@ declare global {
     data: T;
   }
 
+  interface ApiError {
+    status: string;
+    message: string;
+    data: string | Record<string, string>;
+  }
+
   interface PageInfo {
     page: number;
     size: number;
@@ -23,4 +29,4 @@ declare global {
     call: () => void;
   }
 }
-export { };
+export {};
