@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
-
-import NavBar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import { TranslationProviders } from "@/components/TranslationProvider";
-
 import "./globals.css";
+import SubLayout from "./layout/subLayout";
 
 export const metadata: Metadata = {
   title: "Jinvicky's Commission",
@@ -13,18 +10,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-  excludeNavBarFooter = false, // NavBar와 Footer를 제외할지 여부
 }: Readonly<{
   children: React.ReactNode;
-  excludeNavBarFooter?: boolean
 }>) {
   return (
     <TranslationProviders>
       <html lang="en">
         <body>
-          {!excludeNavBarFooter && <NavBar />}
-          {children}
-          {!excludeNavBarFooter && <Footer />}
+          <SubLayout>{children}</SubLayout>
         </body>
       </html>
     </TranslationProviders>

@@ -33,7 +33,6 @@ const EventPaymentForm = ({ totalPrice, prodId, prodQuantity }: PaymentFormProps
   );
 
   useEffect(() => {
-    // payapp-lite.js 스크립트 추가
     const scriptTag = document.createElement("script");
     scriptTag.src = "https://lite.payapp.kr/public/api/v2/payapp-lite.js";
     document.body.appendChild(scriptTag);
@@ -76,19 +75,19 @@ const EventPaymentForm = ({ totalPrice, prodId, prodQuantity }: PaymentFormProps
     PayApp.setDefault("shopname", "jinvickyCommission");
     PayApp.setParam("goodname", "이벤트 주문"); // 1개일때는 선택한 상품명, 2개 이상일 때는 맨 처음 상품명 왜 n개로 표시
     PayApp.setParam("price", totalPriceWithFee.toString());
-    PayApp.setParam("recvphone", phone);
+    PayApp.setParam("recvphone", phone ? phone : "01000000000");
     PayApp.setParam("memo", userName);
     PayApp.setParam("var1", ordId); // 중복방지를 위해서 주문번호를 var1로 전달
-    // PayApp.setParam(
-    //   "feedbackurl",
-    //   "https://ktalk-review-image-latest.onrender.com/api/event-sale/payapp-feedback"
-    // );
     PayApp.setParam(
       "feedbackurl",
-      "https://9500-14-36-55-106.ngrok-free.app/api/payment"
+      "https://ktalk-review-image-latest.onrender.com/api/event-sale/payapp-feedback"
     );
-    // PayApp.setParam("returnurl", "https://ktalk-review-image-latest.onrender.com/api/event-sale/payapp-redirect");
-    PayApp.setParam("returnurl", "https://9500-14-36-55-106.ngrok-free.app/api/paymentLink");
+    PayApp.setParam("returnurl", "https://ktalk-review-image-latest.onrender.com/api/event-sale/payapp-redirect");
+    // PayApp.setParam(
+    //   "feedbackurl",
+    //   "https://9500-14-36-55-106.ngrok-free.app/api/payment"
+    // );
+    // PayApp.setParam("returnurl", "https://9500-14-36-55-106.ngrok-free.app/api/paymentLink");
     PayApp.setParam("smsuse", "n");
     PayApp.setParam("redirectpay", "1");
     PayApp.setParam("skip_cstpage", "y");
@@ -96,34 +95,33 @@ const EventPaymentForm = ({ totalPrice, prodId, prodQuantity }: PaymentFormProps
   };
 
   const onSubmitOrder = () => {
-    onSubmitPayment();
-    // if (buttonDisabled) return;
-    // setButtonDisabled(true);
-    // const json = {
-    //   id: ordId,
-    //   eventProdId: prodId,
-    //   userName: userName,
-    //   userEmail: email,
-    //   price: totalPriceWithFee,
-    //   phone: phone,
-    //   quantity: 1, // 주문한 상품의 개수 (이벤트 상품은 1개만 주문 가능)
-    //   prodQuantity: prodQuantity,  // 상품의 총 재고 개수
-    // };
+    if (buttonDisabled) return;
+    setButtonDisabled(true);
+    const json = {
+      id: ordId,
+      eventProdId: prodId,
+      userName: userName,
+      userEmail: email,
+      price: totalPriceWithFee,
+      phone: phone,
+      quantity: 1, // 주문한 상품의 개수 (이벤트 상품은 1개만 주문 가능)
+      prodQuantity: prodQuantity,  // 상품의 총 재고 개수
+    };
 
-    // fetch(process.env.NEXT_PUBLIC_DOMAIN_URL + "/api/event-sale/order", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(json),
-    // }).then(async (resp) => {
-    //   const data = (await resp.json()) as ApiResult<number>;
+    fetch(process.env.NEXT_PUBLIC_DOMAIN_URL + "/api/event-sale/order", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(json),
+    }).then(async (resp) => {
+      const data = (await resp.json()) as ApiResult<number>;
 
-    //   if (data.status === "OK" && data.data > 0) {
-    //     onSubmitPayment();
-    //     setButtonDisabled(false);
-    //   }
-    // });
+      if (data.status === "OK" && data.data > 0) {
+        onSubmitPayment();
+        setButtonDisabled(false);
+      }
+    });
   };
 
   const formattedTotalPrice = useMemo(
