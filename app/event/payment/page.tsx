@@ -6,7 +6,9 @@ import Image from "next/image";
 
 import { EventProduct } from "@/types/product.type";
 
+import Loading from "@/components/Loading";
 import EventPaymentForm from "@/components/event/EventPaymentForm";
+
 import { addCommaKRW, addPayappFee } from "@/utils/number.util";
 
 const EventPayPage = () => {
@@ -37,6 +39,7 @@ const EventPayPage = () => {
       router.push("/event/product");
       return <></>;
     }
+
     return (
       <>
         <div className="flex flex-col gap-20 sm:flex-row justify-center align-center py-9 px-4">
@@ -72,6 +75,10 @@ const EventPayPage = () => {
       </>
     );
   };
+
+  if (!productDetail) {
+    return <Loading />;
+  }
 
   return (
     <div>
