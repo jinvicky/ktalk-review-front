@@ -13,16 +13,18 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  excludeNavBarFooter = false, // NavBar와 Footer를 제외할지 여부
 }: Readonly<{
   children: React.ReactNode;
+  excludeNavBarFooter?: boolean
 }>) {
   return (
     <TranslationProviders>
       <html lang="en">
         <body>
-          <NavBar />
+          {!excludeNavBarFooter && <NavBar />}
           {children}
-          <Footer />
+          {!excludeNavBarFooter && <Footer />}
         </body>
       </html>
     </TranslationProviders>

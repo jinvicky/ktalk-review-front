@@ -1,22 +1,25 @@
 "use client";
 
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { SvgIcon } from '@mui/material';
+import { useSearchParams } from "next/navigation";
 
 const EventPaymentCompletePage = () => {
-    const [urlParams, setUrlParams] = useState<URLSearchParams>();
-    console.log("?? searchParams:", urlParams?.get("isPaid"));
+    const searchParams = useSearchParams();
+    const isPaid = searchParams.get("isPaid");
 
-    useLayoutEffect(() => {
-        setUrlParams(new URLSearchParams(location.search));
+    useEffect(() => {
+        const queryObject = Object.fromEntries(searchParams.entries());
+        const message = JSON.stringify(queryObject);
         if (window.opener) {
-            window.opener.postMessage("Hello from child1", "https://ktalk-review.netlify.app/");
+            window.opener.postMessage(message, "http://localhost:3000/");
+            window.opener.postMessage(message, "https://ktalk-review.netlify.app/");
             window.close();
         }
-    }, []);
+    }, [searchParams]);
 
-    if (urlParams?.get("isPaid")) return <></>;
-    
+    if (isPaid) return <></>;
+
     return (
         <div className="flex flex-col items-center justify-center h-screen p-3 bg-white">
             <SvgIcon sx={{ fontSize: 100 }} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
