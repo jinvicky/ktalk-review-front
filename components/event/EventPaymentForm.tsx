@@ -17,7 +17,11 @@ interface PaymentFormProps {
 
 declare const PayApp: PayApp;
 
-const EventPaymentForm = ({ totalPrice, prodId, prodQuantity }: PaymentFormProps) => {
+const EventPaymentForm = ({
+  totalPrice,
+  prodId,
+  prodQuantity,
+}: PaymentFormProps) => {
   const ordId = generateUniqueIdByPrfix("ORD");
   const [phone, setPhone] = useState("");
   const [userName, setUserName] = useState("");
@@ -51,9 +55,10 @@ const EventPaymentForm = ({ totalPrice, prodId, prodQuantity }: PaymentFormProps
       if (data.state === PaymentState.Complete)
         // TODO:: 결제 실패 토스트 추가
         // setPopupDisplay(true);
-        router.push(`/event/payment/complete?state=${data.state}&userName=${data.userName}`);
+        router.push(
+          `/event/payment/complete?state=${data.state}&userName=${data.userName}`
+        );
     };
-
 
     window.addEventListener("message", handleMessage);
     return () => {
@@ -65,8 +70,16 @@ const EventPaymentForm = ({ totalPrice, prodId, prodQuantity }: PaymentFormProps
   /** 입력한 상품정보 체크 */
   const validateInfo = () => {
     const errors = [
-      { condition: !userName, setError: setUserNameError, message: "주문자명을 입력해주세요." },
-      { condition: !email, setError: setEmailError, message: "이메일을 입력해주세요." },
+      {
+        condition: !userName,
+        setError: setUserNameError,
+        message: "주문자명을 입력해주세요.",
+      },
+      {
+        condition: !email,
+        setError: setEmailError,
+        message: "이메일을 입력해주세요.",
+      },
     ];
 
     for (const { condition, setError, message } of errors) {
@@ -85,7 +98,7 @@ const EventPaymentForm = ({ totalPrice, prodId, prodQuantity }: PaymentFormProps
   };
 
   const onSubmitPayment = () => {
-    PayApp.setDefault("userid", "payapptest"); // 테스트 후에 jinvicky로 수정 예정
+    PayApp.setDefault("userid", "jinvicky"); // 테스트 후에 jinvicky로 수정 예정
     PayApp.setDefault("shopname", "jinvickyCommission");
     PayApp.setParam("goodname", "이벤트 주문"); // 1개일때는 선택한 상품명, 2개 이상일 때는 맨 처음 상품명 왜 n개로 표시
     PayApp.setParam("price", totalPriceWithFee.toString());
@@ -96,7 +109,10 @@ const EventPaymentForm = ({ totalPrice, prodId, prodQuantity }: PaymentFormProps
       "feedbackurl",
       "https://ktalk-review-image-latest.onrender.com/api/event-sale/payapp-feedback"
     );
-    PayApp.setParam("returnurl", "https://ktalk-review-image-latest.onrender.com/api/event-sale/payapp-redirect");
+    PayApp.setParam(
+      "returnurl",
+      "https://ktalk-review-image-latest.onrender.com/api/event-sale/payapp-redirect"
+    );
     // PayApp.setParam(
     //   "feedbackurl",
     //   "https://9500-14-36-55-106.ngrok-free.app/api/payment"
@@ -120,7 +136,7 @@ const EventPaymentForm = ({ totalPrice, prodId, prodQuantity }: PaymentFormProps
       price: totalPriceWithFee,
       phone: phone,
       quantity: 1, // 주문한 상품의 개수 (이벤트 상품은 1개만 주문 가능)
-      prodQuantity: prodQuantity,  // 상품의 총 재고 개수
+      prodQuantity: prodQuantity, // 상품의 총 재고 개수
     };
 
     fetch(process.env.NEXT_PUBLIC_DOMAIN_URL + "/api/event-sale/order", {
@@ -167,7 +183,7 @@ const EventPaymentForm = ({ totalPrice, prodId, prodQuantity }: PaymentFormProps
               required={true}
               onChange={(e) => {
                 setUserNameError(!e.target.value);
-                setUserName((e.target as HTMLInputElement).value)
+                setUserName((e.target as HTMLInputElement).value);
               }}
               value={userName}
               helperText={`실명 또는 닉네임을 입력해 주세요 "."익명 식으로 입력하시면 진행이 어렵습니다`}
@@ -183,7 +199,7 @@ const EventPaymentForm = ({ totalPrice, prodId, prodQuantity }: PaymentFormProps
               required={true}
               onChange={(e) => {
                 setEmailError(!e.target.value);
-                setEmail((e.target as HTMLInputElement).value)
+                setEmail((e.target as HTMLInputElement).value);
               }}
               value={email}
               error={emailError}
@@ -207,7 +223,10 @@ const EventPaymentForm = ({ totalPrice, prodId, prodQuantity }: PaymentFormProps
         </div>
         <div className="text-gray-500 py-3 text-sm">
           <p>*결제 후 이메일 주소로 내역이 발송됩니다.</p>
-          <p>*결제 후 1일 내로 오픈카톡으로 신청서를 주시지 않으면 자동 주문 취소됩니다.</p>
+          <p>
+            *결제 후 1일 내로 오픈카톡으로 신청서를 주시지 않으면 자동 주문
+            취소됩니다.
+          </p>
           <p>*이벤트 상품은 통합 1개만 결제 가능합니다.</p>
         </div>
         <div className="flex mt-5 justify-between items-center">
