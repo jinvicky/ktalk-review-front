@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
-
-import NavBar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import { TranslationProviders } from "@/components/TranslationProvider";
-
 import "./globals.css";
+import SubLayout from "./layout/subLayout";
+import { AlertProvider } from "@/components/alert/alertProvider";
 
 export const metadata: Metadata = {
   title: "Jinvicky's Commission",
@@ -16,13 +14,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <TranslationProviders>
       <html lang="en">
         <body>
-          <NavBar />
-          {children}
-          <Footer />
+          <AlertProvider>
+            <SubLayout>{children}</SubLayout>
+          </AlertProvider>
         </body>
       </html>
     </TranslationProviders>

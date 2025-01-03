@@ -17,5 +17,7 @@ export interface EventProduct {
   thumbnail: string;
   price: number;
   quantity: number;
+  discountRate: number;
+  discountedPrice: number;
   soldOut: boolean;
 }
