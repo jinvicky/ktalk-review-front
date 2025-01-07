@@ -45,7 +45,7 @@ const ChatRoomList = () => {
       verified: true,
     },
     {
-      user: "밍이",
+      user: "밍이2",
       message: "아 넵 감사합니다!!!",
       time: "10:46",
       avatar: "https://i.crepe.land/https://crepe.land/static/user_profile/default_profile_image.png?h=56&t=i&v=3a&w=56",

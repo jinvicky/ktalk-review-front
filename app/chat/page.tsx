@@ -9,6 +9,7 @@ const ChatPage = () => {
 
             <div>Admin Chat Page</div>
             <div className="flex ">
+                {/* 어드민만 ChatRoomList를 보여준다. */}
                 <ChatRoomList />
                 <ChatRoom />
             </div>
