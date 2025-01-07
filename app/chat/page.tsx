@@ -8,7 +8,7 @@ const ChatPage = () => {
             <ChatRoom />
 
             <div>Admin Chat Page</div>
-            <div>
+            <div className="flex ">
                 <ChatRoomList />
                 <ChatRoom />
             </div>

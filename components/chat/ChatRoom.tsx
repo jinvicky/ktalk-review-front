@@ -25,7 +25,7 @@ const ChatRoom = () => {
     const handleCloseDialog = () => setOpenDialog(false);
 
     return (
-        <div className="flex flex-col max-w-lg mx-auto my-10 bg-white shadow-lg rounded-lg p-4 h-[500px]">
+        <div className="flex flex-col bg-white border border-gray-200 rounded-lg p-4 h-[500px]">
             <div className="flex flex-col space-y-4 overflow-y-auto flex-grow">
                 {messages.map((msg, index) => (
                     <div key={index} className={`flex ${msg.user === "You" ? "justify-end" : "justify-start"}`}>
