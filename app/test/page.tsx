@@ -9,17 +9,22 @@ const Test = () => {
 
   // WebSocket 연결 및 초기화
   const connectSocket = () => {
-    socket.current = new WebSocket("ws://localhost:8080/chat");
-
+    if (socket.current && socket.current.readyState === WebSocket.OPEN) {
+      console.log("WebSocket is already connected.");
+      return;  // 이미 연결된 경우 연결을 재시도하지 않음
+    }
+  
+    socket.current = new WebSocket("ws://localhost:8080/api/chat");
+  
     socket.current.onopen = () => {
       console.log("WebSocket connected");
       socket.current?.send(JSON.stringify("Hello WebSocket"));
     };
+  
     socket.current.onerror = (error) => {
       console.error("WebSocket error:", error);
     };
   };
-
   const onClickSubmit = async () => {
     const buffer = await fileInput.current?.files?.[0]?.arrayBuffer();
     if (buffer) {
