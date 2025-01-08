@@ -10,6 +10,7 @@ import { Avatar, Badge } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
 import { twMerge } from "tailwind-merge";
+import Loading from "../Loading";
 
 const useStyles = makeStyles(() => ({
   chatMessage: {
@@ -60,7 +61,7 @@ const ChatRoomList = ({
   });
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   if (error instanceof Error) {
@@ -79,7 +80,7 @@ const ChatRoomList = ({
     <div className="space-y-4">
       {chatRooms.map((msg: ChatRoom, index: number) => (
         <div 
-            key={index} 
+            key={`chat-${msg.mngId}-${index}`} 
             className={twMerge("flex items-center justify-start", msg.mngId === propsChatRoomId ? "bg-gray-100" : "")}
             onClick={() => setPropsChatRoomId(msg.mngId)}
         >
