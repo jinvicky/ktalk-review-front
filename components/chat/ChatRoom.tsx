@@ -70,10 +70,9 @@ const ChatRoom = ({ chatRoomId: propsChatRoomId }: ChatRoomProps) => {
         }
 
         return chatMsgHistory.map((msg: ChatMsg, index: number) => (
-            <>
+            <div key={`${msg.mngNo}-${index}`}>
                 {dayPassedOrFirstChat(chatMsgHistory[index - 1], msg, index) && separatorUi(msg.formatKoreaYMD)}
                 <div
-                    key={index}
                     className={`flex ${chatFromMe(msg.senderEmail) ? "justify-end" : "justify-start"}`}
                 >
                     <div className={`flex items-end space-x-2 ${chatFromMe(msg.senderEmail) ? "text-right" : ""}`}>
@@ -86,7 +85,7 @@ const ChatRoom = ({ chatRoomId: propsChatRoomId }: ChatRoomProps) => {
                         </div>
                     </div>
                 </div>
-            </>
+            </div>
         ));
     }
 
