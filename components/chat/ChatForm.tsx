@@ -49,6 +49,7 @@ const ChatForm = () => {
                     onChange={handleFileChange}
                     className="hidden"
                     id="file-upload"
+                    multiple
                 />
                 <label htmlFor="file-upload">
                     <Button

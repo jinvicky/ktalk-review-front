@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 
 import { useQueries, useQuery } from "@tanstack/react-query";
 
@@ -8,7 +9,7 @@ import { fetchChatMsgHistory, fetchChatRoomDetail } from "@/api/chatApi";
 
 import { ChatMsg, ChatRoom as ChatRoomType } from "@/types/chat.type";
 
-import { Avatar} from "@mui/material";
+import { Avatar } from "@mui/material";
 
 import { Loading } from "@/components/Loading";
 
@@ -82,6 +83,9 @@ const ChatRoom = ({ chatRoomId: propsChatRoomId }: ChatRoomProps) => {
                         <div className={`bg-gray-100 p-2 rounded-lg max-w-xs ${chatFromMe(msg.senderEmail) ? "bg-blue-100 text-right" : "bg-gray-200 text-left"}`}>
                             <p className="font-semibold">{msg.nickname}</p>
                             <p>{msg.content}</p>
+                            {
+                                msg.type === "F" && msg.imageUrl && <Image src={msg.imageUrl} alt="file" width={200} height={200} />
+                            }
                         </div>
                     </div>
                 </div>
