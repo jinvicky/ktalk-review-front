@@ -4,6 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 
 import { fetchChatRoomsBySrch } from "@/api/chatApi";
 
+import { ChatRoom } from "@/types/chat.type";
+
 import { Avatar, Badge } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
@@ -38,15 +40,6 @@ const useStyles = makeStyles(() => ({
     fontWeight: "500",
   },
 }));
-
-interface ChatRoom {
-  mngId: string;
-  name: string;
-  ltsSenderEmail: string;
-  ltsChatMsg: string;
-  ltsChatTime: string;
-  timeDiffFromNow: string;
-}
 
 interface ChatRoomListProps {
   chatRoomId: string;

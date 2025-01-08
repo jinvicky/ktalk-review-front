@@ -16,7 +16,13 @@ const ChatPage = () => {
                     chatRoomId={chatRoomId}
                     setChatRoomId={setChatRoomId}
                 />
-                {/* <ChatRoom /> */}
+                {
+                    chatRoomId && (
+                        <ChatRoom
+                            chatRoomId={chatRoomId}
+                        />
+                    )
+                }
             </div>
         </div>
     )
