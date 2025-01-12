@@ -5,7 +5,7 @@ import Image from "next/image";
 
 import { useQueries, useQuery } from "@tanstack/react-query";
 
-import { fetchChatMsgHistory, fetchChatRoomDetail } from "@/api/chatApi";
+import { fetchChatMsgHistory, fetchChatRoomDetail, fetchUpdateChatRoomUserAccess } from "@/api/chatApi";
 
 import { ChatMsg, ChatRoom as ChatRoomType } from "@/types/chat.type";
 
@@ -14,7 +14,6 @@ import { Avatar } from "@mui/material";
 import { Loading } from "@/components/Loading";
 
 import ChatForm from "./ChatForm";
-import { connect } from "http2";
 
 interface ChatRoomProps {
     chatRoomId: string;
@@ -22,6 +21,8 @@ interface ChatRoomProps {
 const ChatRoom = ({ chatRoomId: propsChatRoomId }: ChatRoomProps) => {
 
     const socket = useRef<WebSocket | null>(null);
+    const [isSocketConnected, setIsSocketConnected] = useState<boolean>(false);
+
 
     // 웹소켓 연결
     const connectSocket = () => {
@@ -35,13 +36,11 @@ const ChatRoom = ({ chatRoomId: propsChatRoomId }: ChatRoomProps) => {
 
         socket.current.onopen = () => {
             console.log("WebSocket connected");
-            // socket.current?.send(JSON.stringify("Hello WebSocket"));
-
-            // JVK:: 여기다가 현재 채팅방 id, 유저 이메일, Y(채팅방 입장) 묶어서 보내줘.
+            setIsSocketConnected(true);  // 연결 상태를 true로 설정
         };
     };
 
-    useEffect(()=> {
+    useEffect(() => {
         connectSocket();
     }, []);
 
@@ -54,6 +53,16 @@ const ChatRoom = ({ chatRoomId: propsChatRoomId }: ChatRoomProps) => {
             {
                 queryKey: ['chatMsgHistory', propsChatRoomId],
                 queryFn: fetchChatMsgHistory,
+            },
+            {
+                queryKey: ['updateUserAccess', propsChatRoomId],
+                queryFn: () => fetchUpdateChatRoomUserAccess({
+                    mngId: "JVK",
+                    chatRoomId: propsChatRoomId,
+                    userEmail: "wkdu0723@naver.com", 
+                    accessYn: "Y"
+                }),
+                enabled: isSocketConnected,  // WebSocket 연결 후에만 호출하도록 트리거 설정
             },
         ],
     });
@@ -127,6 +136,7 @@ const ChatRoom = ({ chatRoomId: propsChatRoomId }: ChatRoomProps) => {
         }
         socket.current?.send(jsonStrMsg);
     }
+
 
     return (
         <div className="flex flex-col bg-white border border-gray-200 rounded-sm p-4 h-[500px]">

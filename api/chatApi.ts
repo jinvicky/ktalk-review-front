@@ -55,3 +55,21 @@ export const fetchChatMsgHistory = async ({ queryKey }: { queryKey: string[] }) 
     }
     return response.json();
 }
+
+/** 
+ * 채팅방에 입장한 사용자 접속 여부 업데이트 
+ */
+export const fetchUpdateChatRoomUserAccess = async (chatRoomUser: {mngId: string, chatRoomId: string, userEmail: string, accessYn: string}) => {
+    const response = await fetch('/api/chat/update/user/access',
+        {
+            body: JSON.stringify(chatRoomUser),
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+        }
+    );
+
+    if (!response.ok) {
+        throw new Error('Network response was not ok');
+    }
+    return response.json();
+}
