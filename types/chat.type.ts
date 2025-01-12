@@ -5,6 +5,7 @@ export interface ChatRoom {
     ltsChatMsg: string;
     ltsChatTime: string;
     timeDiffFromNow: string;
+    absentMsgCnt: number;
 }
 
 export interface ChatMsg {

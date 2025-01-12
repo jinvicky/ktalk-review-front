@@ -79,10 +79,10 @@ const ChatRoomList = ({
   return (
     <div className="space-y-4">
       {chatRooms.map((msg: ChatRoom, index: number) => (
-        <div 
-            key={msg.mngId} 
-            className={twMerge("flex items-center justify-start", msg.mngId === propsChatRoomId ? "bg-gray-100" : "")}
-            onClick={() => setPropsChatRoomId(msg.mngId)}
+        <div
+          key={msg.mngId}
+          className={twMerge("flex items-center justify-start", msg.mngId === propsChatRoomId ? "bg-gray-100" : "")}
+          onClick={() => setPropsChatRoomId(msg.mngId)}
         >
           <div className={classes.chatMessage}>
             <Avatar
@@ -95,7 +95,12 @@ const ChatRoomList = ({
               <div className="flex items-center gap-1">
                 <span className={classes.username}>{msg.name}</span>
               </div>
-              <div className={classes.textMessage}>{msg.ltsChatMsg}</div>
+              <div className="flex items-center">
+                <div className={classes.textMessage}>{msg.ltsChatMsg}</div>
+                {msg.absentMsgCnt > 0 && (
+                  <div><Badge badgeContent={msg.absentMsgCnt} color="error" /></div>
+                )}
+              </div>
             </div>
             <div className={classes.timestamp}>{msg.timeDiffFromNow}</div>
           </div>

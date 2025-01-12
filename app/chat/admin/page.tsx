@@ -1,3 +1,5 @@
+"use client";
+
 import ChatRoom from "@/components/chat/ChatRoom";
 import ChatRoomList from "@/components/chat/ChatRoomList";
 import { useState } from "react";
@@ -31,3 +33,5 @@ const ChatAdminPage = () => {
         </div>
     );
 }
+
+export default ChatAdminPage;
