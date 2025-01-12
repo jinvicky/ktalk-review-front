@@ -12,8 +12,9 @@ import { ChatMsg, ChatRoom as ChatRoomType } from "@/types/chat.type";
 import { Avatar } from "@mui/material";
 
 import { Loading } from "@/components/Loading";
-
 import ChatForm from "./ChatForm";
+
+import { chatFromMe } from "@/utils/userUtil";
 
 interface ChatRoomProps {
     chatRoomId: string;
@@ -95,7 +96,6 @@ const ChatRoom = ({ chatRoomId: propsChatRoomId }: ChatRoomProps) => {
     </div>
 
     //  TODO:: 채팅 본인 이메일 확인 여부 메서드. 추후 jwt + middleware로 변경 필요.
-    const chatFromMe = (senderEmail: string) => senderEmail === "jinvicky@naver.com";
 
     const renderChatHistory = () => {
         const separatorUi = (ymdDate: string) => <div className="flex justify-center items-center text-gray-500">-----{ymdDate}----</div>;
@@ -126,6 +126,8 @@ const ChatRoom = ({ chatRoomId: propsChatRoomId }: ChatRoomProps) => {
             </div>
         ));
     }
+
+    
 
 
     // 웹소켓으로 메세지 보내기
