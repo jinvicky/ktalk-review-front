@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 import { useQueries, useQuery } from "@tanstack/react-query";
@@ -14,16 +14,41 @@ import { Avatar } from "@mui/material";
 import { Loading } from "@/components/Loading";
 
 import ChatForm from "./ChatForm";
+import { connect } from "http2";
 
 interface ChatRoomProps {
     chatRoomId: string;
 }
 const ChatRoom = ({ chatRoomId: propsChatRoomId }: ChatRoomProps) => {
 
+    const socket = useRef<WebSocket | null>(null);
+
+    // 웹소켓 연결
+    const connectSocket = () => {
+        if (socket.current && socket.current.readyState === WebSocket.OPEN) {
+            console.log("WebSocket is already connected.");
+            return;
+        }
+
+        // JVK:: 포트번호 하드코딩 바꾸기
+        socket.current = new WebSocket("ws://localhost:8080/api/chat?chatRoomId=" + propsChatRoomId);
+
+        socket.current.onopen = () => {
+            console.log("WebSocket connected");
+            // socket.current?.send(JSON.stringify("Hello WebSocket"));
+
+            // JVK:: 여기다가 현재 채팅방 id, 유저 이메일, Y(채팅방 입장) 묶어서 보내줘.
+        };
+    };
+
+    useEffect(()=> {
+        connectSocket();
+    }, []);
+
     const queries = useQueries({
         queries: [
             {
-                queryKey: ['chatRoom', propsChatRoomId],
+                queryKey: ['chatRoomDetail', propsChatRoomId],
                 queryFn: fetchChatRoomDetail,
             },
             {
@@ -84,7 +109,7 @@ const ChatRoom = ({ chatRoomId: propsChatRoomId }: ChatRoomProps) => {
                             <p className="font-semibold">{msg.nickname}</p>
                             <p>{msg.content}</p>
                             {
-                                msg.type === "F" && msg.imageUrl && <Image src={msg.imageUrl} alt="file" width={200} height={200} />
+                                msg.type === "F" && msg.resourceType === "image" && msg.resourceUrl && <Image src={msg.resourceUrl} alt="file" width={200} height={200} />
                             }
                         </div>
                     </div>
@@ -93,13 +118,26 @@ const ChatRoom = ({ chatRoomId: propsChatRoomId }: ChatRoomProps) => {
         ));
     }
 
+
+    // 웹소켓으로 메세지 보내기
+    const sendMessageBySocket = (jsonStrMsg: string) => {
+        if (!socket.current) {
+            console.error("웹소켓이 연결되어 있지 않습니다.");
+            return;
+        }
+        socket.current?.send(jsonStrMsg);
+    }
+
     return (
         <div className="flex flex-col bg-white border border-gray-200 rounded-sm p-4 h-[500px]">
             <div className="flex flex-col space-y-4 overflow-y-auto flex-grow">
                 {renderChatRoomHeader()}
                 {renderChatHistory()}
             </div>
-            <ChatForm />
+            <ChatForm
+                chatRoomId={propsChatRoomId}
+                onSubmitBySocket={sendMessageBySocket}
+            />
         </div>
     );
 };

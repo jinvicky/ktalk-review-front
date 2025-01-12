@@ -68,7 +68,7 @@ const Test = () => {
   //   }
   // };
 
-  const arrayBufferToBase64 = (buffer: ArrayBuffer) => {
+  const arrayBufferToBase64Legacy = (buffer: ArrayBuffer) => {
     const uint8Array = new Uint8Array(buffer);
     let binary = '';
 
@@ -79,6 +79,9 @@ const Test = () => {
     return window.btoa(binary);  // Base64로 변환
   }
 
+  const arrayBufferToBase64 = (buffer: ArrayBuffer) => {
+    return btoa(String.fromCharCode(...new Uint8Array(buffer)));
+  }
 
   const onClickSubmit = async () => {
     if (fileInput.current && fileInput.current.files && fileInput.current.files.length > 0) {
@@ -91,17 +94,17 @@ const Test = () => {
 
       // JSON으로 서버에 전송할 데이터 생성
       const msgObj = {
-        encodingFile: base64String,
+        // encodingFile: base64String,
         chatRoomId: "jvk250107",
         senderEmail: "jinvicky@naver.com",
-        content: ""
+        content: "텍스트 내용을 담습니다.", 
+        type: "A",
       };
 
       // 서버로 메시지 전송
       socket.current?.send(JSON.stringify(msgObj));
     }
   }
-
 
   return (
     <>

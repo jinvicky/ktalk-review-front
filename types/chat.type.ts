@@ -26,5 +26,5 @@ export interface ChatMsg {
     resourceType?: 'image' | 'raw';
     publicId?: string;
     format?: string;
-    imageUrl?: string;
+    resourceUrl?: string;
 };
