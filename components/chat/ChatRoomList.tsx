@@ -78,7 +78,7 @@ const ChatRoomList = ({
 
   return (
     <div className="space-y-4">
-      {chatRooms.map((msg: ChatRoom, index: number) => (
+      {chatRooms.map((msg: ChatRoom) => (
         <div
           key={msg.mngId}
           className={twMerge("flex items-center justify-start", msg.mngId === propsChatRoomId ? "bg-gray-100" : "")}

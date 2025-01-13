@@ -20,7 +20,7 @@ export const fetchInitOrEnterChatRoom = async (user: { email: string, nickname: 
 
 export const fetchChatRoomsBySrch = async ({ queryKey }: { queryKey: string[] }) => {
     const userEmail = queryKey[1];
-    const response = await fetch('/api/chat/search/room?userEmail=' + userEmail);
+    const response = await fetch(`/api/chat/search/room?userEmail=${userEmail}`);
 
     if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -34,7 +34,7 @@ export const fetchChatRoomsBySrch = async ({ queryKey }: { queryKey: string[] })
 export const fetchChatRoomDetail = async ({ queryKey }: { queryKey: string[] }) => {
     const chatRoomId = queryKey[1];
 
-    const response = await fetch(process.env.NEXT_PUBLIC_DOMAIN_URL + '/api/chat/detail/room?chatRoomId=' + chatRoomId);
+    const response = await fetch(`/api/chat/detail/room?chatRoomId=${chatRoomId}`);
 
     if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -48,7 +48,7 @@ export const fetchChatRoomDetail = async ({ queryKey }: { queryKey: string[] }) 
 export const fetchChatMsgHistory = async ({ queryKey }: { queryKey: string[] }) => {
     const chatRoomId = queryKey[1];
 
-    const response = await fetch(process.env.NEXT_PUBLIC_DOMAIN_URL + '/api/chat/msg/history?chatRoomId=' + chatRoomId);
+    const response = await fetch(`/api/chat/msg/history?chatRoomId=${chatRoomId}`);
 
     if (!response.ok) {
         throw new Error('Network response was not ok');

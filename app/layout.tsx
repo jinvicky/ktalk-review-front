@@ -23,11 +23,13 @@ export default function RootLayout({
     <TranslationProviders>
       <html lang="en">
         <body>
-          <ReactQueryProviders>
-            <AlertProvider>
-              <SubLayout>{children}</SubLayout>
-            </AlertProvider>
-          </ReactQueryProviders>
+          <div>
+            <ReactQueryProviders>
+              <AlertProvider>
+                <SubLayout>{children}</SubLayout>
+              </AlertProvider>
+            </ReactQueryProviders>
+          </div>
         </body>
       </html>
     </TranslationProviders>
