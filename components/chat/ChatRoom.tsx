@@ -4,9 +4,9 @@ import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useQueries } from "@tanstack/react-query";
 import { fetchChatMsgHistory, fetchChatRoomDetail, fetchUpdateChatRoomUserAccess } from "@/api/chatApi";
-import { ChatMsg, ChatRoom as ChatRoomType } from "@/types/chat.type";
+import { ChatMsg, ChatRoomData as ChatRoomType } from "@/types/chat.type";
 import { Avatar } from "@mui/material";
-import { Loading } from "@/components/Loading";
+import { DataLoading } from "@/components/DataLoading";
 import ChatForm from "./ChatForm";
 import { chatFromMe } from "@/utils/userUtil";
 
@@ -101,13 +101,13 @@ const ChatRoom = ({ chatRoomId: propsChatRoomId }: ChatRoomProps) => {
     }
 
     const isLoading = queries.some(query => query.isLoading);
-    if (isLoading) return <Loading />;
+    if (isLoading) return <DataLoading />;
 
     const chatRoomDetail = queries[0].data.data as ChatRoomType;
     const chatMsgHistory = queries[1].data.data as ChatMsg[];
 
     return (
-        <div className="flex flex-col bg-white border border-gray-200 rounded-sm p-4">
+        <>
             <div className="flex flex-col space-y-4 overflow-y-auto flex-grow">
                 <div>
                     <div className={"flex items-center gap-3"}>
@@ -127,7 +127,7 @@ const ChatRoom = ({ chatRoomId: propsChatRoomId }: ChatRoomProps) => {
                 chatRoomId={propsChatRoomId}
                 onSubmitBySocket={sendMessageBySocket}
             />
-        </div>
+        </>
     );
 };
 export default ChatRoom;

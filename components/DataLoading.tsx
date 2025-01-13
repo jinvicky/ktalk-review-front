@@ -1,7 +1,7 @@
 import { CircularProgress } from "@mui/material";
 
 
-export const Loading = () => {
+export const DataLoading = () => {
     return (
         <div className="flex justify-center items-center h-screen">
             <CircularProgress size="5rem" />
@@ -9,4 +9,4 @@ export const Loading = () => {
     );
 }
 
-export default Loading;
+export default DataLoading;

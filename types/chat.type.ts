@@ -1,4 +1,4 @@
-export interface ChatRoom {
+export interface ChatRoomData {
     mngId: string;
     name: string;
     ltsSenderEmail: string;
