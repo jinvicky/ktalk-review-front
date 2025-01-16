@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    crossOrigin: "anonymous",
     reactStrictMode: false,
     async rewrites() {
         const apiUrl = process.env.NEXT_PUBLIC_DOMAIN_URL || "http://localhost:8080"; // 로컬 기본 값
