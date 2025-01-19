@@ -19,19 +19,17 @@ const LoginPage = () => {
         const setCookie = await fetch('/api/test/set-cookie', {
             method: 'GET',
         });
-
-        const resp = await setCookie.json();
-
+        await setCookie.json();
     }
     
     
     const getCookie = async () => {
+        console.log(process.env.NEXT_PUBLIC_DOMAIN_URL, "jvk:???");
         const fetchCookie = await fetch('/api/test/get-cookie', {
             method: 'GET',
             credentials: 'include',
         });
-
-        const resp = await fetchCookie.json();
+        await fetchCookie.json();
     }
 
     return <>
@@ -39,14 +37,16 @@ const LoginPage = () => {
         <input
             type="email"
             required
-            value={signInForm.email}
+            // value={signInForm.email}
+            value={"jinvicky@naver.com"}
             onChange={(e) => setSignInForm({ ...signInForm, email: (e.target as HTMLInputElement).value })}
         />
 
         <input
             type="password"
             required
-            value={signInForm.pwd}
+            // value={signInForm.pwd}
+            value={"1234"}
             onChange={(e) => setSignInForm({ ...signInForm, pwd: (e.target as HTMLInputElement).value })}
         />
 
