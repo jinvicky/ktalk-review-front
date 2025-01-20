@@ -33,8 +33,9 @@ export async function POST(request: NextRequest) {
             status: 200,
             headers: {
                 'Content-Type': 'application/json',
-                'Set-Cookie': `auth_token=${cookieValue}; HttpOnly; Secure; Path=/; Expires=${expires.toUTCString()}`,
+                'Set-Cookie': `auth_token=${cookieValue}; HttpOnly; Secure; Path=/; Expires=${expires.toUTCString()};`,
             },
+            // www.jinvicky.shop으로 접근했을 때 쿠키를 만들면 도메인은 어느 경로로 설정되는가?
         }
     );
 
