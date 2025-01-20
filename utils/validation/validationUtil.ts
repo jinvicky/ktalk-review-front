@@ -42,7 +42,7 @@ export class Validators {
 
     private static readonly blankPattern = /^\s*$/g;
 
-    private static readonly emailPattern = /^(.+)@(\S+)$/;
+    private static readonly emailPattern = /^(.+)@(\\S+)$/;
 
     static blank(): Validator<string> {
         return {
