@@ -34,7 +34,7 @@ export const config = {
         // '/my-page/:path*',
         '/user/sign-in',
         '/user/sign-up',
-        '/test/:path*',
+        // '/test/:path*',
         // '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)',
     ]
 }
