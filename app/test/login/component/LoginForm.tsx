@@ -12,31 +12,13 @@ const LoginForm = () => {
 
     const onSubmit = async () => {
 
-        // 기존에 있는 쿠키를 spring boot에 전달
-        const resp = await fetch('/next-api/test',  {
-            method: 'POST',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-                
-            },
-        })
-
-        console.log('resp', await resp.json());
+    
     }
     
     
     const getCookie = async () => {
         
-        // const fetchCookie = await fetch('/api/test/get-cookie', {
-        //     method: 'GET',
-        //     credentials: 'include',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'Jinvicky': 'jvk'
-        //     }
-        // });
-        // await fetchCookie.json();
+
     }
     
     return <>
