@@ -10,6 +10,7 @@ const CookieUi = ({cookie}: CookieUiProps) => {
     const saveCookie = async() => {
         const resp = await fetch(`/next-api/server/cookie`, {
             method: 'POST',
+            credentials: 'include',
         });
 
         const data = await resp.json();
