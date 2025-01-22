@@ -1,6 +1,6 @@
 import { cookies } from 'next/headers'
 
-import { fetchFromSpringBoot } from "@/app/next-api/server/serverUserApi";
+import { fetchFromSpringBoot } from "@/app/next-api/serverUserApi";
 import LoginForm from './component/LoginForm';
 import Cookie from '@/components/server/Cookie';
 
