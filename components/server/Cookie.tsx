@@ -4,7 +4,7 @@ import CookieUi from '../client/CookieUi';
 
 export default function Cookie() {
 
-    const authToken = cookies().get('auth_token')?.value || '';
+    const authToken = cookies().get('userSession')?.value || '';
 
     
     return <CookieUi cookie={authToken}/>;

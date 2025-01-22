@@ -5,7 +5,7 @@ import { cookies } from 'next/headers'
 
 export async function middleware(request: NextRequest) {
     const cookieStore = cookies();
-    const userSession = cookieStore.get('auth_token'); // 나중에 쿠키명 userSession으로 변경
+    const userSession = cookieStore.get('userSession'); // 나중에 쿠키명 userSession으로 변경
     /**
      * userSession은 {name: '', value:''} 형태다.
      */
