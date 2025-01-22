@@ -1,8 +1,8 @@
 "use client";
 
-import Footer from "@/components/Footer";
-import NavBar from "@/components/Navbar";
-import { usePathname } from "next/navigation";
+// import Footer from "@/components/Footer";
+// import NavBar from "@/components/Navbar";
+// import { usePathname } from "next/navigation";
 import { createTheme, ThemeProvider } from "@mui/material";
 
 const theme = createTheme({
@@ -16,14 +16,14 @@ export default function SubLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-    const currentPath = usePathname();
+    // const currentPath = usePathname();
 
     return (
         <>
             <ThemeProvider theme={theme}>
-                {currentPath !== "/event/payment/complete" && <NavBar />}
+                {/* {currentPath !== "/event/payment/complete" && <NavBar />} */}
                 {children}
-                {currentPath !== "/event/payment/complete" && <Footer />}
+                {/* {currentPath !== "/event/payment/complete" && <Footer />} */}
             </ThemeProvider>
         </>
     );

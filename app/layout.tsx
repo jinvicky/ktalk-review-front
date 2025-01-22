@@ -4,7 +4,7 @@ import ReactQueryProviders from "@/components/ReactQueryProviders";
 import { AlertProvider } from "@/components/alert/alertProvider";
 import { TranslationProviders } from "@/components/TranslationProvider";
 
-import SubLayout from "./layout/subLayout";
+// import SubLayout from "./layout/subLayout";
 
 import "./globals.css";
 
@@ -26,7 +26,8 @@ export default function RootLayout({
           <div>
             <ReactQueryProviders>
               <AlertProvider>
-                <SubLayout>{children}</SubLayout>
+                {children}
+                {/* <SubLayout>{children}</SubLayout> */}
               </AlertProvider>
             </ReactQueryProviders>
           </div>
