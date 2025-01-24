@@ -2,11 +2,14 @@
 
 import { useTranslation } from "react-i18next";
 
+import { useRouter } from 'next/navigation';
+
 import PromotionCard from "@/components/promotion/PromotionCard";
 
 import "@/styles/promotion/promotionPage.scss";
 
 const PromotionPage = () => {
+  const router = useRouter();
   const { t } = useTranslation();
 
   return (
@@ -45,9 +48,15 @@ const PromotionPage = () => {
             <div className="desc">
               {t("ANIMAL_CROSSING.PRODUCT.INVITE.DESC_3")}
             </div>
-            <div className="p-5 text-md font-semibold text-gray-400 text-center">
+            {/* <div className="p-5 text-md font-semibold text-gray-400 text-center">
               🌟 {t("APPLY_CLICK_HERE")} 🌟
-            </div>
+            </div> */}
+            <button
+              className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold my-5 py-2 px-4 rounded"
+              onClick={()=> router.push("/commission")}
+            >
+              회원가입하고 신청하기
+            </button>
           </div>
         }
       />
