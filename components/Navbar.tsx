@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import { twMerge } from "tailwind-merge";
 
@@ -20,9 +20,6 @@ const NavBar = () => {
     { name: "Promotion", path: "/promotion" },
     { name: "Review", path: "/review-renewal" },
     { name: "Commisssion", path: "/commission" },
-    // { name: "Event", path: "/event/product" },
-    // { name: "Product", path: "/product" },
-    // { name: "Cart", path: "/cart" },
   ];
   const drawerWidth = 240;
   const container =
@@ -46,6 +43,31 @@ const NavBar = () => {
     // 클라이언트에서 렌더링 시 언어 설정
     setCurrentLanguage(i18n.language);
   }, [i18n.language]);
+
+  /**
+   * 로그아웃 함수
+   */
+
+  const router = useRouter();
+
+  const onSignOUt = async () => {
+
+    const resp = await fetch('/next-api/sign-out', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const data = await resp.json() as { status: string, message: string };
+
+    if (data.status !== "200") {
+      alert("요청 도중 문제가 발생했습니다. 재시도 혹은 관리자에게 문의해 주세요");
+    } else {
+      alert("로그아웃에 성공했습니다.");
+      router.push("/promotion");
+    }
+  }
 
   /** 사이드 메뉴 */
   const drawer = (

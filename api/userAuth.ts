@@ -23,3 +23,15 @@ export const signUp = async (form: UserSignUp) => {
 
     return await resp.json();
 }
+
+export const signOut = async (userSession: string) => {
+    const resp = await fetch(process.env.NEXT_DOMAIN_URL + "/api/user/sign/out", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json', 
+            'userSession': userSession
+        }
+    });
+
+    return await resp.json();
+}

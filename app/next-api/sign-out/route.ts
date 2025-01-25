@@ -1,17 +1,45 @@
-import { NextResponse } from "next/server";
+import { signOut } from "@/api/userAuth";
+import { NextRequest, NextResponse } from "next/server";
 
+import { cookies } from "next/headers";
 
 export async function POST() {
-    // 로그아웃 요청, 쿠키의 age를 0 또는 옛날로 만들어서 삭제
-    return  new NextResponse(
-        JSON.stringify({ message: 'Hello' }),
+    const cookieStore = cookies();
+    const userSession = cookieStore.get('userSession')?.value;
+
+    if (!userSession) {
+        return new NextResponse(
+            JSON.stringify({ status: "401", message: '로그인이 필요합니다.' }),
+            {
+                status: 401,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }
+        );
+    }
+
+    const respFromBoot = await signOut(userSession) as ApiResult<boolean>;
+
+    if (respFromBoot.status !== "200") {
+        return new NextResponse(
+            JSON.stringify({ message: respFromBoot.data, status: respFromBoot.status }),
+            {
+                status: 500,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+    }
+
+    return new NextResponse(
+        JSON.stringify({ status: "200", message: '로그아웃 성공' }),
         {
             status: 200,
-            // headers: {
-            //     'Content-Type': 'application/json',
-            //     'Set-Cookie': `userSession=${cookieValue}; HttpOnly; Secure; Path=/; Expires=${expires.toUTCString()}; domain=${process.env.NEXT_PUBLIC_DOMAIN_URL};`,
-            // },
-            // www.jinvicky.shop으로 접근했을 때 쿠키를 만들면 도메인은 어느 경로로 설정되는가?
+            headers: {
+                'Content-Type': 'application/json',
+                'Set-Cookie': `userSession=${respFromBoot.data}; HttpOnly; Secure; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT;`,
+            },
         }
     );
 }

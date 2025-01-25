@@ -3,7 +3,7 @@ import { signIn } from "@/api/userAuth";
 
 export async function POST(request: NextRequest) {
     const form = await request.json();
-    const respFromBoot = await signIn(form) as ApiResult<number>;
+    const respFromBoot = await signIn(form) as ApiResult<string>;
 
     if (respFromBoot.status !== "200") {
         return new NextResponse(
