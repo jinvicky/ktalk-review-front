@@ -1,21 +1,41 @@
 "use client";
 
 import { useState } from 'react';
+
+import { UserSignIn } from '@/types/userType';
+import { useForm, Validators } from '@/utils/validation/validationUtil';
+
 import { TextField, Button, Container, Typography, Box } from '@mui/material';
-// import { signIn } from '@/api/userApi';
 
 
 const SignInForm = () => {
 
-    // const [form, setForm] = useState({
-    //     email: 'jinvicky@naver.com',
-    //     pwd: '1234',
-    // });
+    const [form, setForm] = useState<UserSignIn>({
+        email: '',
+        pwd: '',
+    });
+
+    const validationForm = {
+        email: {
+            value: form.email,
+            validConditions: [Validators.notBlank(), Validators.isEmail()],
+            message: '이메일은 필수 입력입니다. 올바른 이메일 형식으로 입력해 주세요',
+            failure: false,
+        },
+        pwd: {
+            value: form.pwd,
+            validConditions: [Validators.notBlank(), Validators.minLength(7)],
+            message: '비밀번호는 8자 이상 필수 입력입니다',
+            failure: false,
+        },
+    }
 
     const onSubmit = async () => {
-        const form = {
-            email: 'wkdu0723@naver.com',
-            pwd: '12345678',
+        const {isValid, message } = useForm(validationForm);
+
+        if(!isValid) {
+            alert(message);
+            return;
         }
 
         const resp = await fetch('/next-api/sign-in', {
@@ -35,7 +55,7 @@ const SignInForm = () => {
             window.location.href = "/";
         }
     };
-    
+
     return (
         <Container maxWidth="xs" className="my-12">
             <Box className="bg-white p-8 ">
@@ -50,6 +70,8 @@ const SignInForm = () => {
                             fullWidth
                             type="email"
                             className="mb-4"
+                            value={form.email}
+                            onChange={(e) => setForm({ ...form, email: e.target.value })}
                         />
                     </div>
                     <div className="mb-6">
@@ -58,6 +80,8 @@ const SignInForm = () => {
                             variant="outlined"
                             fullWidth
                             type="password"
+                            value={form.pwd}
+                            onChange={(e) => setForm({ ...form, pwd: e.target.value })}
                         />
                     </div>
                     {/* <div className="flex justify-between mb-4">

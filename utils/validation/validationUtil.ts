@@ -1,3 +1,4 @@
+import { isValid } from "zod";
 
 interface Validator<T> {
     condition?(): T; // 유효성 조건
@@ -33,8 +34,15 @@ export function useForm(validation: { [key: string]: ValidateForm<any> }) {
         }
         if (form.failure) {
             // window.alert(form.message);
-            break;
+            return  {
+                isValid : false,
+                message: form.message
+            }
         }
+    }
+    return  {
+        isValid: true, 
+        message: 'PASS'
     }
 }
 
@@ -42,7 +50,7 @@ export class Validators {
 
     private static readonly blankPattern = /^\s*$/g;
 
-    private static readonly emailPattern = /^(.+)@(\\S+)$/;
+    private static readonly emailPattern = /^(.+)@(\S+)$/;
 
     static blank(): Validator<string> {
         return {
