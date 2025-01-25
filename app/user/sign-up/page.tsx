@@ -1,6 +1,30 @@
+"use client";
+
+import { UserSignUp } from '@/types/userType';
 import { TextField, Button, Container, Typography, Box, Checkbox, FormControlLabel } from '@mui/material';
 
 const SignUpPage = () => {
+
+    const onSubmit = async () => {
+        const signUpForm: UserSignUp =  {
+            email: 'wkdu0723@naver.com', 
+            pwd: '12345678',
+            nickname: 'wkdu0723',
+            phoneNumber: '01022397838',
+            notifyYn: 'Y',
+            notifyMethod: 'email',
+        }
+
+        const resp = await fetch('/next-api/sign-up', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(signUpForm),
+        });
+
+        console.log('resp:', await resp.json());
+    };
     return (
         <Container maxWidth="xs" className="my-12">
             <Box className="bg-white p-8">
@@ -18,7 +42,6 @@ const SignUpPage = () => {
                             }
                             variant="outlined"
                             fullWidth
-                            required
                             className="mb-4"
                         />
                     </div>
@@ -28,7 +51,6 @@ const SignUpPage = () => {
                             label="이메일"
                             variant="outlined"
                             fullWidth
-                            required
                             type="email"
                             className="mb-4"
                         />
@@ -39,7 +61,6 @@ const SignUpPage = () => {
                             label="비밀번호"
                             variant="outlined"
                             fullWidth
-                            required
                             type="password"
                             className="mb-4"
                         />
@@ -65,10 +86,10 @@ const SignUpPage = () => {
                                 control={<Checkbox name="receiveNotifications" />}
                                 label="이메일"
                             />
-                            <FormControlLabel
+                            {/* <FormControlLabel
                                 control={<Checkbox name="receiveNotifications" />}
                                 label="카카오톡"
-                            />
+                            /> */}
                             <FormControlLabel
                                 control={<Checkbox name="receiveNotifications" />}
                                 label="SMS"
@@ -81,6 +102,7 @@ const SignUpPage = () => {
                         color="primary"
                         fullWidth
                         className="mt-4"
+                        onClick={onSubmit}
                     >
                         회원가입
                     </Button>

@@ -9,3 +9,12 @@ export interface User {
 }
 
 export type UserSignIn = Pick<User, 'email' | 'pwd'>;
+
+export interface UserSignUp {
+    nickname: string;
+    email: string;
+    pwd: string;
+    phoneNumber: string;
+    notifyYn: string;
+    notifyMethod: string;
+}
