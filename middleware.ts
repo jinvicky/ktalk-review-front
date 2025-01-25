@@ -31,7 +31,7 @@ export async function middleware(request: NextRequest) {
 export const config = {
     matcher: [
         // '/chat/:path*',
-        // '/my-page/:path*',
+        '/my-page/:path*',
         '/user/sign-in',
         '/user/sign-up',
         // '/test/:path*',
