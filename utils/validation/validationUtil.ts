@@ -1,15 +1,13 @@
-import { isValid } from "zod";
-
 interface Validator<T> {
-    condition?(): T; // 유효성 조건
-    isValid(value?: T): boolean; // 제네릭으로 검증 결과 반환
+  condition?(): T; // 유효성 조건
+  isValid(value?: T): boolean; // 제네릭으로 검증 결과 반환
 }
 
 interface ValidateForm<T> {
-    value: T;
-    validConditions: Validator<T>[]; // 유효성 검사 함수 배열
-    message: string;
-    failure: boolean;
+  value: T;
+  validConditions: Validator<T>[]; // 유효성 검사 함수 배열
+  message: string;
+  failure: boolean;
 }
 
 /**
@@ -23,105 +21,104 @@ interface ValidateForm<T> {
     }
  */
 
-export function useForm(validation: { [key: string]: ValidateForm<any> }) {
-    for (const key in validation) {
-        const form = validation[key];
-        for (const v of form.validConditions) {
-            if (!v.isValid(form.value)) {
-                form.failure = true;
-                break;
-            }
-        }
-        if (form.failure) {
-            // window.alert(form.message);
-            return  {
-                isValid : false,
-                message: form.message
-            }
-        }
+export function UseForm(validation: { [key: string]: ValidateForm<any> }) {
+  for (const key in validation) {
+    const form = validation[key];
+    for (const v of form.validConditions) {
+      if (!v.isValid(form.value)) {
+        form.failure = true;
+        break;
+      }
     }
-    return  {
-        isValid: true, 
-        message: 'PASS'
+    if (form.failure) {
+      // window.alert(form.message);
+      return {
+        isValid: false,
+        message: form.message,
+      };
     }
+  }
+  return {
+    isValid: true,
+    message: "PASS",
+  };
 }
 
 export class Validators {
+  private static readonly blankPattern = /^\s*$/g;
 
-    private static readonly blankPattern = /^\s*$/g;
+  private static readonly emailPattern = /^(.+)@(\S+)$/;
 
-    private static readonly emailPattern = /^(.+)@(\S+)$/;
+  static blank(): Validator<string> {
+    return {
+      isValid(value: string): boolean {
+        return Validators.blankPattern.test(value);
+      },
+    };
+  }
 
-    static blank(): Validator<string> {
-        return {
-            isValid(value: string): boolean {
-                return Validators.blankPattern.test(value);
-            }
-        }
-    }
+  static notBlank(): Validator<string> {
+    return {
+      isValid(value: string): boolean {
+        return !Validators.blankPattern.test(value);
+      },
+    };
+  }
 
-    static notBlank(): Validator<string> {
-        return {
-            isValid(value: string): boolean {
-                return !Validators.blankPattern.test(value);
-            }
-        }
-    }
+  static undefined<T>(): Validator<T> {
+    return {
+      isValid(value: T) {
+        return value === undefined;
+      },
+    };
+  }
 
-    static undefined<T>(): Validator<T> {
-        return {
-            isValid(value: T) {
-                return value === undefined;
-            }
-        }
-    }
+  static notUndefined<T = any>(): Validator<T> {
+    return {
+      isValid(value: T) {
+        return value !== undefined;
+      },
+    };
+  }
 
-    static notUndefined<T = any>(): Validator<T> {
-        return {
-            isValid(value: T) {
-                return value !== undefined;
-            }
-        }
-    }
+  static max(max: number): Validator<number> {
+    return {
+      condition(): number {
+        return max;
+      },
+      isValid(value: number): boolean {
+        return max > value;
+      },
+    };
+  }
 
-    static max(max: number): Validator<number> {
-        return {
-            condition(): number {
-                return max;
-            },
-            isValid(value: number): boolean {
-                return max > value;
-            }
-        }
-    }
+  static min(min: number): Validator<number> {
+    return {
+      condition(): number {
+        return min;
+      },
+      isValid(value: number): boolean {
+        return min < value;
+      },
+    };
+  }
 
-    static min(min: number): Validator<number> {
-        return {
-            condition(): number {
-                return min;
-            },
-            isValid(value: number): boolean {
-                return min < value;
-            }
-        }
-    }
+  static minLength(min: number): Validator<string> {
+    return {
+      condition(): string {
+        return min.toString();
+      },
+      isValid(value: string): boolean {
+        return min < value.length;
+      },
+    };
+  }
 
-    static minLength(min: number): Validator<string> {
-        return {
-            condition(): string {
-                return min.toString();
-            },
-            isValid(value: string): boolean {
-                return min < value.length;
-            }
-        }
-    }
-
-    static isEmail(): Validator<string> {
-        return {
-            isValid(value: string): boolean {
-                return Validators.emailPattern.test(value);
-            }
-        }
-    }
+  static isEmail(): Validator<string> {
+    return {
+      isValid(value: string): boolean {
+        return Validators.emailPattern.test(value);
+      },
+    };
+  }
 }
