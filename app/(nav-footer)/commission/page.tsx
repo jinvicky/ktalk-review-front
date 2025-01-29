@@ -4,7 +4,7 @@
 const CommissionPage = () => {
     return (
         <div>
-            <h1>Commission Page</h1>
+            <h1>진이 커미션</h1>
         </div>
     );
 };
