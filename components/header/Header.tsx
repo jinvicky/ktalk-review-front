@@ -11,7 +11,7 @@ const Header = ({authenticateMenuList}: HeaderProps) => {
   
   const router = useRouter();
 
-  const onSignOUt = async () => {
+  const onSignOut = async () => {
     const resp = await fetch('/next-api/sign-out', {
       method: 'POST',
       headers: {
@@ -35,6 +35,9 @@ const Header = ({authenticateMenuList}: HeaderProps) => {
         <Link href="/" className="text-white text-lg font-bold">
           Jinvicky Blog
         </Link>
+        {
+          authenticateMenuList
+        }
       </div>
     </nav>
   );
