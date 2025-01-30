@@ -1,7 +1,8 @@
 "use client";
 import { ChangeEvent, useState } from "react";
-import { TextField, Button, Typography, Box, FormControlLabel, Radio, RadioGroup, FormLabel, } from "@mui/material";
+import { TextField, Button, Typography, Box, FormControlLabel, Radio, RadioGroup, FormLabel, Tooltip, } from "@mui/material";
 import ClearIcon from '@mui/icons-material/Clear';
+import HelpIcon from '@mui/icons-material/Help';
 
 const CommissionApplyForm = () => {
     const [form, setForm] = useState({
@@ -22,7 +23,7 @@ const CommissionApplyForm = () => {
     const handleFileChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const selectedFiles = (e.target as HTMLInputElement).files;
         if (!selectedFiles) return;
-        setForm({ ...form, files: [...form.files, ...Array.from(selectedFiles)]});
+        setForm({ ...form, files: [...form.files, ...Array.from(selectedFiles)] });
     };
 
     const removeFile = (index: number) => {
@@ -32,7 +33,7 @@ const CommissionApplyForm = () => {
 
     return <>
         <Box className="bg-white p-8">
-            <Typography variant="h5" className="text-center mb-6 font-semibold">
+            <Typography variant="h5" className="flex justify-center items-center text-center mb-6 font-semibold">
                 커미션 신청 폼
             </Typography>
             <div className="mb-4">
@@ -40,13 +41,30 @@ const CommissionApplyForm = () => {
                     label="신청자명"
                     variant="outlined"
                     fullWidth
-                    type="nickname"
+                    // type="nickname"
                     className="mb-4"
                     value={form.username}
                     onChange={(e) => setForm({ ...form, username: e.target.value })}
                 />
             </div>
-            <FormLabel id="demo-row-radio-buttons-group-label">닉네임 기재</FormLabel>
+            <div className="mb-4">
+                <TextField
+                    label="이메일 주소"
+                    variant="outlined"
+                    fullWidth
+                    type="email"
+                    className="mb-4"
+                    value={form.username}
+                    onChange={(e) => setForm({ ...form, username: e.target.value })}
+                />
+            </div>
+            <FormLabel id="demo-row-radio-buttons-group-label">닉네임 기재
+                <Tooltip title={<h1 style={{ color: "white", fontSize: "20px" }}>
+                    메이플 캐릭터나 자캐 닉네임을 의미합니다. 
+                </h1>}>
+                    <HelpIcon />
+                </Tooltip>
+            </FormLabel>
             <RadioGroup
                 row
                 aria-labelledby="demo-row-radio-buttons-group-label"
@@ -91,6 +109,11 @@ const CommissionApplyForm = () => {
                     onChange={(e) => setForm({ ...form, sendEmail: e.target.value })}
                 />
             }
+
+            <FormLabel id="" className="flex items-center mt-5">
+                타입별로 추가 정보가 필요할 수 있습니다.
+                <HelpIcon />
+            </FormLabel>
             <div className="mb-6">
                 <TextField
                     label="신청 내용"
@@ -129,7 +152,7 @@ const CommissionApplyForm = () => {
                                         {file.name}
 
                                     </div>
-                                    <ClearIcon onClick={() => removeFile(index)}/>
+                                    <ClearIcon onClick={() => removeFile(index)} />
                                 </li>
                             ))}
                         </ul>
@@ -137,7 +160,7 @@ const CommissionApplyForm = () => {
                 )}
             </div>
             <div
-                className="w-full bg-blue-500 hover:bg-blue-700 text-white text-center font-bold my-5 py-2 px-4 rounded"
+                className="w-full bg-blue-500 hover:bg-blue-700 text-white text-center gap-4 font-bold my-5 py-2 px-4 rounded"
                 onClick={onSubmit}
             >
                 신청하기

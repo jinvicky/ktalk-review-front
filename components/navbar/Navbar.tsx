@@ -118,7 +118,7 @@ const NavBar = () => {
     /**
      * pc 화면
      */
-    <nav className="sticky top-0 p-4 backdrop-blur bg-white z-10 max-w-48">
+    <nav className="sticky top-0 p-4 backdrop-blur bg-white border-r border-gray-300 z-10 max-w-48">
       <div className="">
         <div className="block md:hidden cursor-pointer text-white">
           <MenuIcon
