@@ -9,16 +9,22 @@ import { usePathname, useRouter } from "next/navigation";
 import { twMerge } from "tailwind-merge";
 
 import { Drawer } from "@mui/material";
-import MenuIcon from '@mui/icons-material/Menu'; // Material-UI Menu 아이콘
+import MenuIcon from '@mui/icons-material/Menu';
+
+import Diversity1Icon from '@mui/icons-material/Diversity1';
 
 const NavBar = () => {
+  const iconSize = {
+    width: "30px",
+    height: "30px",
+  }
   const { i18n } = useTranslation();
   const [currentLanguage, setCurrentLanguage] = useState<string>("ko");
   const [mobileOpen, setMobileOpen] = useState(false);
   const currentPath = usePathname();
   const menuList = [
     { name: "Promotion", path: "/promotion" },
-    { name: "Review", path: "/review-renewal" },
+    { name: "Review", path: "/review-renewal", icon: <Diversity1Icon sx={{ width: iconSize.width, height: iconSize.height }} /> },
     { name: "Commisssion", path: "/commission" },
   ];
   const drawerWidth = 240;
@@ -26,7 +32,7 @@ const NavBar = () => {
     typeof window !== "undefined" ? window.document.body : undefined;
 
   const isLinkActive = (path: string) =>
-    currentPath === path ? "text-blue-200" : "text-white";
+    currentPath === path ? "font-bold text-red-500" : "text-black";
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -34,8 +40,8 @@ const NavBar = () => {
 
   const updateLngStyle = (lng: "en" | "ja" | "ko") => {
     return twMerge(
-      "text-white hover:bg-blue-400 px-3 py-1 rounded",
-      currentLanguage === lng && "bg-blue-600"
+      "hover:bg-blue-400 py-1 rounded",
+      currentLanguage === lng && "font-bold text-blue-800"
     );
   };
 
@@ -47,7 +53,6 @@ const NavBar = () => {
   /**
    * 로그아웃 함수
    */
-
   const router = useRouter();
 
   const onSignOUt = async () => {
@@ -69,12 +74,10 @@ const NavBar = () => {
     }
   }
 
+
   /** 사이드 메뉴 */
   const drawer = (
     <div className="flex flex-col text-lg" onClick={handleDrawerToggle}>
-      <Link className="w-full font-bold p-3 border-b-4 text-center" href="/">
-        Jinvicky Blog
-      </Link>
       <div className="flex flex-col w-full">
         {menuList.map((menu) => (
           <Link
@@ -112,65 +115,55 @@ const NavBar = () => {
   );
 
   return (
-    <nav className="sticky top-0 w-full p-4 backdrop-blur bg-gray-700/90 z-10">
-      <div className="flex justify-between items-center">
-        <Link href="/" className="text-white text-lg font-bold">
-          Jinvicky Blog
-        </Link>
-        <ul className="hidden center gap-5 text-white text-lg md:flex">
+    /**
+     * pc 화면
+     */
+    <nav className="sticky top-0 p-4 backdrop-blur bg-white z-10 max-w-48">
+      <div className="">
+        <div className="block md:hidden cursor-pointer text-white">
+          <MenuIcon
+            className="w-8 h-8 text-black"
+            onClick={handleDrawerToggle}
+          />
+        </div>
+        <ul className="hidden text-lg md:flex flex-col gap-3">
           {menuList.map((menu) => {
             if (menu.name === "Cart") return null;
             return (
               <li key={menu.path} className={twMerge(isLinkActive(menu.path))}>
-                <Link href={menu.path}>{menu.name}</Link>
+                <Link href={menu.path}>
+                  <div className="flex flex-col items-center">
+                    {menu.icon && menu.icon}
+                    <div className="text-sm">
+                      {menu.name}
+                    </div>
+                  </div>
+                </Link>
               </li>
             );
           })}
         </ul>
-        <div className="hidden space-x-4 md:flex">
-          {/* <Link href="/cart">
-            <div className="flex items-center justify-center p-4">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-8 w-8 text-white hover:text-blue-500 transition duration-200"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M3 3h2l1 9h12l1-9h2M6 21c0 1.104-.896 2-2 2s-2-.896-2-2 1.896-2 2-2 2 .896 2 2zm12 0c0 1.104-.896 2-2 2s-2-.896-2-2 1.896-2 2-2 2 .896 2 2zm-6-4h6l1-9H7l1 9h6z"
-                />
-              </svg>
-            </div>
-          </Link> */}
-          <button
+        <div className="hidden md:flex flex-col mt-3">
+          <div
             className={updateLngStyle("en")}
             onClick={() => i18n.changeLanguage("en")}
           >
             EN
-          </button>
-          <button
+          </div>
+          <div
             className={updateLngStyle("ja")}
             onClick={() => i18n.changeLanguage("ja")}
           >
             JA
-          </button>
-          <button
+          </div>
+          <div
             className={updateLngStyle("ko")}
             onClick={() => i18n.changeLanguage("ko")}
           >
             KO
-          </button>
+          </div>
         </div>
-        <div className="block md:hidden cursor-pointer text-white">
-          <MenuIcon
-            className="w-8 h-8 text-white"
-            onClick={handleDrawerToggle}
-          />
-        </div>
+
       </div>
       <nav>
         <Drawer

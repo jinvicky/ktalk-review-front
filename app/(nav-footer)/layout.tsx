@@ -1,5 +1,7 @@
 import Footer from "@/components/Footer";
-import NavBar from "@/components/Navbar";
+import Header from "@/components/header/Header";
+import HeaderServer from "@/components/header/HeaderServer";
+import NavBar from "@/components/navbar/Navbar";
 
 export default function NavAndFooter({
     children,
@@ -8,8 +10,15 @@ export default function NavAndFooter({
 }>) {
     return (
         <>
-            <NavBar />
-            {children}
+            <div className="flex">
+                <NavBar />
+                <div className="w-full">
+                    <HeaderServer />
+                    <div className="h-full min-h-screen">
+                        {children}
+                    </div>
+                </div>
+            </div>
             <Footer />
         </>
     );

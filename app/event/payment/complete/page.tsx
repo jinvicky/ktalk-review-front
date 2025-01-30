@@ -5,7 +5,7 @@ import { SvgIcon } from '@mui/material';
 import { useSearchParams } from "next/navigation";
 import { PaymentState } from '@/types/payment.type';
 import ErrorIcon from '@mui/icons-material/Error';
-import NavBar from '@/components/Navbar';
+import NavBar from '@/components/navbar/Navbar';
 import Footer from '@/components/Footer';
 
 /** 이벤트상품 결제완료 페이지 */

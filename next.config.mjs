@@ -24,15 +24,15 @@ const nextConfig = {
         },
       ],
   },
-  // async redirects() {
-  //   return [
-  //     {
-  //       source: '/',
-  //       destination: '/promotion',
-  //       permanent: true
-  //     }
-  //   ]
-  // }
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/promotion',
+        permanent: true
+      }
+    ]
+  }
 };
 
 export default nextConfig;

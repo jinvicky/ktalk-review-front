@@ -95,7 +95,7 @@ const RenewalReviewListWithInfiniteScroll = () => {
   return (
     <div className="p-5">
       <div className="mb-4">
-        totalCount : <span>{totalCount} </span>
+        리뷰 갯수 : <span>{totalCount} </span>
       </div>
       <ul className="grid sm:grid-cols-1 lg:grid-cols-3 gap-4">{render()}</ul>
       <CustomModal open={modalOpen} setOpen={() => setModalOpen(!modalOpen)}>

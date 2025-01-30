@@ -31,7 +31,7 @@ const CommissionApplyForm = () => {
     }
 
     return <>
-        <Box className="bg-white p-8 ">
+        <Box className="bg-white p-8">
             <Typography variant="h5" className="text-center mb-6 font-semibold">
                 커미션 신청 폼
             </Typography>
