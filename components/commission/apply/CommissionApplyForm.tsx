@@ -3,11 +3,16 @@ import { ChangeEvent, useState } from "react";
 import { TextField, Button, Typography, Box, FormControlLabel, Radio, RadioGroup, FormLabel, Tooltip, } from "@mui/material";
 import ClearIcon from '@mui/icons-material/Clear';
 import HelpIcon from '@mui/icons-material/Help';
+import { UserSessonObj } from "@/types/userType";
 
-const CommissionApplyForm = () => {
+interface CommissionApplyFormProps {
+    userInfo: UserSessonObj;
+}
+
+const CommissionApplyForm = ({userInfo}: CommissionApplyFormProps) => {
     const [form, setForm] = useState({
-        username: "",
-        email: "",
+        username: userInfo.nickname,
+        email: userInfo.email,
         nicknameYn: "N",
         nickname: "",
         sendEmailYn: "N",
@@ -54,8 +59,8 @@ const CommissionApplyForm = () => {
                     fullWidth
                     type="email"
                     className="mb-4"
-                    value={form.username}
-                    onChange={(e) => setForm({ ...form, username: e.target.value })}
+                    value={form.email}
+                    onChange={(e) => setForm({ ...form, email: e.target.value })}
                 />
             </div>
             <FormLabel id="demo-row-radio-buttons-group-label">닉네임 기재

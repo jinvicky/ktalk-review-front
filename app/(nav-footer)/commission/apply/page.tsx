@@ -1,12 +1,27 @@
 import { cookies } from "next/headers";
 import { Box, Container } from "@mui/material";
 import CommissionApplyForm from "@/components/commission/apply/CommissionApplyForm";
+import { UserSessonObj } from "@/types/userType";
 
-const CommissionApplyPage = () => {
+const CommissionApplyPage = async () => {
     const cookieStore = cookies();
     const userSession = cookieStore.get('userSession')?.value;
 
-    // userSession이 있으면 boot로부터 email, nickname 정보를 가져와서 아래에 props로 내려주기
+    const userInfo = {} as UserSessonObj;
+
+    if(userSession) {
+        const resp = await fetch(process.env.NEXT_DOMAIN_URL + "/api/user/get-session", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "userSession": userSession,
+            },
+        });
+        const data = await resp.json() as ApiResult<UserSessonObj>;
+        if(data.status === "200") {
+            Object.assign(userInfo, data.data);
+        }
+    }
 
     return (
         <div>
@@ -23,7 +38,9 @@ const CommissionApplyPage = () => {
                         </div>
                     </Box>
                 )}
-                <CommissionApplyForm />
+                <CommissionApplyForm
+                    userInfo={userInfo} 
+                />
             </Container>
         </div>
     )

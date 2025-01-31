@@ -18,3 +18,6 @@ export interface UserSignUp {
     notifyYn: string;
     notifyMethod: string;
 }
+
+export type UserSessonObj = Pick<User, 'nickname' | 'email' | 'role'>;
+
