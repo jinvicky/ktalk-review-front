@@ -60,6 +60,7 @@ const CommissionApplyForm = ({userInfo}: CommissionApplyFormProps) => {
                     type="email"
                     className="mb-4"
                     value={form.email}
+                    disabled={userInfo.email ? true : false}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
                 />
             </div>
