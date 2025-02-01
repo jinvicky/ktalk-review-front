@@ -7,7 +7,7 @@ import CommissionDetail from "@/components/my-page/CommissionDetail";
 const MyCommissionByIdPage = () => {
     const router = useRouter();
     const { id } = useParams();
-    const [commissionDetail, setCommissionDetail] = useState<any | null>(null);
+    const [commissionDetail, setCommissionDetail] = useState<CommissionApply | null>(null);
 
     useEffect(() => {
         fetch(process.env.NEXT_PUBLIC_DOMAIN_URL + `/api/commission/apply/${id}`, {
@@ -33,8 +33,7 @@ const MyCommissionByIdPage = () => {
 
     return (
         <div>
-            MyCommissionByIdPage
-            <CommissionDetail />
+            <CommissionDetail data={commissionDetail}/>
         </div>
     )
 }

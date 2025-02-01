@@ -3,36 +3,49 @@ import Image from 'next/image';
 import { Box, Container } from "@mui/material";
 import ClearIcon from '@mui/icons-material/Clear';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
+import fileDownload from 'js-file-download';
 
-const CommissionDetail = () => {
-    const data = {
-        userName: "럭키비키",
-        userEmail: "jinvicky@naver.com",
-        nicknameYn: "N",
-        nickname: null,
-        sendEmailYn: "N",
-        sendEmail: null,
-        content: "그냥 알잘딱깔센해주세요",
-        status: "신청완료",
-        memberYn: "Y",
-        applyFileList: [
-            {
-                id: null,
-                applyId: null,
-                resourceType: "image",
-                publicId: "cms_apply/aaqtyrmerwuxayze9qph",
-                format: "jpg",
-                rgtrDt: null,
-                cloudName: "dkfwo8t0v",
-                fileUrl: "https://res.cloudinary.com/dkfwo8t0v/image/upload/cms_apply/aaqtyrmerwuxayze9qph.jpg"
-            }
-        ]
-    };
+interface CommissionDetailProps {
+    data: CommissionApply | null;
+}
+const CommissionDetail = ({ data }: CommissionDetailProps) => {
+    if (!data) return <></>;
 
+    const downloadFile = (fileUrl: string) => {
+        fetch(fileUrl).then(async (resp) => {
+            const blob = await resp.blob();
+            fileDownload(blob, 'commission');
+        });
+    }
     return (
         <Container maxWidth="md" className="my-12">
             <Box className="bg-gray-200 px-8 py-4">
                 <div className="bg-white p-6 rounded-lg shadow-lg">
+                    {/* api 바꿔야 함  */}
+                    <h2 className="text-2xl font-semibold mb-4">커미션 최종 작업물</h2>
+                    <div>
+                        <div>이미지 클릭 시 다운로드됩니다.</div>
+                        {data.applyFileList && data.applyFileList.length > 0 ? (
+                            <ul>
+                                {data.applyFileList.map((file: any, index: number) => (
+                                    <li key={index}>
+                                        <Image
+                                            src={file.fileUrl}
+                                            alt={`File ${file.publicId}`}
+                                            className="w-full max-w-xs mt-2 rounded"
+                                            layout="responsive"
+                                            width={100}
+                                            height={100}
+                                            onClick={() => downloadFile("https://res.cloudinary.com/dkfwo8t0v/image/upload/cms_apply/aaqtyrmerwuxayze9qph.jpg")}
+                                        />
+                                    </li>
+                                ))}
+                            </ul>
+                        ) : (
+                            <p>첨부된 파일이 없습니다.</p>
+                        )}
+                    </div>
+
                     <h2 className="text-2xl font-semibold mb-4">커미션 신청서 상세</h2>
                     {/* 신청자 정보 */}
                     <div className="mb-6">
@@ -63,14 +76,18 @@ const CommissionDetail = () => {
                         {data.applyFileList && data.applyFileList.length > 0 ? (
                             <ul>
                                 {data.applyFileList.map((file: any, index: number) => (
-                                    <Image 
-                                        src={file.fileUrl} 
-                                        alt={`File ${file.publicId}`} 
-                                        className="w-full max-w-xs mt-2 rounded" 
-                                        layout="responsive" 
-                                        width={100} 
-                                        height={100} 
-                                    />
+                                    <li key={index}>
+                                        <a href={file.fileUrl} >
+                                            <Image
+                                                src={file.fileUrl}
+                                                alt={`File ${file.publicId}`}
+                                                className="w-full max-w-xs mt-2 rounded"
+                                                layout="responsive"
+                                                width={100}
+                                                height={100}
+                                            />
+                                        </a>
+                                    </li>
                                 ))}
                             </ul>
                         ) : (
