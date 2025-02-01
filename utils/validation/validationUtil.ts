@@ -114,6 +114,17 @@ export class Validators {
     };
   }
 
+  static maxLength(max: number): Validator<string> {
+    return {
+      condition(): string {
+        return max.toString();
+      },
+      isValid(value: string): boolean {
+        return max >= value.length;
+      },
+    };
+  }
+
   static isEmail(): Validator<string> {
     return {
       isValid(value: string): boolean {

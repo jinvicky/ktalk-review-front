@@ -21,8 +21,8 @@ const SignUpPage = () => {
     const validationForm = {
         nickname: {
             value: form.nickname,
-            validConditions: [Validators.notBlank()],
-            message: "닉네임은 필수 입력입니다",
+            validConditions: [Validators.notBlank(), Validators.maxLength(30)],
+            message: "닉네임은 30자 이내로 입력해 주세요",
             failure: false,
         },
         email: {

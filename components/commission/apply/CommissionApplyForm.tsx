@@ -11,7 +11,7 @@ interface CommissionApplyFormProps {
     userInfo: UserSessonObj;
 }
 
-const CommissionApplyForm = ({userInfo}: CommissionApplyFormProps) => {
+const CommissionApplyForm = ({ userInfo }: CommissionApplyFormProps) => {
     const [form, setForm] = useState({
         username: userInfo.nickname,
         email: userInfo.email,
@@ -48,7 +48,6 @@ const CommissionApplyForm = ({userInfo}: CommissionApplyFormProps) => {
                     label="신청자명"
                     variant="outlined"
                     fullWidth
-                    // type="nickname"
                     className="mb-4"
                     value={form.username}
                     onChange={(e) => setForm({ ...form, username: e.target.value })}
@@ -66,19 +65,26 @@ const CommissionApplyForm = ({userInfo}: CommissionApplyFormProps) => {
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
                 />
             </div>
-            <FormLabel id="demo-row-radio-buttons-group-label">닉네임 기재
-                <Tooltip title={<h1 style={{ color: "white", fontSize: "20px" }}>
-                    메이플 캐릭터나 자캐 닉네임을 의미합니다. 
-                </h1>}>
-                    <HelpIcon />
-                </Tooltip>
+            <FormLabel>
+                <div className="flex items-center gap-2">
+                    닉네임 기재
+                    <Tooltip title={<h1 style={{ color: "white", fontSize: "20px" }}>
+                        메이플 캐릭터나 자캐 닉네임을 의미합니다.
+                    </h1>}>
+                        <HelpIcon />
+                    </Tooltip>
+                </div>
             </FormLabel>
             <RadioGroup
                 row
                 aria-labelledby="demo-row-radio-buttons-group-label"
                 name="nickname-group"
                 defaultValue="N"
-                onChange={(e) => setForm({ ...form, nicknameYn: e.target.value, nickname: e.target.value === "Y" ? form.nickname : "" })}
+                onChange={(e) => setForm({
+                    ...form,
+                    nicknameYn: e.target.value,
+                    nickname: e.target.value === "Y" ? form.nickname : ""
+                })}
             >
                 <FormControlLabel value="Y" control={<Radio />} label="예" />
                 <FormControlLabel value="N" control={<Radio />} label="아니요" />
@@ -94,7 +100,7 @@ const CommissionApplyForm = ({userInfo}: CommissionApplyFormProps) => {
                     onChange={(e) => setForm({ ...form, nickname: e.target.value })}
                 />
             }
-            <FormLabel id="demo-row-radio-buttons-group-label">이메일 전송</FormLabel>
+            <FormLabel>이메일 전송</FormLabel>
             <RadioGroup
                 row
                 aria-labelledby="demo-row-radio-buttons-group-label"
@@ -118,9 +124,22 @@ const CommissionApplyForm = ({userInfo}: CommissionApplyFormProps) => {
                 />
             }
 
-            <FormLabel id="" className="flex items-center mt-5">
-                타입별로 추가 정보가 필요할 수 있습니다.
-                <HelpIcon />
+            <FormLabel id="">
+                <div className="mb-5 flex items-center gap-2">
+                    타입별로 추가 정보가 필요할 수 있습니다.
+                    <Tooltip title={<h1 style={{ color: "white", fontSize: "20px" }}>
+                        <ul>
+                            <li>
+                                동숲 공지표는 텍스트 본문이 필요합니다.
+                            </li>
+                            <li>
+                                배경 신청시 예상 금액이 필요합니다.
+                            </li>
+                        </ul>
+                    </h1>}>
+                        <HelpIcon />
+                    </Tooltip>
+                </div>
             </FormLabel>
             <div className="mb-6">
                 <TextField
@@ -132,6 +151,7 @@ const CommissionApplyForm = ({userInfo}: CommissionApplyFormProps) => {
                     multiline
                     rows={5}
                     placeholder="신청 내용을 입력해주세요."
+                    onChange={(e) => setForm({ ...form, content: e.target.value })}
                 />
             </div>
             <div className="mb-4">
