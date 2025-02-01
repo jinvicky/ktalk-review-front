@@ -121,4 +121,12 @@ export class Validators {
       },
     };
   }
+
+  static assertTrue(): Validator<boolean> {
+    return {
+      isValid(value: boolean): boolean {
+        return value;
+      },
+    };
+  }
 }

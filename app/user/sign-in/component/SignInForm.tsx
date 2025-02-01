@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 import { UserSignIn } from "@/types/userType";
 import { UseForm, Validators } from "@/utils/validation/validationUtil";
@@ -8,6 +9,7 @@ import { UseForm, Validators } from "@/utils/validation/validationUtil";
 import { TextField, Button, Container, Typography, Box } from "@mui/material";
 
 const SignInForm = () => {
+  const router = useRouter();
   const [form, setForm] = useState<UserSignIn>({
     email: "",
     pwd: "",
@@ -100,6 +102,12 @@ const SignInForm = () => {
           >
             로그인
           </Button>
+          <div
+            className="mt-4 w-full text-center border border-blue-500 p-2 rounded cursor-pointer text-blue-500"
+            onClick={() => router.push("/user/sign-up")}
+          >
+            회원가입
+          </div>
         </form>
       </Box>
     </Container>

@@ -6,9 +6,6 @@ import { cookies } from 'next/headers'
 export async function middleware(request: NextRequest) {
     const cookieStore = cookies();
     const userSession = cookieStore.get('userSession');
-    /**
-     * userSession은 {name: '', value:''} 형태다.
-     */
     const currentPath = request.nextUrl.pathname;
     
     if (userSession === undefined || !userSession?.value) {
@@ -17,7 +14,6 @@ export async function middleware(request: NextRequest) {
             // 로그인을 안 했는데 로그인/회원가입으로 오면 그냥 통과
             return NextResponse.next();
         }
-        // 그외 전부 로그인 페이지로 이동
         return NextResponse.redirect(new URL('/user/sign-in', request.url));
     } else {
         // 로그인을 했는데 로그인/회원가입으로 오면 메인(promotion)으로 보내기

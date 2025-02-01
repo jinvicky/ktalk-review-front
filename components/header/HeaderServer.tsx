@@ -17,26 +17,9 @@ const HeaderServer = () => {
         { path: '/my-page', alias: '마이페이지' },
     ];
 
-    const renderMenuList = (list: { path: string, alias: string }[]) => {
-        return <ul className="flex gap-5">
-            {list.map((menu) => {
-                return <li key={`drawer-${menu.path}`}>
-                    <Link
-                        className="text-white font-bold "
-                        href={menu.path}
-                    >
-                        {menu.alias}
-                    </Link>
-                </li>
-            })}
-        </ul>
-    };
-    
     return (
         <div>
-            <Header authenticateMenuList={userSession
-                ? renderMenuList(menuListWithAuth)
-                : renderMenuList(menuListWithoutAuth)}
+            <Header authMenuList={userSession ? menuListWithAuth : menuListWithoutAuth}
             />
         </div>
     );

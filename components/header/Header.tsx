@@ -1,15 +1,42 @@
 "use client";
 import Link from "next/link";
-// import { redirect } from 'next/navigation'
 
 import { usePathname, useRouter } from "next/navigation";
 
 interface HeaderProps {
-  authenticateMenuList: JSX.Element;
+  authMenuList: { path: string, alias: string }[];
 }
-const Header = ({authenticateMenuList}: HeaderProps) => {
-  
+const Header = ({ authMenuList }: HeaderProps) => {
   const router = useRouter();
+  const pathname = usePathname();
+
+  const renderMenuList = (list: { path: string, alias: string }[]) => {
+    return <ul className="flex gap-5 [&>li]:cursor-pointer">
+      {list.map((menu) => {
+
+        if (menu.path === '/user/sign-out') {
+          return <li key={`drawer-${menu.path}`}>
+            <div
+              className="text-white font-bold "
+              onClick={() => {
+                onSignOut();
+              }}
+            >
+              {menu.alias}
+            </div>
+          </li>
+        }
+        return <li key={`drawer-${menu.path}`}>
+          <Link
+            className="text-white font-bold "
+            href={menu.path}
+          >
+            {menu.alias}
+          </Link>
+        </li>
+      })}
+    </ul>
+  };
 
   const onSignOut = async () => {
     const resp = await fetch('/next-api/sign-out', {
@@ -25,7 +52,12 @@ const Header = ({authenticateMenuList}: HeaderProps) => {
       alert("요청 도중 문제가 발생했습니다. 재시도 혹은 관리자에게 문의해 주세요");
     } else {
       alert("로그아웃에 성공했습니다.");
-      router.push("/promotion");
+
+      if (pathname === '/promotion') {
+        router.refresh();
+      } else {
+        router.push('/promotion');
+      }
     }
   }
 
@@ -35,9 +67,7 @@ const Header = ({authenticateMenuList}: HeaderProps) => {
         <Link href="/" className="text-white text-lg font-bold">
           Jinvicky Blog
         </Link>
-        {
-          authenticateMenuList
-        }
+        {renderMenuList(authMenuList)}
       </div>
     </nav>
   );
