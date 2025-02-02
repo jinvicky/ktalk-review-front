@@ -15,7 +15,7 @@ const HeaderServer = () => {
 
     const menuListWithAuth = [
         { path: '/user/sign-out', alias: '로그아웃' },
-        { path: '/my-page', alias: '마이페이지' },
+        { path: '/my-page/commission', alias: '마이페이지' },
     ];
 
     return (

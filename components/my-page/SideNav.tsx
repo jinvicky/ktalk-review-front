@@ -30,7 +30,7 @@ const SideNav = () => {
                     <li key={index} className="p-4">
                         <Link href={menu.link}
                             className={twMerge("text-lg font-semibold hover:text-blue-400 transition-colors duration-300"
-                                , pathname === menu.link ? "text-blue-400" : ""
+                                , pathname.startsWith(menu.link) ? "text-blue-400" : ""
                             )}
                         >
                             {menu.name}
