@@ -1,8 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import {usePathname} from "next/navigation";
+
+import { twMerge } from "tailwind-merge";
 
 const SideNav = () => {
+
+    const pathname = usePathname();
 
     const menuList = [
         {
@@ -13,10 +18,10 @@ const SideNav = () => {
             name: "커미션 신청 내역",
             link: "/my-page/commission"
         },
-        {
-            name: "굿즈 주문 내역",
-            link: "/my-page/goods"
-        },
+        // {
+        //     name: "굿즈 주문 내역",
+        //     link: "/my-page/goods"
+        // },
     ]
     return (
         <div className="text-black w-64 h-full ">
@@ -24,7 +29,9 @@ const SideNav = () => {
                 {menuList.map((menu, index) => (
                     <li key={index} className="p-4">
                         <Link href={menu.link}
-                            className="text-lg font-semibold hover:text-blue-400 transition-colors duration-300"
+                            className={twMerge("text-lg font-semibold hover:text-blue-400 transition-colors duration-300"
+                                , pathname === menu.link ? "text-blue-400" : ""
+                            )}
                         >
                             {menu.name}
                         </Link>
