@@ -4,13 +4,13 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
 interface HeaderProps {
-  authMenuList: { path: string, alias: string }[];
+  authMenuList: { path: string, alias: JSX.Element }[];
 }
 const Header = ({ authMenuList }: HeaderProps) => {
   const router = useRouter();
   const pathname = usePathname();
 
-  const renderMenuList = (list: { path: string, alias: string }[]) => {
+  const renderMenuList = (list: { path: string, alias: JSX.Element }[]) => {
     return <ul className="flex gap-5 [&>li]:cursor-pointer">
       {list.map((menu) => {
 
