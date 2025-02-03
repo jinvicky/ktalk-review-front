@@ -1,6 +1,7 @@
 import Header from "@/components/header/top/Header";
 import HeaderMenu from "@/components/header/HeaderMenu";
 import Footer from "@/components/footer/Footer";
+import ScrollToTopButton from "@/components/ScrollToTopButton";
 
 export default function NavAndFooter({
     children,
@@ -17,6 +18,7 @@ export default function NavAndFooter({
                 </div>
             </div>
             <Footer />
+            <ScrollToTopButton />
         </>
     );
 };
