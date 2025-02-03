@@ -1,7 +1,6 @@
 import { cookies } from "next/headers";
-import Link from "next/link";
 
-import Header from "./Header";
+import Header from "./HeaderClient";
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 
 const HeaderServer = () => {
@@ -11,7 +10,7 @@ const HeaderServer = () => {
     const menuListWithoutAuth = [
         { path: '/user/sign-in', alias: <>로그인</> },
         { path: '/user/sign-up', alias: <>회원가입</> },
-        { path: '/non-user/purchase/search', alias : <>비회원 구매 조회</>}
+        { path: '/non-user/purchase/search', alias : <>비회원 조회</>}
     ];
 
     const menuListWithAuth = [
@@ -22,8 +21,7 @@ const HeaderServer = () => {
 
     return (
         <div>
-            <Header authMenuList={userSession ? menuListWithAuth : menuListWithoutAuth}
-            />
+            <Header menuList={userSession ? menuListWithAuth : menuListWithoutAuth} />
         </div>
     );
 }
