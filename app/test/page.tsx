@@ -1,9 +1,8 @@
 "use client";
+import PaymentRequestForm from "@/components/payment/PaymentRequestForm";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 const Test = () => {
-
-
   return (
     <>
       <p>카카오뱅크 xxxx-xx-xxxx-xxx</p>
@@ -13,6 +12,8 @@ const Test = () => {
       >
         <button>계좌복사</button>
       </CopyToClipboard>
+
+      <PaymentRequestForm />
     </>
   );
 };

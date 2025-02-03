@@ -1,14 +1,19 @@
 "use client";
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
+
 import { UserSignUp } from '@/types/userType';
+
 import { UseForm, Validators } from '@/utils/validation/validationUtil';
 
 import { TextField, Button, Container, Typography, Box, Checkbox, FormControlLabel, Radio } from '@mui/material';
 
 const SignUpPage = () => {
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const referer = searchParams.get('referer'); 
+
     const [form, setForm] = useState<UserSignUp>({
         email: '',
         pwd: '',
@@ -68,13 +73,10 @@ const SignUpPage = () => {
         });
 
         const data = await resp.json() as NextApiResult;
-        console.log('resp:', data);
 
         if (data.status === "200") {
             alert("회원가입이 완료되었습니다.");
-
-            const referer = localStorage.getItem('referer') || "/promotion";
-            router.push(referer);
+            router.push(referer ? referer : "/")
         }
     };
     return (

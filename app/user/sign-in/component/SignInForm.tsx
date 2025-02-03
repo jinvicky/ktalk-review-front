@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useSearchParams, useRouter } from 'next/navigation';
 
 import { UserSignIn } from "@/types/userType";
 import { UseForm, Validators } from "@/utils/validation/validationUtil";
@@ -11,6 +11,9 @@ import GoToButton from "@/components/button/GoToButton";
 
 const SignInForm = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const referer = searchParams.get('referer'); 
+
   const [form, setForm] = useState<UserSignIn>({
     email: "",
     pwd: "",
@@ -55,7 +58,8 @@ const SignInForm = () => {
       );
     } else {
       alert("로그인에 성공했습니다.");
-      window.location.href = "/";
+
+      router.push(referer ? referer : "/")
     }
   };
 
@@ -103,7 +107,7 @@ const SignInForm = () => {
           로그인
         </Button>
         <GoToButton
-          href="/user/sign-up"
+          href={"/user/sign-up" + (referer && `?referer=${referer}`)}
           style="mt-4"
         >
           회원가입

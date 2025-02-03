@@ -14,7 +14,11 @@ export async function middleware(request: NextRequest) {
             // 로그인을 안 했는데 로그인/회원가입으로 오면 그냥 통과
             return NextResponse.next();
         }
-        return NextResponse.redirect(new URL('/user/sign-in', request.url));
+
+        const url = new URL('/user/sign-in', request.url);
+        url.search = "?referer=" + request.nextUrl.href;
+
+        return NextResponse.redirect(url);
     } else {
         // 로그인을 했는데 로그인/회원가입으로 오면 메인(promotion)으로 보내기
         if (currentPath === '/user/sign-in' || currentPath === '/user/sign-up') {
