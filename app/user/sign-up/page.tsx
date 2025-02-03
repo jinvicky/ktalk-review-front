@@ -8,11 +8,12 @@ import { UserSignUp } from '@/types/userType';
 import { UseForm, Validators } from '@/utils/validation/validationUtil';
 
 import { TextField, Button, Container, Typography, Box, Checkbox, FormControlLabel, Radio } from '@mui/material';
+import GoToButton from '@/components/button/GoToButton';
 
 const SignUpPage = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
-    const referer = searchParams.get('referer'); 
+    const referer = searchParams.get('referer');
 
     const [form, setForm] = useState<UserSignUp>({
         email: '',
@@ -185,12 +186,12 @@ const SignUpPage = () => {
                 >
                     회원가입
                 </Button>
-                <div
-                    className="mt-4 w-full text-center border border-blue-500 p-2 rounded cursor-pointer text-blue-500"
-                    onClick={() => router.push("/user/sign-in")}
+                <GoToButton
+                    style="mt-4"
+                    href={"/user/sign-in" + (referer && `?referer=${referer}`)}
                 >
                     로그인
-                </div>
+                </GoToButton>
             </Box>
         </Container >
     );
