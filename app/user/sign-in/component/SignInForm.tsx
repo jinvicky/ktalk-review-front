@@ -65,7 +65,7 @@ const SignInForm = () => {
         <Typography variant="h5" className="text-center mb-6 font-semibold">
           로그인
         </Typography>
-        <div className="mb-4">
+        <div className="mb-2">
           <TextField
             label="이메일"
             variant="outlined"
