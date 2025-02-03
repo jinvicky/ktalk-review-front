@@ -7,6 +7,7 @@ import { UserSignIn } from "@/types/userType";
 import { UseForm, Validators } from "@/utils/validation/validationUtil";
 
 import { TextField, Button, Container, Typography, Box } from "@mui/material";
+import GoToButton from "@/components/button/GoToButton";
 
 const SignInForm = () => {
   const router = useRouter();
@@ -64,51 +65,49 @@ const SignInForm = () => {
         <Typography variant="h5" className="text-center mb-6 font-semibold">
           로그인
         </Typography>
-        <form>
-          <div className="mb-4">
-            <TextField
-              label="이메일"
-              variant="outlined"
-              fullWidth
-              type="email"
-              className="mb-4"
-              value={form.email}
-              onChange={(e) => setForm({ ...form, email: e.target.value })}
-            />
-          </div>
-          <div className="mb-6">
-            <TextField
-              label="비밀번호"
-              variant="outlined"
-              fullWidth
-              type="password"
-              value={form.pwd}
-              onChange={(e) => setForm({ ...form, pwd: e.target.value })}
-            />
-          </div>
-          {/* <div className="flex justify-between mb-4">
+        <div className="mb-4">
+          <TextField
+            label="이메일"
+            variant="outlined"
+            fullWidth
+            type="email"
+            className="mb-4"
+            value={form.email}
+            onChange={(e) => setForm({ ...form, email: e.target.value })}
+          />
+        </div>
+        <div className="mb-6">
+          <TextField
+            label="비밀번호"
+            variant="outlined"
+            fullWidth
+            type="password"
+            value={form.pwd}
+            onChange={(e) => setForm({ ...form, pwd: e.target.value })}
+          />
+        </div>
+        {/* <div className="flex justify-between mb-4">
                         <div>비밀번호 찾기</div>
                         <div>
                             <input type="checkbox" name="staySignIn" id="staySignIn" />
                             <label htmlFor="staySignIn">7일동안 로그인 유지</label>
                         </div>
                     </div> */}
-          <Button
-            variant="contained"
-            color="primary"
-            fullWidth
-            className="mt-4"
-            onClick={onSubmit}
-          >
-            로그인
-          </Button>
-          <div
-            className="mt-4 w-full text-center border border-blue-500 p-2 rounded cursor-pointer text-blue-500"
-            onClick={() => router.push("/user/sign-up")}
-          >
-            회원가입
-          </div>
-        </form>
+        <Button
+          variant="contained"
+          color="primary"
+          fullWidth
+          className="mt-4"
+          onClick={onSubmit}
+        >
+          로그인
+        </Button>
+        <GoToButton
+          href="/user/sign-up"
+          style="mt-4"
+        >
+          회원가입
+        </GoToButton>
       </Box>
     </Container>
   );
