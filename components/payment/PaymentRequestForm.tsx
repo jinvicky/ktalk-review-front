@@ -5,10 +5,15 @@ import CopyToClipboard from "react-copy-to-clipboard";
 
 import { TextField, Link } from "@mui/material";
 import { generateUniqueIdByPrfix } from "@/utils/uniqueId.util";
+import { CommissionPaymentRequest } from "@/types/paymentType";
 
 declare const PayApp: PayApp;
 
-const PaymentRequestForm = () => {
+interface PaymentRequestFormProps {
+    data: CommissionPaymentRequest;
+}
+
+const PaymentRequestForm = ({data}: PaymentRequestFormProps) => {
     const [copied, setCopied] = useState(false);
 
     useEffect(() => {
@@ -49,9 +54,15 @@ const PaymentRequestForm = () => {
         <div className="p-8 max-w-3xl mx-auto bg-white">
             <h1 className="text-3xl font-bold text-center mb-6">결제 요청서</h1>
             <div className="mb-6 text-gray-700">
+                <h2 className="text-2xl font-semibold mb-2">커미션이름</h2>
+                <div className="text-lg">
+                    {data.applyTitle}
+                </div>
+            </div>
+            <div className="mb-6 text-gray-700">
                 <h2 className="text-2xl font-semibold mb-2">협의사항</h2>
                 <div className="text-lg">
-                    스케치 1주일, 최종 완성까지 2주 소요됩니다.
+                    {data.discussion}
                 </div>
             </div>
             <div className="border-b border-gray-300" />

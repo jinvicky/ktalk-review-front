@@ -18,3 +18,13 @@ export interface PaymentInfo {
     state: PaymentState;
     userName: string;
 }
+
+export interface CommissionPaymentRequest {
+    id: string;
+    applyId: string;
+    applyTitle: string;
+    price: string;
+    discussion: string;
+    payYn: string;
+    rgtrDtFomatted: string;
+}
