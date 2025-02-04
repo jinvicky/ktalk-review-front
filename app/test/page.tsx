@@ -1,17 +1,14 @@
 "use client";
 import PaymentRequestForm from "@/components/payment/PaymentRequestForm";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { useRouter } from "next/navigation";
 
 const Test = () => {
+  const referer = "http://localhost:3000/promotion"
+
   return (
     <>
-      <p>카카오뱅크 xxxx-xx-xxxx-xxx</p>
-      <CopyToClipboard
-        text="카카오뱅크 xxxx-xx-xxxx-xxx"
-        onCopy={() => alert("계좌번호가 복사되었습니다.")}
-      >
-        <button>계좌복사</button>
-      </CopyToClipboard>
+      
 
       <PaymentRequestForm />
     </>
