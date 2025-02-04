@@ -12,7 +12,7 @@ const HeaderMenu = () => {
         { name: "홍보", path: "/promotion" },
         { name: "커미션", path: "/commission" },
     ];
-    const matchedCss = (path: string) => currentPath === path ? "font-bold text-blue-700 border-b-[2px] border-blue-800" : "text-black";
+    const matchedCss = (path: string) => currentPath.startsWith(path) ? "font-bold text-blue-700 border-b-[2px] border-blue-800" : "text-black";
 
     return (
         <nav className="sticky top-0 backdrop-blur bg-white border-r border-gray-300 z-10">

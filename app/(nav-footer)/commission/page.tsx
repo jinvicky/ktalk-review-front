@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { Container } from "@mui/material";
-import CommissionReviewList from "./components/CommissionReviewList";
+import CommissionReviewList from "../../../components/commission/CommissionReviewList";
 
 const CommissionPage = () => {
     return (

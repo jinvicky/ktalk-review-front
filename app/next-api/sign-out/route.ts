@@ -1,5 +1,5 @@
 import { signOut } from "@/api/userAuth";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 import { cookies } from "next/headers";
 

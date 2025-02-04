@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useState } from "react";
 
 import { useRouter } from "next/navigation";
 
-import { PaymentInfo, PaymentState } from "@/types/payment.type";
+import { PaymentInfo, PaymentState } from "@/types/paymentType";
 
 import { addCommaKRW, addPayappFee } from "@/utils/number.util";
 import { generateUniqueIdByPrfix } from "@/utils/uniqueId.util";

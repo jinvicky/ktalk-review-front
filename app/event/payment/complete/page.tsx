@@ -3,10 +3,10 @@
 import React, { useEffect, useState } from 'react';
 import { SvgIcon } from '@mui/material';
 import { useSearchParams } from "next/navigation";
-import { PaymentState } from '@/types/payment.type';
+import { PaymentState } from '@/types/paymentType';
 import ErrorIcon from '@mui/icons-material/Error';
-import NavBar from '@/components/navbar/Navbar';
-import Footer from '@/components/Footer';
+// import NavBar from '@/components/navbar/Navbar';
+// import Footer from '@/components/Footer';
 
 /** 이벤트상품 결제완료 페이지 */
 const EventPaymentCompletePage = () => {
@@ -30,7 +30,7 @@ const EventPaymentCompletePage = () => {
 
     return (
         <>
-            {!isPaid && <NavBar />}
+            {/* {!isPaid && <NavBar />} */}
             <div className="flex flex-col items-center justify-center h-screen p-3 bg-white">
                 {/* 결제완료 */}
                 {state === PaymentState.Complete && <>
@@ -70,7 +70,7 @@ const EventPaymentCompletePage = () => {
                     </p>
                 </>}
             </div>
-            {!isPaid && <Footer />}
+            {/* {!isPaid && <Footer />} */}
         </>
     );
 };
