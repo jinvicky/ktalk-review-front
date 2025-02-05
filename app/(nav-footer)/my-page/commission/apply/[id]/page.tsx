@@ -16,7 +16,7 @@ const MyCommissionByIdPage = () => {
                 "Content-Type": "application/json",
             },
         }).then(async (resp) => {
-            const data = await resp.json() as ApiResult<any>; // any를 커미션 정보 인터페이스로 변경
+            const data = await resp.json(); // any를 커미션 정보 인터페이스로 변경
             console.log('resp:', data);
 
             if (data.status === "200") {

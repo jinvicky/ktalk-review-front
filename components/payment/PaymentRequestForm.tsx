@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import CopyToClipboard from "react-copy-to-clipboard";
 
 import { TextField, Link } from "@mui/material";
-import { generateUniqueIdByPrfix } from "@/utils/uniqueId.util";
+// import { generateUniqueIdByPrfix } from "@/utils/uniqueId.util";
 import { CommissionPaymentRequest } from "@/types/paymentType";
 
-declare const PayApp: PayApp;
+// declare const PayApp: PayApp;
 
 interface PaymentRequestFormProps {
     data: CommissionPaymentRequest;
@@ -24,31 +24,31 @@ const PaymentRequestForm = ({data}: PaymentRequestFormProps) => {
     }, []);
     const requestPrice = 10000;
 
-    const onSubmitPayment = () => {
-        const ordId = generateUniqueIdByPrfix("ORD");
+    // const onSubmitPayment = () => {
+    //     const ordId = generateUniqueIdByPrfix("ORD");
 
-        PayApp.setDefault("userid", "payapptest"); // 테스트 후에 jinvicky로 수정 예정
-        PayApp.setDefault("shopname", "jinvickyCommission");
+    //     PayApp.setDefault("userid", "payapptest"); // 테스트 후에 jinvicky로 수정 예정
+    //     PayApp.setDefault("shopname", "jinvickyCommission");
 
-        PayApp.setParam("goodname", "commission"); // 1개일때는 선택한 상품명, 2개 이상일 때는 맨 처음 상품명 왜 n개로 표시
-        PayApp.setParam("price", requestPrice.toString());
-        // PayApp.setParam("recvphone", phone);
-        PayApp.setParam("smsuse", "n");
-        PayApp.setParam("redirectpay", "1");
-        PayApp.setParam("skip_cstpage", "y");
-        PayApp.setParam("var1", ordId); // 중복방지를 위해서 주문번호를 var1로 전달
-        PayApp.setParam(
-            "feedbackurl",
-            "https://ktalk-review-image-latest.onrender.com/api/event-sale/payapp-feedback"
-        );
+    //     PayApp.setParam("goodname", "commission"); // 1개일때는 선택한 상품명, 2개 이상일 때는 맨 처음 상품명 왜 n개로 표시
+    //     PayApp.setParam("price", requestPrice.toString());
+    //     // PayApp.setParam("recvphone", phone);
+    //     PayApp.setParam("smsuse", "n");
+    //     PayApp.setParam("redirectpay", "1");
+    //     PayApp.setParam("skip_cstpage", "y");
+    //     PayApp.setParam("var1", ordId); // 중복방지를 위해서 주문번호를 var1로 전달
+    //     PayApp.setParam(
+    //         "feedbackurl",
+    //         "https://ktalk-review-image-latest.onrender.com/api/event-sale/payapp-feedback"
+    //     );
 
-        /**
-         * 이건 창을 self로 여는 기준으로 만든 코드라서 수정 필요함. returnurl은 백단 개발완료 -> /event/payment/complete으로 이동함
-         */
-        PayApp.setParam("skip_cstpage", "n"); // n이어야 returnurl 에러 안남
-        PayApp.setParam("returnurl", "https://ktalk-review-image-latest.onrender.com/api/event-sale/payapp-redirect");
-        PayApp.call();
-    };
+    //     /**
+    //      * 이건 창을 self로 여는 기준으로 만든 코드라서 수정 필요함. returnurl은 백단 개발완료 -> /event/payment/complete으로 이동함
+    //      */
+    //     PayApp.setParam("skip_cstpage", "n"); // n이어야 returnurl 에러 안남
+    //     PayApp.setParam("returnurl", "https://ktalk-review-image-latest.onrender.com/api/event-sale/payapp-redirect");
+    //     PayApp.call();
+    // };
 
     return (
         <div className="p-8 max-w-3xl mx-auto bg-white">

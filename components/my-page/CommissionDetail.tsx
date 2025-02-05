@@ -27,7 +27,7 @@ const CommissionDetail = ({ data }: CommissionDetailProps) => {
                         <div>이미지 클릭 시 다운로드됩니다.</div>
                         {data.applyFileList && data.applyFileList.length > 0 ? (
                             <ul>
-                                {data.applyFileList.map((file: any, index: number) => (
+                                {data.applyFileList.map((file: ApplyFile, index: number) => (
                                     <li key={index}>
                                         <Image
                                             src={file.fileUrl}
@@ -75,7 +75,7 @@ const CommissionDetail = ({ data }: CommissionDetailProps) => {
                         <h3 className="text-xl font-semibold">신청 이미지</h3>
                         {data.applyFileList && data.applyFileList.length > 0 ? (
                             <ul>
-                                {data.applyFileList.map((file: any, index: number) => (
+                                {data.applyFileList.map((file: ApplyFile, index: number) => (
                                     <li key={index}>
                                         <a href={file.fileUrl} >
                                             <Image
