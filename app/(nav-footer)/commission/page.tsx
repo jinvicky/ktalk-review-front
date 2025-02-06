@@ -3,14 +3,14 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { Container } from "@mui/material";
-import CommissionReviewList from "../../../components/commission/CommissionReviewList";
+// import CommissionReviewList from "../../../components/commission/CommissionReviewList";
 
 const CommissionPage = () => {
     return (
         <>
             <Container maxWidth="md" className="my-12">
                 <div className="flex">
-                    <Image src="/assets/image/acnh_couple2.png" alt="commission" width={500} height={400} />
+                    <Image src={"/assets/image/acnh_couple.jpeg"} alt="commission" width={500} height={400} />
                     <div className="w-1/2">
                         <h1 className="font-bold text-2xl p-3">걍진 커미션</h1>
                         <div>
@@ -28,10 +28,9 @@ const CommissionPage = () => {
                 </div>
                 <div className="flex flex-col">
                     <Image src="/assets/image/commission_info1.png" alt="commission" width={700} height={400} />
-                    <Image src="/assets/image/commission_info2.png" alt="commission" width={700} height={400} />
+                    <Image src="/assets/image/commission_info2.png" alt="commission2" width={700} height={400} />
                 </div>
-
-                <CommissionReviewList />
+                {/* <CommissionReviewList /> */}
             </Container>
         </>
     );

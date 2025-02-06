@@ -24,3 +24,18 @@ interface CommissionApply {
     rgtrDt: string;
     applyFileList: ApplyFile[];
 }
+
+interface CommissionApplyRegForm {
+    id?: string;
+    userName: string;
+    userEmail: string;
+    nicknameYn: string;  
+    nickname?: string;    
+    sendEmailYn: string; 
+    sendEmail?: string;  
+    content: string;
+    files?: File[];   
+    status?: string;      
+    memberYn?: string;
+  }
+  

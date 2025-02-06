@@ -1,30 +1,59 @@
 "use client";
 import { ChangeEvent, useState } from "react";
 
+import { v4 } from "uuid";
+
 import { TextField, Typography, Box, FormControlLabel, Radio, RadioGroup, FormLabel, Tooltip, } from "@mui/material";
 import ClearIcon from '@mui/icons-material/Clear';
 import HelpIcon from '@mui/icons-material/Help';
 
 import { UserSessonObj } from "@/types/userType";
+import { insertCommissionApply } from "@/api/commissionApplyApi";
 
 interface CommissionApplyFormProps {
     userInfo: UserSessonObj;
 }
 
 const CommissionApplyForm = ({ userInfo }: CommissionApplyFormProps) => {
+    const uuid = v4();
     const [form, setForm] = useState({
-        username: userInfo.nickname,
-        email: userInfo.email,
+        userName: userInfo.nickname,
+        userEmail: userInfo.email,
         nicknameYn: "N",
         nickname: "",
         sendEmailYn: "N",
         sendEmail: "",
         content: "",
         files: [] as File[],
+        status: "신청완료", 
+        memberYn: userInfo ? "Y" : "N",
     });
 
     const onSubmit = async () => {
-        console.log(form);
+        const formData = new FormData();
+
+        formData.append("id", uuid);
+        formData.append("userName", form.userName);
+        formData.append("userEmail", form.userEmail);
+        formData.append("nicknameYn", form.nicknameYn);
+        formData.append("nickname", form.nickname);
+        formData.append("sendEmailYn", form.sendEmailYn);
+        formData.append("sendEmail", form.sendEmail);
+        formData.append("content", form.content);
+        formData.append("status", form.status);
+        formData.append("memberYn", form.memberYn);
+
+        form.files.forEach((file) => {
+            formData.append("files", file);
+        });
+
+        const data = await insertCommissionApply(formData);
+
+        if(data.status === "200") {
+            alert("신청이 완료되었습니다.");
+        } else {
+            alert(data.data.message ? data.data.message : "요청 도중 오류가 발생했습니다. 재시도해주세요");
+        }
     }
 
     const handleFileChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -49,8 +78,8 @@ const CommissionApplyForm = ({ userInfo }: CommissionApplyFormProps) => {
                     variant="outlined"
                     fullWidth
                     className="mb-4"
-                    value={form.username}
-                    onChange={(e) => setForm({ ...form, username: e.target.value })}
+                    value={form.userName}
+                    onChange={(e) => setForm({ ...form, userName: e.target.value })}
                 />
             </div>
             <div className="mb-4">
@@ -60,9 +89,9 @@ const CommissionApplyForm = ({ userInfo }: CommissionApplyFormProps) => {
                     fullWidth
                     type="email"
                     className="mb-4"
-                    value={form.email}
+                    value={form.userEmail}
                     disabled={userInfo.email ? true : false}
-                    onChange={(e) => setForm({ ...form, email: e.target.value })}
+                    onChange={(e) => setForm({ ...form, userEmail: e.target.value })}
                 />
             </div>
             <FormLabel>
