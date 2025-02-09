@@ -41,9 +41,7 @@ const CustomModal = ({
         aria-describedby="modal-description"
       >
         <Box sx={style} className="outline-none">
-          <Typography id="modal-description" sx={{ mt: 2 }}>
-            {children}
-          </Typography>
+          {children}
           {!hideButton && (
             <Button
               onClick={setOpen}

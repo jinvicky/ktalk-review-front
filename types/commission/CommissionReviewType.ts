@@ -7,3 +7,8 @@ export interface CommissionReview {
     content: string;
     rgtrDt: string;
 }
+
+export interface CommissionReviewReg {
+    applyId: string;
+    content: string;
+}
