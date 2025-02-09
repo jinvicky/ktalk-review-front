@@ -21,9 +21,9 @@ export default function RootLayout({
 
   return (
     <TranslationProviders>
-      <html lang="en">
-        <body>
-          <div>
+      <html lang="ko">
+        <body >
+          <div id="__next">
             <ReactQueryProviders>
               <AlertProvider>
                 <SubLayout>{children}</SubLayout>

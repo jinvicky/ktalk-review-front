@@ -1,11 +1,8 @@
 "use client";
 
 import { useTranslation } from "react-i18next";
-
 import { useRouter } from 'next/navigation';
-
 import PromotionCard from "@/components/promotion/PromotionCard";
-
 import "@/styles/promotion/promotionPage.scss";
 
 const PromotionPage = () => {
