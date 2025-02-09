@@ -1,6 +1,5 @@
 "use client";
 import { useTranslation } from "react-i18next";
-
 import EventProductList from "@/components/event/EventProductList";
 
 const ProductPage = () => {
