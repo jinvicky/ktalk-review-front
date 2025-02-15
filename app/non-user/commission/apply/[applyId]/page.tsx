@@ -49,7 +49,7 @@ const NonUserCommissionApplyDetailPage: React.FC<{ params: { applyId: string } }
             </div>
         </div>
         <div>
-            <div className="flex items-center py-5">
+            <div className="flex items-center py-5" id="apply-section">
                 <h1 className="text-2xl font-bold">신청서 내역</h1>
                 <button>
                     <KeyboardArrowDownIcon style={{ fontSize: 50 }} />
@@ -94,7 +94,7 @@ const NonUserCommissionApplyDetailPage: React.FC<{ params: { applyId: string } }
             </div>
         </div>
         <div>
-            <div className="flex items-center py-5">
+            <div className="flex items-center py-5" id="pay-request-section">
                 <h1 className="text-2xl font-bold">결제요청서 내역</h1>
                 <button>
                     <KeyboardArrowDownIcon style={{ fontSize: 50 }} />
@@ -107,9 +107,9 @@ const NonUserCommissionApplyDetailPage: React.FC<{ params: { applyId: string } }
                     <div>
                         협의사항: {payRequestVO.discussion}
                     </div>
-                    <div>
-                        결제여부: {payRequestVO.payYn === "Y" ? "결제완료" : "미결제"}
-                    </div>
+                    {/* <div>
+                        결제여부: {payRequestVO.payState === "4" ? "결제완료" : "미결제"}
+                    </div> */}
                     <div>
                         결제요청날짜: {payRequestVO.rgtrDtFomatted}
                     </div>
