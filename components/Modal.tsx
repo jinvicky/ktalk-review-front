@@ -3,7 +3,7 @@
 import React, { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 
-import { Button, Modal, Box, Typography } from "@mui/material";
+import { Button, Modal, Box } from "@mui/material";
 
 const style = {
   position: "absolute",

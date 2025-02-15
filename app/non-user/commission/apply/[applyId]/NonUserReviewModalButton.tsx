@@ -34,11 +34,12 @@ const NonUserReviewModalButton = ({ applyId }: NonUserReviewModalButtonProps) =>
             return;
         }
         const resp = await insertCommissionReview({ applyId: applyId, content: reviewContent }) as ApiResult<number>;
-        console.log(resp);
 
         if (resp.status === "200") {
             alert("리뷰가 등록되었습니다.");
             setModalOpen(false);
+
+            window.location.reload();
         }
     }
 
