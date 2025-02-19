@@ -9,12 +9,9 @@ import HelpIcon from '@mui/icons-material/Help';
 
 import { UserSessonObj } from "@/types/userType";
 import { insertCommissionApply } from "@/api/commissionApplyApi";
+import InputText from "@/components/Input";
 
-interface CommissionApplyFormProps {
-    userInfo: UserSessonObj | null;
-}
-
-const CommissionApplyForm = ({ userInfo }: CommissionApplyFormProps) => {
+const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
     const uuid = v4();
     const [form, setForm] = useState({
         userName: userInfo ? userInfo.nickname : "",
@@ -25,14 +22,15 @@ const CommissionApplyForm = ({ userInfo }: CommissionApplyFormProps) => {
         sendEmail: "",
         content: "",
         files: [] as File[],
-        status: "신청완료", 
-        memberYn: userInfo ? "Y" : "N",
     });
 
     const onSubmit = async () => {
         const formData = new FormData();
 
         formData.append("id", uuid);
+        formData.append("status", "REQUEST");
+        formData.append("memberYn", userInfo ? "Y" : "N");
+
         formData.append("userName", form.userName);
         formData.append("userEmail", form.userEmail);
         formData.append("nicknameYn", form.nicknameYn);
@@ -40,19 +38,16 @@ const CommissionApplyForm = ({ userInfo }: CommissionApplyFormProps) => {
         formData.append("sendEmailYn", form.sendEmailYn);
         formData.append("sendEmail", form.sendEmail);
         formData.append("content", form.content);
-        formData.append("status", form.status);
-        formData.append("memberYn", form.memberYn);
-
         form.files.forEach((file) => {
             formData.append("files", file);
         });
 
-        const data = await insertCommissionApply(formData);
+        const respJson = await insertCommissionApply(formData);
 
-        if(data.status === "200") {
+        if (respJson.status === "200") {
             alert("신청이 완료되었습니다.");
         } else {
-            alert(data.data.message ? data.data.message : "요청 도중 오류가 발생했습니다. 재시도해주세요");
+            alert(respJson.data.message ? respJson.data.message : "요청 도중 오류가 발생했습니다. 재시도해주세요");
         }
     }
 
@@ -73,13 +68,10 @@ const CommissionApplyForm = ({ userInfo }: CommissionApplyFormProps) => {
                 커미션 신청 폼
             </Typography>
             <div className="mb-4">
-                <TextField
+                <InputText
                     label="신청자명"
-                    variant="outlined"
-                    fullWidth
-                    className="mb-4"
                     value={form.userName}
-                    onChange={(e) => setForm({ ...form, userName: e.target.value })}
+                    onChange={(value) => setForm({ ...form, userName: value })}
                 />
             </div>
             <div className="mb-4">
@@ -226,4 +218,4 @@ const CommissionApplyForm = ({ userInfo }: CommissionApplyFormProps) => {
     </>;
 }
 
-export default CommissionApplyForm;
+export default ApplyForm;

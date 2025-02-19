@@ -2,7 +2,7 @@ import { Box, Container } from "@mui/material";
 
 import { selectSessionByCookie } from "@/api/userApi";
 
-import CommissionApplyForm from "@/components/commission/apply/CommissionApplyForm";
+import ApplyForm from "@/app/(nav-footer)/commission/apply/components/ApplyForm";
 import NonUserInfoHeader from "./components/NonUserInfoHeader";
 
 const CommissionApplyPage = async () => {
@@ -13,7 +13,7 @@ const CommissionApplyPage = async () => {
         <div>
             <Container maxWidth="md" className="my-12">
                 {!userSession && <NonUserInfoHeader />}
-                <CommissionApplyForm userInfo={userSession} />
+                <ApplyForm userInfo={userSession} />
             </Container>
         </div>
     )
