@@ -59,7 +59,7 @@ const NonUserCommissionApplyDetailPage: React.FC<{ params: { applyId: string } }
                 </button>
             </div>
             <div className="[&>div]:font-bold [&>div]:text-gray-500 [&>div]:py-3">
-                {applyVO ? <>
+                {applyVO && <>
                     <div>
                         신청자명: {applyVO.userName}
                     </div>
@@ -82,17 +82,21 @@ const NonUserCommissionApplyDetailPage: React.FC<{ params: { applyId: string } }
                             }
                         </div>
                     </div>
-
-                    <div>
-                        협의사항: {payRequestVO.discussion}
-                    </div>
-                    <div>
-                        결제여부: {payRequestVO.payYn === "Y" ? "결제완료" : "미결제"}
-                    </div>
-                    <div>
-                        결제요청날짜: {payRequestVO.rgtrDtFomatted}
-                    </div>
-                </> : <div className="py-5">결제 요청서가 없습니다.</div>
+                </>
+                }
+                {payRequestVO ?
+                    <>
+                        <div>
+                            협의사항: {payRequestVO.discussion}
+                        </div>
+                        <div>
+                            결제여부: {payRequestVO.payYn === "Y" ? "결제완료" : "미결제"}
+                        </div>
+                        <div>
+                            결제요청날짜: {payRequestVO.rgtrDtFomatted}
+                        </div>
+                    </>
+                    : <div className="py-5">결제 요청서가 없습니다.</div>
                 }
             </div>
         </div>

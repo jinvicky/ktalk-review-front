@@ -1,4 +1,4 @@
-import { signOut } from "@/api/userAuth";
+import { signOut } from "@/api/userApi";
 import { NextResponse } from "next/server";
 
 import { cookies } from "next/headers";

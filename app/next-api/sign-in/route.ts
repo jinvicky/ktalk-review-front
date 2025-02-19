@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { signIn } from "@/api/userAuth";
+import { signIn } from "@/api/userApi";
 
 export async function POST(request: NextRequest) {
     const form = await request.json();

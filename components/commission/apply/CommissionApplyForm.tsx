@@ -11,14 +11,14 @@ import { UserSessonObj } from "@/types/userType";
 import { insertCommissionApply } from "@/api/commissionApplyApi";
 
 interface CommissionApplyFormProps {
-    userInfo: UserSessonObj;
+    userInfo: UserSessonObj | null;
 }
 
 const CommissionApplyForm = ({ userInfo }: CommissionApplyFormProps) => {
     const uuid = v4();
     const [form, setForm] = useState({
-        userName: userInfo.nickname,
-        userEmail: userInfo.email,
+        userName: userInfo ? userInfo.nickname : "",
+        userEmail: userInfo ? userInfo.email : "",
         nicknameYn: "N",
         nickname: "",
         sendEmailYn: "N",
@@ -90,7 +90,7 @@ const CommissionApplyForm = ({ userInfo }: CommissionApplyFormProps) => {
                     type="email"
                     className="mb-4"
                     value={form.userEmail}
-                    disabled={userInfo.email ? true : false}
+                    disabled={(userInfo && userInfo.email) ? true : false}
                     onChange={(e) => setForm({ ...form, userEmail: e.target.value })}
                 />
             </div>

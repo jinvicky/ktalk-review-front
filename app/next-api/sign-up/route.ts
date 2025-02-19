@@ -1,4 +1,4 @@
-import { signUp } from "@/api/userAuth";
+import { signUp } from "@/api/userApi";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {

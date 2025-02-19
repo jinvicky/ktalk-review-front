@@ -1,4 +1,5 @@
-import { UserSignIn, UserSignUp } from "@/types/userType";
+import { UserSessonObj, UserSignIn, UserSignUp } from "@/types/userType";
+import { cookies } from "next/headers";
 
 export const signIn = async (form: UserSignIn) => {
     const resp = await fetch(process.env.NEXT_DOMAIN_URL + "/api/user/sign/in", {
@@ -28,10 +29,29 @@ export const signOut = async (userSession: string) => {
     const resp = await fetch(process.env.NEXT_DOMAIN_URL + "/api/user/sign/out", {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json', 
+            'Content-Type': 'application/json',
             'userSession': userSession
         }
     });
 
     return await resp.json();
+}
+
+export const selectSessionByCookie = async () => {
+    const cookieStore = cookies();
+    const userSession = cookieStore.get('userSession')?.value;
+
+    if (userSession) {
+        const resp = await fetch(process.env.NEXT_DOMAIN_URL + "/api/user/get-session", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "userSession": userSession,
+            },
+        });
+        const data = await resp.json() as ApiResult<UserSessonObj>;
+        if (data.status === "200") {
+            return data.data;
+        }
+    } else return null;
 }
