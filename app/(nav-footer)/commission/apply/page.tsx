@@ -6,13 +6,14 @@ import CommissionApplyForm from "@/components/commission/apply/CommissionApplyFo
 import NonUserInfoHeader from "./components/NonUserInfoHeader";
 
 const CommissionApplyPage = async () => {
-    const userSession = await selectSessionByCookie();
+    const respJson = await selectSessionByCookie();
+    const userSession = respJson ? respJson.data : null;
 
     return (
         <div>
             <Container maxWidth="md" className="my-12">
                 {!userSession && <NonUserInfoHeader />}
-                <CommissionApplyForm userInfo={userSession ?? null} />
+                <CommissionApplyForm userInfo={userSession} />
             </Container>
         </div>
     )

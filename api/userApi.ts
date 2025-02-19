@@ -49,9 +49,6 @@ export const selectSessionByCookie = async () => {
                 "userSession": userSession,
             },
         });
-        const data = await resp.json() as ApiResult<UserSessonObj>;
-        if (data.status === "200") {
-            return data.data;
-        }
+        return await resp.json() as ApiResult<UserSessonObj>;
     } else return null;
 }
