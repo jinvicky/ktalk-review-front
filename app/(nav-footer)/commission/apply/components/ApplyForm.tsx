@@ -75,15 +75,12 @@ const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
                 />
             </div>
             <div className="mb-4">
-                <TextField
+                <InputText
                     label="이메일 주소"
-                    variant="outlined"
-                    fullWidth
                     type="email"
-                    className="mb-4"
                     value={form.userEmail}
+                    onChange={(value) => setForm({ ...form, userEmail: value })}
                     disabled={(userInfo && userInfo.email) ? true : false}
-                    onChange={(e) => setForm({ ...form, userEmail: e.target.value })}
                 />
             </div>
             <FormLabel>
