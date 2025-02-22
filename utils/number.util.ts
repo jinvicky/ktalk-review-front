@@ -24,3 +24,11 @@ export const addPayappFee = (price: number): number => {
   const feeRounded = Math.ceil(fee / 100) * 100;
   return price + feeRounded;
 }
+
+export const byteToMb = (byteSize: number): number => { 
+  return byteSize / (1024 * 1024); 
+}
+
+export const mbToByte = (mbSize: number): number => {
+  return mbSize * 1024 * 1024;
+}

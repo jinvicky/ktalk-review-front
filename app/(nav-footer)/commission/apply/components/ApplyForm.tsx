@@ -1,15 +1,18 @@
 "use client";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 
 import { v4 } from "uuid";
+
+import { insertCommissionApply } from "@/api/commissionApplyApi";
+
+import { UserSessonObj } from "@/types/userType";
+
+import { UseForm, Validators } from "@/utils/validation/validationUtil";
 
 import { TextField, Typography, Box, FormControlLabel, Radio, RadioGroup, FormLabel, Tooltip, } from "@mui/material";
 import ClearIcon from '@mui/icons-material/Clear';
 import HelpIcon from '@mui/icons-material/Help';
-
-import { UserSessonObj } from "@/types/userType";
-import { insertCommissionApply } from "@/api/commissionApplyApi";
-import InputText from "@/components/Input";
+import { byteToMb } from "@/utils/number.util";
 
 const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
     const uuid = v4();
@@ -24,7 +27,41 @@ const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
         files: [] as File[],
     });
 
+    const validationForm = {
+        userName: {
+            value: form.userName,
+            validConditions: [Validators.notBlank(), Validators.minLength(2)],
+            message: "신청자명을 .제외 2자 이상 입력해 주세요",
+            failure: false,
+        },
+        userEmail: {
+            value: form.userEmail,
+            validConditions: [Validators.notBlank(), Validators.minLength(5)],
+            message: "이메일을 입력해 주세요",
+            failure: false,
+        },
+        nickname: {
+            value: form.nicknameYn === "N" || (form.nicknameYn === "Y" && !(form.nickname === "" || form.nickname.length < 1)),
+            validConditions: [Validators.assertTrue()],
+            message: "기재할 닉네임을 입력해 주세요",
+            failure: false,
+        },
+        fileList: {
+            value: form.files.reduce((acc, file) => acc + file.size, 0) <= byteToMb(50),
+            validConditions: [Validators.assertTrue()],
+            message: "파일 용량이 50MB를 초과할 수 없습니다.",
+            failure: false,
+        }
+    };
+
     const onSubmit = async () => {
+        const { isValid, message } = UseForm(validationForm);
+
+        if (!isValid) {
+            alert(message);
+            return;
+        }
+
         const formData = new FormData();
 
         formData.append("id", uuid);
@@ -68,29 +105,29 @@ const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
                 커미션 신청 폼
             </Typography>
             <div className="mb-4">
-                <InputText
+                <TextField
                     label="신청자명"
+                    type="text"
                     value={form.userName}
-                    onChange={(value) => setForm({ ...form, userName: value })}
+                    onChange={(e) => setForm({ ...form, userName: e.target.value })}
+                    fullWidth
+                    variant="outlined"
                 />
             </div>
             <div className="mb-4">
-                <InputText
+                <TextField
                     label="이메일 주소"
                     type="email"
                     value={form.userEmail}
-                    onChange={(value) => setForm({ ...form, userEmail: value })}
+                    onChange={(e) => setForm({ ...form, userEmail: e.target.value })}
                     disabled={(userInfo && userInfo.email) ? true : false}
+                    fullWidth
+                    variant="outlined"
                 />
             </div>
             <FormLabel>
                 <div className="flex items-center gap-2">
-                    닉네임 기재
-                    <Tooltip title={<h1 style={{ color: "white", fontSize: "20px" }}>
-                        메이플 캐릭터나 자캐 닉네임을 의미합니다.
-                    </h1>}>
-                        <HelpIcon />
-                    </Tooltip>
+                    닉네임 기재 여부
                 </div>
             </FormLabel>
             <RadioGroup
@@ -141,38 +178,30 @@ const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
                     onChange={(e) => setForm({ ...form, sendEmail: e.target.value })}
                 />
             }
-
             <FormLabel id="">
-                <div className="mb-5 flex items-center gap-2">
-                    타입별로 추가 정보가 필요할 수 있습니다.
-                    <Tooltip title={<h1 style={{ color: "white", fontSize: "20px" }}>
-                        <ul>
-                            <li>
-                                동숲 공지표는 텍스트 본문이 필요합니다.
-                            </li>
-                            <li>
-                                배경 신청시 예상 금액이 필요합니다.
-                            </li>
-                        </ul>
-                    </h1>}>
-                        <HelpIcon />
-                    </Tooltip>
+                <div className="my-5 flex items-center gap-2">
+                    신청 내용
                 </div>
             </FormLabel>
             <div className="mb-6">
                 <TextField
-                    label="신청 내용"
                     variant="outlined"
                     fullWidth
                     type="text"
                     value={form.content}
                     multiline
                     rows={5}
-                    placeholder="신청 내용을 입력해주세요."
+                    placeholder={"신청 내용은 구체적일 수록 좋아요.\n공지표, 배경 추가의 경우 공지표에 들어갈 문구나 배경 금액도 함께 적어주세요"}
                     onChange={(e) => setForm({ ...form, content: e.target.value })}
                 />
             </div>
             <div className="mb-4">
+                <div className="py-2 font-bold text-gray-500 [&>p]:pt-3">
+                    파일 업로드 시 주의사항
+
+                    <p>* 업로드 최대 용량은 <span className="text-rose-500 font-bold">50MB</span>입니다. 이미지가 10장이 넘어가는 단체의 경우 <span className="text-rose-500 font-bold">pdf나 excel</span>을 추천드립니다.</p>
+                    <p>* 이미지가 많은 경우 <span className="text-rose-500 font-bold">에버노트, 노션, 포스타입 등을 이용한 웹 링크</span>를 신청서 내용에 첨부해도 좋습니다!</p>
+                </div>
                 <input
                     type="file"
                     multiple

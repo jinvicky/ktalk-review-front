@@ -8,6 +8,7 @@ interface ValidateForm<T> {
   validConditions: Validator<T>[]; // 유효성 검사 함수 배열
   message: string;
   failure: boolean;
+  onFailure?: () => void;
 }
 
 /**
@@ -35,6 +36,7 @@ export function UseForm(validation: { [key: string]: ValidateForm<any> }) {
       return {
         isValid: false,
         message: form.message,
+        onFailure: form.onFailure,
       };
     }
   }
@@ -87,7 +89,7 @@ export class Validators {
         return max;
       },
       isValid(value: number): boolean {
-        return max > value;
+        return max >= value;
       },
     };
   }
@@ -98,7 +100,7 @@ export class Validators {
         return min;
       },
       isValid(value: number): boolean {
-        return min < value;
+        return min <= value;
       },
     };
   }
