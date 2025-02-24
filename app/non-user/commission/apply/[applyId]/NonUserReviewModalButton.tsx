@@ -13,9 +13,9 @@ interface NonUserReviewModalButtonProps {
 }
 
 const NonUserReviewModalButton = ({ applyId }: NonUserReviewModalButtonProps) => {
-
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const [reviewContent, setReviewContent] = useState<string>("");
+    const [contentLength, setContentLength] = useState<number>(0);
 
     const validationForm = {
         content: {
@@ -24,6 +24,12 @@ const NonUserReviewModalButton = ({ applyId }: NonUserReviewModalButtonProps) =>
             message: "리뷰를 최소 5자 이상 입력해 주세요",
             failure: false,
         },
+        contentMaxLength: {
+            value: contentLength,
+            validConditions: [Validators.maxLength(2000)],
+            message: "리뷰는 2000자를 초과할 수 없습니다.",
+            failure: false,
+        }
     };
 
     const onSubmit = async () => {
@@ -50,20 +56,21 @@ const NonUserReviewModalButton = ({ applyId }: NonUserReviewModalButtonProps) =>
                 setOpen={() => setModalOpen(!modalOpen)}
                 hideButton={true}
             >
-                <div>
-                    <h1 className="text-lg font-bold">리뷰 등록하기</h1>
-                    <TextField
-                        label="리뷰 내용"
-                        fullWidth
-                        variant="outlined"
-                        margin="normal"
-                        multiline
-                        minRows={5}
+                <div className="flex flex-col">
+                    <h1 className="flex justify-between items-end text-lg font-bold">
+                        리뷰 등록하기
+                        <span className="relative right-0 text-sm text-gray-500"> {contentLength} / 2000</span>
+                    </h1>
+                    <textarea
+                        className="w-full h-40 border border-gray-300 rounded-lg my-4 p-3 outline-none resize-none"
                         value={reviewContent}
-                        onChange={(e) => setReviewContent(e.target.value)}
+                        onChange={(e) => {
+                            setReviewContent(e.target.value);
+                            setContentLength(e.target.value.length);
+                        }}
                     />
                     <button
-                        className="bg-blue-500 text-white mt-3 px-4 py-2 rounded-lg block mx-auto"
+                        className="bg-blue-500 text-white px-4 py-2 rounded-lg block mx-auto line-height-0"
                         onClick={onSubmit}
                     >
                         등록하기

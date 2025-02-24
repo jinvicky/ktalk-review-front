@@ -1,5 +1,5 @@
 "use client";
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, useState } from "react";
 
 import { v4 } from "uuid";
 
@@ -8,11 +8,10 @@ import { insertCommissionApply } from "@/api/commissionApplyApi";
 import { UserSessonObj } from "@/types/userType";
 
 import { UseForm, Validators } from "@/utils/validation/validationUtil";
-
-import { TextField, Typography, Box, FormControlLabel, Radio, RadioGroup, FormLabel, Tooltip, } from "@mui/material";
-import ClearIcon from '@mui/icons-material/Clear';
-import HelpIcon from '@mui/icons-material/Help';
 import { byteToMb } from "@/utils/number.util";
+
+import { TextField, Typography, Box, FormControlLabel, Radio, RadioGroup, FormLabel} from "@mui/material";
+import ClearIcon from '@mui/icons-material/Clear';
 
 const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
     const uuid = v4();
@@ -44,6 +43,12 @@ const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
             value: form.nicknameYn === "N" || (form.nicknameYn === "Y" && !(form.nickname === "" || form.nickname.length < 1)),
             validConditions: [Validators.assertTrue()],
             message: "기재할 닉네임을 입력해 주세요",
+            failure: false,
+        },
+        sendEmail: {
+            value: form.sendEmailYn === "N" || (form.sendEmailYn === "Y" && !(form.sendEmail === "" || form.sendEmail.length < 1)),
+            validConditions: [Validators.assertTrue()],
+            message: "전송할 이메일 주소를 입력해 주세요",
             failure: false,
         },
         fileList: {
