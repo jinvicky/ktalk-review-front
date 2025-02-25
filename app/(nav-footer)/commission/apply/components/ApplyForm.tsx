@@ -14,6 +14,7 @@ import { TextField, Typography, Box, FormControlLabel, Radio, RadioGroup, FormLa
 import ClearIcon from '@mui/icons-material/Clear';
 
 const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
+    const [loading, setLoading] = useState<boolean>(false);
     const uuid = v4();
     const [form, setForm] = useState({
         userName: userInfo ? userInfo.nickname : "",
@@ -84,6 +85,7 @@ const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
             formData.append("files", file);
         });
 
+        setLoading(true);
         const respJson = await insertCommissionApply(formData);
 
         if (respJson.status === "200") {
@@ -91,6 +93,7 @@ const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
         } else {
             alert(respJson.data.message ? respJson.data.message : "요청 도중 오류가 발생했습니다. 재시도해주세요");
         }
+        setLoading(false);
     }
 
     const handleFileChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -214,7 +217,6 @@ const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
                     id="file-upload"
                     hidden
                 />
-
                 <label htmlFor="file-upload">
                     <div className="w-full bg-violet-500 hover:bg-violet-700 text-white text-center font-bold my-5 py-2 px-4 rounded">
                         파일 선택
