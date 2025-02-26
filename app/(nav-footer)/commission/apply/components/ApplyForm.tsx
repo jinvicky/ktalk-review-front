@@ -65,7 +65,7 @@ const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
             value: form.sendEmailYn === "N"
                 || (form.sendEmailYn === "Y"
                     && !(form.sendEmail === "" || form.sendEmail.length < 1))
-                    && form.sendEmail.length <= 254,
+                && form.sendEmail.length <= 254,
             validConditions: [Validators.assertTrue()],
             message: "전송할 이메일 주소를 254자 이하로 입력해 주세요",
             failure: false,
@@ -107,16 +107,16 @@ const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
         setLoading(true);
         const respJson = await insertNewApply(formData);
 
-        console.log('jvk:: respJson', respJson);
-
         if (Number(respJson.status) === ResponseStatus.Success) {
-            const fileListForm = new FormData();
-            fileListForm.append("applyId", uuid);
-            form.files.forEach((file) => {
-                fileListForm.append("files", file);
-            });
 
-            insertNewApplyFileList(fileListForm);
+            if (form.files.length > 0) {
+                const fileListForm = new FormData();
+                fileListForm.append("applyId", uuid);
+                form.files.forEach((file) => {
+                    fileListForm.append("files", file);
+                });
+                insertNewApplyFileList(fileListForm);
+            }
 
             setLoading(false);
             alert("신청이 완료되었습니다.");
