@@ -9,6 +9,8 @@ const CommissionApplyPage = async () => {
     const respJson = await selectSessionByCookie();
     const userSession = respJson ? respJson.data : null;
 
+    console.log('jvk session', userSession);
+
     return (
         <div>
             <Container maxWidth="md" className="my-12">

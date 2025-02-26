@@ -36,7 +36,7 @@ const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
         userName: {
             value: form.userName,
             validConditions: [Validators.notBlank(), Validators.minLength(2)],
-            message: "신청자명을 .제외 2자 이상 입력해 주세요",
+            message: "신청자명을 2자 이상 입력해 주세요",
             failure: false,
         },
         userEmail: {
@@ -52,20 +52,26 @@ const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
             failure: false,
         },
         nickname: {
-            value: form.nicknameYn === "N" || (form.nicknameYn === "Y" && !(form.nickname === "" || form.nickname.length < 1)),
+            value: form.nicknameYn === "N"
+                || (form.nicknameYn === "Y"
+                    && !(form.nickname === "" || form.nickname.length < 1)
+                    && form.nickname.length <= 100),
             validConditions: [Validators.assertTrue()],
-            message: "기재할 닉네임을 입력해 주세요",
+            message: "기재할 닉네임을 100자 이하로 입력해 주세요",
             failure: false,
         },
         sendEmail: {
-            value: form.sendEmailYn === "N" || (form.sendEmailYn === "Y" && !(form.sendEmail === "" || form.sendEmail.length < 1)),
+            value: form.sendEmailYn === "N"
+                || (form.sendEmailYn === "Y"
+                    && !(form.sendEmail === "" || form.sendEmail.length < 1))
+                    && form.sendEmail.length <= 254,
             validConditions: [Validators.assertTrue()],
-            message: "전송할 이메일 주소를 입력해 주세요",
+            message: "전송할 이메일 주소를 254자 이하로 입력해 주세요",
             failure: false,
         },
         content: {
             value: form.content,
-            validConditions: [Validators.notBlank(), Validators.minLength(4), Validators.maxLength(500)],
+            validConditions: [Validators.notBlank(), Validators.minLength(5), Validators.maxLength(500)],
             message: "신청 내용을 최소 5자 이상 최대 500자 이하로 입력해 주세요",
             failure: false,
         },
@@ -102,12 +108,14 @@ const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
 
         if (respJson.status === "200") {
             const fileListForm = new FormData();
+            fileListForm.append("applyId", uuid);
             form.files.forEach((file) => {
                 fileListForm.append("files", file);
             });
 
             insertNewApplyFileList(fileListForm);
 
+            setLoading(false);
             alert("신청이 완료되었습니다.");
 
             setForm({
@@ -123,7 +131,6 @@ const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
         } else {
             alert(respJson.data.message ? respJson.data.message : "요청 도중 오류가 발생했습니다. 재시도해주세요");
         }
-        setLoading(false);
     }
 
     const handleFileChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -146,7 +153,7 @@ const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
             <div className="mb-4">
                 <TextField
                     required
-                    label="신청자명"
+                    label="신청자명 (2자 이상 30자 이하)"
                     type="text"
                     value={form.userName}
                     onChange={(e) => setForm({ ...form, userName: e.target.value })}
@@ -157,7 +164,7 @@ const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
             <div className="mb-4">
                 <TextField
                     required
-                    label="이메일 주소"
+                    label="이메일 주소 (@형식을 갖춘 254자 이하)"
                     type="email"
                     value={form.userEmail}
                     onChange={(e) => setForm({ ...form, userEmail: e.target.value })}
