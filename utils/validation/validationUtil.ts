@@ -111,7 +111,7 @@ export class Validators {
         return min.toString();
       },
       isValid(value: string): boolean {
-        return min < value.length;
+        return min <= value.length;
       },
     };
   }
