@@ -109,7 +109,7 @@ const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
 
         console.log('jvk:: respJson', respJson);
 
-        if (respJson.status === ResponseStatus.Success) {
+        if (Number(respJson.status) === ResponseStatus.Success) {
             const fileListForm = new FormData();
             fileListForm.append("applyId", uuid);
             form.files.forEach((file) => {
