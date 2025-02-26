@@ -10,8 +10,13 @@ import { UserSessonObj } from "@/types/userType";
 import { UseForm, Validators } from "@/utils/validation/validationUtil";
 import { byteToMb } from "@/utils/number.util";
 
-import { TextField, Typography, Box, FormControlLabel, Radio, RadioGroup, FormLabel} from "@mui/material";
+import FileUploadButton from "@/components/FileUploadButton";
+
+import { TextField, Typography, Box, FormControlLabel, Radio, RadioGroup, FormLabel } from "@mui/material";
 import ClearIcon from '@mui/icons-material/Clear';
+import RequestLoading from "@/components/RequestLoading";
+import { insertNewApply, insertNewApplyFileList } from "../api/cmsApplyApi";
+import LetterCounter from "@/components/LetterCounter";
 
 const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
     const [loading, setLoading] = useState<boolean>(false);
@@ -36,8 +41,14 @@ const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
         },
         userEmail: {
             value: form.userEmail,
-            validConditions: [Validators.notBlank(), Validators.minLength(5)],
+            validConditions: [Validators.notBlank()],
             message: "이메일을 입력해 주세요",
+            failure: false,
+        },
+        userEmailRegex: {
+            value: form.userEmail,
+            validConditions: [Validators.isEmail()],
+            message: "이메일 형식을 확인해 주세요 @와 도메인이 포함되어야 합니다.",
             failure: false,
         },
         nickname: {
@@ -50,6 +61,12 @@ const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
             value: form.sendEmailYn === "N" || (form.sendEmailYn === "Y" && !(form.sendEmail === "" || form.sendEmail.length < 1)),
             validConditions: [Validators.assertTrue()],
             message: "전송할 이메일 주소를 입력해 주세요",
+            failure: false,
+        },
+        content: {
+            value: form.content,
+            validConditions: [Validators.notBlank(), Validators.minLength(5), Validators.maxLength(500)],
+            message: "신청 내용을 최소 5자 이상 최대 500자 이하로 입력해 주세요",
             failure: false,
         },
         fileList: {
@@ -69,11 +86,9 @@ const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
         }
 
         const formData = new FormData();
-
         formData.append("id", uuid);
         formData.append("status", "REQUEST");
         formData.append("memberYn", userInfo ? "Y" : "N");
-
         formData.append("userName", form.userName);
         formData.append("userEmail", form.userEmail);
         formData.append("nicknameYn", form.nicknameYn);
@@ -81,15 +96,30 @@ const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
         formData.append("sendEmailYn", form.sendEmailYn);
         formData.append("sendEmail", form.sendEmail);
         formData.append("content", form.content);
-        form.files.forEach((file) => {
-            formData.append("files", file);
-        });
 
         setLoading(true);
-        const respJson = await insertCommissionApply(formData);
+        const respJson = await insertNewApply(formData);
 
         if (respJson.status === "200") {
+            const fileListForm = new FormData();
+            form.files.forEach((file) => {
+                fileListForm.append("files", file);
+            });
+
+            insertNewApplyFileList(fileListForm);
+
             alert("신청이 완료되었습니다.");
+
+            setForm({
+                userName: userInfo ? userInfo.nickname : "",
+                userEmail: userInfo ? userInfo.email : "",
+                nicknameYn: "N",
+                nickname: "",
+                sendEmailYn: "N",
+                sendEmail: "",
+                content: "",
+                files: [] as File[],
+            });
         } else {
             alert(respJson.data.message ? respJson.data.message : "요청 도중 오류가 발생했습니다. 재시도해주세요");
         }
@@ -108,6 +138,7 @@ const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
     }
 
     return <>
+        {loading && <RequestLoading />}
         <Box className="bg-white p-8">
             <Typography variant="h5" className="flex justify-center items-center text-center mb-6 font-semibold">
                 커미션 신청 폼
@@ -187,8 +218,9 @@ const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
                 />
             }
             <FormLabel id="">
-                <div className="my-5 flex items-center gap-2">
-                    신청 내용
+                <div className="my-5 flex justify-between items-center gap-2">
+                    신청 내용 (최소 5자 이상 ~ 최대 500자 이내)
+                    <LetterCounter limit={500} letters={form.content} />
                 </div>
             </FormLabel>
             <div className="mb-6">
@@ -200,28 +232,24 @@ const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
                     multiline
                     rows={5}
                     placeholder={"신청 내용은 구체적일 수록 좋아요.\n공지표, 배경 추가의 경우 공지표에 들어갈 문구나 배경 금액도 함께 적어주세요"}
-                    onChange={(e) => setForm({ ...form, content: e.target.value })}
+                    onChange={(e) => {
+                        setForm({ ...form, content: e.target.value })
+                    }}
                 />
             </div>
             <div className="mb-4">
                 <div className="py-2 font-bold text-gray-500 [&>p]:pt-3">
-                    파일 업로드 시 주의사항
-
+                    <div className="font-bold text-lg">
+                        파일 업로드 시 주의사항
+                    </div>
                     <p>* 업로드 최대 용량은 <span className="text-rose-500 font-bold">50MB</span>입니다. 이미지가 10장이 넘어가는 단체의 경우 <span className="text-rose-500 font-bold">pdf나 excel</span>을 추천드립니다.</p>
                     <p>* 이미지가 많은 경우 <span className="text-rose-500 font-bold">에버노트, 노션, 포스타입 등을 이용한 웹 링크</span>를 신청서 내용에 첨부해도 좋습니다!</p>
+                    <p>* 시간이 소요될 수 있습니다. 업로드 전 <span className="text-rose-500 font-bold">인터넷 연결</span>을 꼭 확인해주세요</p>
                 </div>
-                <input
-                    type="file"
-                    multiple
+                <FileUploadButton
                     onChange={handleFileChange}
-                    id="file-upload"
-                    hidden
+                    onFileList={() => { }}
                 />
-                <label htmlFor="file-upload">
-                    <div className="w-full bg-violet-500 hover:bg-violet-700 text-white text-center font-bold my-5 py-2 px-4 rounded">
-                        파일 선택
-                    </div>
-                </label>
                 {form.files.length > 0 && (
                     <div className="mt-4">
                         <ul>

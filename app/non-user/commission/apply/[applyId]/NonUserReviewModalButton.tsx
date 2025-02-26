@@ -4,9 +4,10 @@ import { useState } from "react";
 
 import { insertCommissionReview } from "@/api/commissionReviewApi";
 
-import Modal from "@/components/Modal";
-import { TextField } from "@mui/material";
 import { UseForm, Validators } from "@/utils/validation/validationUtil";
+
+import Modal from "@/components/Modal";
+import LetterCounter from "@/components/LetterCounter";
 
 interface NonUserReviewModalButtonProps {
     applyId: string;
@@ -59,7 +60,7 @@ const NonUserReviewModalButton = ({ applyId }: NonUserReviewModalButtonProps) =>
                 <div className="flex flex-col">
                     <h1 className="flex justify-between items-end text-lg font-bold">
                         리뷰 등록하기
-                        <span className="relative right-0 text-sm text-gray-500"> {contentLength} / 2000</span>
+                        <LetterCounter limit={2000} letters={reviewContent} />
                     </h1>
                     <textarea
                         className="w-full h-40 border border-gray-300 rounded-lg my-4 p-3 outline-none resize-none"
