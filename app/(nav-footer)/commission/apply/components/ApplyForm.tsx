@@ -36,13 +36,13 @@ const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
     const validationForm = {
         userName: {
             value: form.userName,
-            validConditions: [Validators.notBlank(), Validators.minLength(2)],
-            message: "신청자명을 2자 이상 입력해 주세요",
+            validConditions: [Validators.notBlank(), Validators.minLength(2), Validators.maxLength(30)],
+            message: "신청자명을 2자 이상 30자 이하로 입력해 주세요",
             failure: false,
         },
         userEmail: {
             value: form.userEmail,
-            validConditions: [Validators.notBlank()],
+            validConditions: [Validators.notBlank(), Validators.maxLength(254)],
             message: "이메일을 입력해 주세요",
             failure: false,
         },
@@ -134,6 +134,7 @@ const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
         } else {
             alert(respJson.data.message ? respJson.data.message : "요청 도중 오류가 발생했습니다. 재시도해주세요");
         }
+        setLoading(false);
     }
 
     const handleFileChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

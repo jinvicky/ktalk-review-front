@@ -16,14 +16,17 @@ export const insertNewApply = async (
                 signal: controller.signal,
             }
         );
-        console.log('jvk:: insertNewApply resp', resp);
-        if (resp.status !== ResponseStatus.Success) throw resp;
+
+        if (!resp.ok) {
+            throw new Error('신청서 접수 실패');
+        }
+
         return await resp.json();
     } catch {
         const data = {
             status: ResponseStatus.Error,
             data: {
-                message: "요청 도중 오류가 발생했습니다. 재시도해주세요",
+                message: "요청 도중 오류가 발생했습니다. 재시도 혹은 작가에게 문의해주세요",
             },
         };
         return data;
