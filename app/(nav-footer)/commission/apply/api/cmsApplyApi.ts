@@ -16,6 +16,7 @@ export const insertNewApply = async (
                 signal: controller.signal,
             }
         );
+        if (resp.status !== ResponseStatus.Success) throw resp;
         return await resp.json();
     } catch {
         const data = {
@@ -56,6 +57,9 @@ export const insertNewApplyFileList = async (
             };
             return data;
         }
+
+        if (resp.status !== ResponseStatus.Success) throw resp;
+
         return await resp.json();
     } catch {
         const data = {
