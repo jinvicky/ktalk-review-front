@@ -16,6 +16,7 @@ export const insertNewApply = async (
                 signal: controller.signal,
             }
         );
+        console.log('jvk:: insertNewApply resp', resp);
         if (resp.status !== ResponseStatus.Success) throw resp;
         return await resp.json();
     } catch {
