@@ -65,7 +65,7 @@ const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
         },
         content: {
             value: form.content,
-            validConditions: [Validators.notBlank(), Validators.minLength(5), Validators.maxLength(500)],
+            validConditions: [Validators.notBlank(), Validators.minLength(4), Validators.maxLength(500)],
             message: "신청 내용을 최소 5자 이상 최대 500자 이하로 입력해 주세요",
             failure: false,
         },
@@ -78,7 +78,6 @@ const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
     };
 
     const onSubmit = async () => {
-        console.log('file byte', form.files.reduce((acc, file) => acc + file.size, 0));
         const { isValid, message } = UseForm(validationForm);
 
         if (!isValid) {
