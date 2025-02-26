@@ -17,6 +17,7 @@ import LetterCounter from "@/components/LetterCounter";
 
 import { TextField, Typography, Box, FormControlLabel, Radio, RadioGroup, FormLabel } from "@mui/material";
 import ClearIcon from '@mui/icons-material/Clear';
+import { ResponseStatus } from "@/types/api.type";
 
 const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
     const [loading, setLoading] = useState<boolean>(false);
@@ -106,7 +107,7 @@ const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
         setLoading(true);
         const respJson = await insertNewApply(formData);
 
-        if (respJson.status === "200") {
+        if (respJson.status === ResponseStatus.Success) {
             const fileListForm = new FormData();
             fileListForm.append("applyId", uuid);
             form.files.forEach((file) => {

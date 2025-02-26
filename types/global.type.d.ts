@@ -5,7 +5,7 @@ declare global {
     data: T;
   }
 
-  type NextApiResult = Pick<ApiResult<any>, "status" | "message">;
+  type NextApiResult = Pick<ApiResult<unknown>, "status" | "message">;
 
   interface ApiError {
     status: string;
