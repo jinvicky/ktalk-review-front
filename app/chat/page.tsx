@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchInitOrEnterChatRoom } from "@/api/chatApi";
 import ChatRoom from "@/components/chat/ChatRoom";
-import DataLoading from "@/components/RequestLoading";
+import RequestLoading from "@/components/RequestLoading";
 
 const ChatPage = () => {
     const user = {
@@ -16,7 +16,7 @@ const ChatPage = () => {
         queryFn: () => fetchInitOrEnterChatRoom(user)
     });
 
-    if (isLoading) return <DataLoading />;
+    if (isLoading) return <RequestLoading />;
     if (isError) return <div>{error.message}</div>;
 
     return (

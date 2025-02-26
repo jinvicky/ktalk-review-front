@@ -8,8 +8,8 @@ const FileUploadButton = ({ onChange, onFileList }: FileUploadButtonProps) => {
 
     const innerFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         onChange(e);
-        if (e.target.files) {
-            onFileList && onFileList(e.target.files);
+        if (e.target.files && onFileList) {
+            onFileList(e.target.files);
         }
     }
 

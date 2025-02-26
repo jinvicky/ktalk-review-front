@@ -6,7 +6,7 @@ import Image from "next/image";
 
 import { EventProduct } from "@/types/product.type";
 
-import DataLoading from "@/components/RequestLoading";
+import RequestLoading from "@/components/RequestLoading";
 import EventPaymentForm from "@/components/event/EventPaymentForm";
 
 import { addCommaKRW, addPayappFee } from "@/utils/number.util";
@@ -77,7 +77,7 @@ const EventPayPage = () => {
   };
 
   if (!productDetail) {
-    return <DataLoading />;
+    return <RequestLoading />;
   }
 
   return (

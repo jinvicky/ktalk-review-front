@@ -3,7 +3,7 @@ import { ChangeEvent, useState } from "react";
 
 import { v4 } from "uuid";
 
-import { insertCommissionApply } from "@/api/commissionApplyApi";
+import { insertNewApply, insertNewApplyFileList } from "../api/cmsApplyApi";
 
 import { UserSessonObj } from "@/types/userType";
 
@@ -12,11 +12,11 @@ import { byteToMb } from "@/utils/number.util";
 
 import FileUploadButton from "@/components/FileUploadButton";
 
+import RequestLoading from "@/components/RequestLoading";
+import LetterCounter from "@/components/LetterCounter";
+
 import { TextField, Typography, Box, FormControlLabel, Radio, RadioGroup, FormLabel } from "@mui/material";
 import ClearIcon from '@mui/icons-material/Clear';
-import RequestLoading from "@/components/RequestLoading";
-import { insertNewApply, insertNewApplyFileList } from "../api/cmsApplyApi";
-import LetterCounter from "@/components/LetterCounter";
 
 const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
     const [loading, setLoading] = useState<boolean>(false);
@@ -78,6 +78,7 @@ const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
     };
 
     const onSubmit = async () => {
+        console.log('file byte', form.files.reduce((acc, file) => acc + file.size, 0));
         const { isValid, message } = UseForm(validationForm);
 
         if (!isValid) {
@@ -145,6 +146,7 @@ const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
             </Typography>
             <div className="mb-4">
                 <TextField
+                    required
                     label="신청자명"
                     type="text"
                     value={form.userName}
@@ -155,6 +157,7 @@ const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
             </div>
             <div className="mb-4">
                 <TextField
+                    required
                     label="이메일 주소"
                     type="email"
                     value={form.userEmail}
@@ -225,6 +228,7 @@ const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
             </FormLabel>
             <div className="mb-6">
                 <TextField
+                    required
                     variant="outlined"
                     fullWidth
                     type="text"

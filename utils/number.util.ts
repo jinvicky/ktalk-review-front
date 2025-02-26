@@ -25,10 +25,11 @@ export const addPayappFee = (price: number): number => {
   return price + feeRounded;
 }
 
-export const byteToMb = (byteSize: number): number => { 
-  return byteSize / (1024 * 1024); 
+export const byteToMb = (mbSize: number): number => {
+  return mbSize * 1024 * 1024;
 }
 
 export const mbToByte = (mbSize: number): number => {
   return mbSize * 1024 * 1024;
 }
+

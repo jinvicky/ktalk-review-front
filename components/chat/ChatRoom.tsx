@@ -6,7 +6,7 @@ import { useQueries } from "@tanstack/react-query";
 import { fetchChatMsgHistory, fetchChatRoomDetail, fetchUpdateChatRoomUserAccess } from "@/api/chatApi";
 import { ChatMsg, ChatRoomData as ChatRoomType } from "@/types/chat.type";
 import { Avatar } from "@mui/material";
-import { DataLoading } from "@/components/RequestLoading";
+import { RequestLoading } from "@/components/RequestLoading";
 import ChatForm from "./ChatForm";
 import { chatFromMe } from "@/utils/userUtil";
 
@@ -101,7 +101,7 @@ const ChatRoom = ({ chatRoomId: propsChatRoomId }: ChatRoomProps) => {
     }
 
     const isLoading = queries.some(query => query.isLoading);
-    if (isLoading) return <DataLoading />;
+    if (isLoading) return <RequestLoading />;
 
     const chatRoomDetail = queries[0].data.data as ChatRoomType;
     const chatMsgHistory = queries[1].data.data as ChatMsg[];

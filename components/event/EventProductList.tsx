@@ -11,7 +11,7 @@ import { addCommaKRW, addPayappFee } from "@/utils/number.util";
 import { twMerge } from "tailwind-merge";
 import { Button } from "@mui/material";
 
-import DataLoading from "../RequestLoading";
+import RequestLoading from "../RequestLoading";
 
 const ProductList = () => {
   const { data: productList, error } = useSWR<EventProduct[]>(
@@ -71,7 +71,7 @@ const ProductList = () => {
   }
 
   if (!productList) {
-    return <DataLoading />;
+    return <RequestLoading />;
   }
 
   return (

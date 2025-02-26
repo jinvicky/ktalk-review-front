@@ -3,9 +3,6 @@
 import { ChangeEvent, useState } from "react";
 
 import fileDownload from 'js-file-download';
-import NonUserReviewModalButton from "../non-user/commission/apply/[applyId]/NonUserReviewModalButton";
-import RequestLoading from "@/components/RequestLoading";
-
 
 const Test = () => {
 
@@ -56,10 +53,6 @@ const Test = () => {
         onClick={() => downloadFile("http://res.cloudinary.com/dkfwo8t0v/raw/upload/v1740328013/test/1740328011698.xlsx")}>
         클릭시 raw 다운로드
       </button>
-
-      {/* <NonUserReviewModalButton applyId="" /> */}
-
-      <RequestLoading message="" />
     </>
   );
 };
