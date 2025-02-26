@@ -6,7 +6,7 @@ import Image from "next/image";
 
 import { EventProduct } from "@/types/product.type";
 
-import DataLoading from "@/components/DataLoading";
+import DataLoading from "@/components/RequestLoading";
 import EventPaymentForm from "@/components/event/EventPaymentForm";
 
 import { addCommaKRW, addPayappFee } from "@/utils/number.util";

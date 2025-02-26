@@ -6,7 +6,7 @@ import { useQueries } from "@tanstack/react-query";
 import { fetchChatMsgHistory, fetchChatRoomDetail, fetchUpdateChatRoomUserAccess } from "@/api/chatApi";
 import { ChatMsg, ChatRoomData as ChatRoomType } from "@/types/chat.type";
 import { Avatar } from "@mui/material";
-import { DataLoading } from "@/components/DataLoading";
+import { DataLoading } from "@/components/RequestLoading";
 import ChatForm from "./ChatForm";
 import { chatFromMe } from "@/utils/userUtil";
 

@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchInitOrEnterChatRoom } from "@/api/chatApi";
 import ChatRoom from "@/components/chat/ChatRoom";
-import DataLoading from "@/components/DataLoading";
+import DataLoading from "@/components/RequestLoading";
 
 const ChatPage = () => {
     const user = {

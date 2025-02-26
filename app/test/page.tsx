@@ -4,6 +4,7 @@ import { ChangeEvent, useState } from "react";
 
 import fileDownload from 'js-file-download';
 import NonUserReviewModalButton from "../non-user/commission/apply/[applyId]/NonUserReviewModalButton";
+import RequestLoading from "@/components/RequestLoading";
 
 
 const Test = () => {
@@ -56,9 +57,9 @@ const Test = () => {
         클릭시 raw 다운로드
       </button>
 
+      {/* <NonUserReviewModalButton applyId="" /> */}
 
-      <NonUserReviewModalButton applyId="" />
-
+      <RequestLoading message="" />
     </>
   );
 };
