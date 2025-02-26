@@ -107,6 +107,8 @@ const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
         setLoading(true);
         const respJson = await insertNewApply(formData);
 
+        console.log('jvk:: respJson', respJson);
+
         if (respJson.status === ResponseStatus.Success) {
             const fileListForm = new FormData();
             fileListForm.append("applyId", uuid);
@@ -176,7 +178,7 @@ const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
             </div>
             <FormLabel>
                 <div className="flex items-center gap-2">
-                    닉네임 기재 여부
+                    닉네임 기재 여부 (100자 이하)
                 </div>
             </FormLabel>
             <RadioGroup
@@ -204,7 +206,7 @@ const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
                     onChange={(e) => setForm({ ...form, nickname: e.target.value })}
                 />
             }
-            <FormLabel>이메일 전송</FormLabel>
+            <FormLabel>이메일 전송 (@형식을 갖춘 254자 이하)</FormLabel>
             <RadioGroup
                 row
                 aria-labelledby="demo-row-radio-buttons-group-label"
