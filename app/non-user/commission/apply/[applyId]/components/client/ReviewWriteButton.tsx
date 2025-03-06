@@ -11,9 +11,10 @@ import LetterCounter from "@/components/LetterCounter";
 
 interface NonUserReviewModalButtonProps {
     applyId: string;
+    afterSubmit: () => void;
 }
 
-const NonUserReviewModalButton = ({ applyId }: NonUserReviewModalButtonProps) => {
+const ReviewWriteButton = ({ applyId, afterSubmit }: NonUserReviewModalButtonProps) => {
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const [reviewContent, setReviewContent] = useState<string>("");
     const [contentLength, setContentLength] = useState<number>(0);
@@ -46,7 +47,7 @@ const NonUserReviewModalButton = ({ applyId }: NonUserReviewModalButtonProps) =>
             alert("리뷰가 등록되었습니다.");
             setModalOpen(false);
 
-            window.location.reload();
+            afterSubmit();
         }
     }
 
@@ -98,4 +99,4 @@ const NonUserReviewModalButton = ({ applyId }: NonUserReviewModalButtonProps) =>
     </>
 }
 
-export default NonUserReviewModalButton;
+export default ReviewWriteButton;
