@@ -4,6 +4,7 @@ import { ChangeEvent, useState } from "react";
 
 import fileDownload from 'js-file-download';
 import BankTransferPayForm from "@/components/payment/BankTransferPayForm";
+import PaymentRequestForm from "@/components/payment/PaymentRequestForm";
 
 const Test = () => {
 
@@ -31,6 +32,8 @@ const Test = () => {
       </button> */}
 
       <BankTransferPayForm />
+
+      <PaymentRequestForm />
     </>
   );
 };

@@ -9,6 +9,7 @@ interface Review {
   username: string;
   createdAt: string;
   updatedAt: string;
+  rgtrDtFormatted: string;
 }
 
 export { Review, ReviewRegister };

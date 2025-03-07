@@ -6,6 +6,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 // import CopyToClipboard from "react-copy-to-clipboard";
 // import Link from "next/link";
 import PaymentRequestForm from "@/components/payment/PaymentRequestForm";
+import ReviewArea from "./components/client/ReviewArea";
 
 /**
  * 신청서, 결제 내역 상세
@@ -28,28 +29,10 @@ const NonUserCommissionApplyDetailPage: React.FC<{ params: { applyId: string } }
             </div>
         </div>
         <div>
-            <div className="flex items-center py-5">
-                <h1 className="text-2xl font-bold">리뷰 내역</h1>
-                <KeyboardArrowDownIcon style={{ fontSize: 50 }} />
-            </div>
-            <div className="[&>div]:font-bold [&>div]:text-gray-500 [&>div]:py-3">
-                {
-                    reviewVO ? <div>
-                        <div>
-                            {reviewVO.content}
-                        </div>
-                        <div className="mt-2">
-                            {reviewVO.rgtrDtFormatted}
-                        </div>
-                    </div>
-                        : <div>
-                            <NonUserReviewModalButton
-                                applyId={applyId}
-                            />
-                            <div className="mt-2">아직 작성된 리뷰가 없습니다.</div>
-                        </div>
-                }
-            </div>
+            <ReviewArea
+                data={reviewVO}
+                applyId={applyId}
+            />
         </div>
         <div>
             <div className="flex items-center py-5" id="apply-section">

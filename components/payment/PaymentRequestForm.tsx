@@ -10,7 +10,7 @@ import { CommissionPaymentRequest } from "@/types/paymentType";
 // declare const PayApp: PayApp;
 
 interface PaymentRequestFormProps {
-    data: CommissionPaymentRequest;
+    data?: CommissionPaymentRequest;
 }
 
 const PaymentRequestForm = ({data}: PaymentRequestFormProps) => {
@@ -49,6 +49,8 @@ const PaymentRequestForm = ({data}: PaymentRequestFormProps) => {
     //     PayApp.setParam("returnurl", "https://ktalk-review-image-latest.onrender.com/api/event-sale/payapp-redirect");
     //     PayApp.call();
     // };
+
+    if(!data) return null;
 
     return (
         <div className="p-8 max-w-3xl mx-auto bg-white">
