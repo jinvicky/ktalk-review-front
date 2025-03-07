@@ -1,13 +1,8 @@
-import NonUserReviewModalButton from "./components/client/ReviewWriteButton";
-import Image from 'next/image';
-
-// import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-// import CopyToClipboard from "react-copy-to-clipboard";
-// import Link from "next/link";
 import PaymentRequestForm from "@/components/payment/PaymentRequestForm";
 import ReviewArea from "./components/client/ReviewArea";
-import ApplyArea from "./components/client/ApplyArea";
+import ApplyArea from "./components/server/ApplyArea";
+import PayRequestArea from "./components/client/PayRequestArea";
 
 /**
  * 신청서, 결제 내역 상세
@@ -36,30 +31,7 @@ const NonUserCommissionApplyDetailPage: React.FC<{ params: { applyId: string } }
             />
         </div>
         <ApplyArea applyVO={applyVO} applyId={applyVO.id} />
-        <div>
-            <div className="flex items-center py-5" id="pay-request-section">
-                <h1 className="text-2xl font-bold">결제요청서 내역</h1>
-                <button>
-                    <KeyboardArrowDownIcon style={{ fontSize: 50 }} />
-                </button>
-            </div>
-            <div className="[&>div]:font-bold [&>div]:text-gray-500 [&>div]:py-3">
-                {payRequestVO ? <>
-                    <div>결제 요청 금액: {payRequestVO.price}</div>
-
-                    <div>
-                        협의사항: {payRequestVO.discussion}
-                    </div>
-                    {/* <div>
-                        결제여부: {payRequestVO.payState === "4" ? "결제완료" : "미결제"}
-                    </div> */}
-                    <div>
-                        결제요청날짜: {payRequestVO.rgtrDtFomatted}
-                    </div>
-                </> : <div className="py-5">결제 요청서가 없습니다.</div>
-                }
-            </div>
-        </div>
+        <PayRequestArea />
         <div>
             <div className="flex items-center py-5">
                 <h1 className="text-2xl font-bold">결제 내역</h1>
