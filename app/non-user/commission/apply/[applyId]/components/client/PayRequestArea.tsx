@@ -1,6 +1,8 @@
 "use client";
 
 import BankTransferPayForm from "@/components/payment/BankTransferPayForm";
+import { addCommaKRW } from "@/utils/number.util";
+import MemberPointUseForm from "./MemberPointUseForm";
 
 const PayRequestArea = () => {
     return <>
@@ -10,9 +12,14 @@ const PayRequestArea = () => {
             </a>
             <div id="pay-request-section" className="[&>div]:font-bold [&>div]:text-gray-500 [&>div]:py-3">
                 <div>
+                    <div className="text-lg font-semibold text-gray-600">결제 예정 금액</div>
+                    <div className="pt-3 text-gray-800">{addCommaKRW(9000, true)}</div>
+                </div>
+                <div>
                     <div className="text-lg font-semibold text-gray-600">협의사항</div>
                     <div className="pt-3 text-gray-800">영수증: 인당 1.5로 부과되었습니다.(2025.03.07)</div>
                 </div>
+                <MemberPointUseForm />
                 <div className="flex items-center space-x-2 text-lg font-semibold">
                     <span className="text-gray-600">결제하기</span>
                 </div>
