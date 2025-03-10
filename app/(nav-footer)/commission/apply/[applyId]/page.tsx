@@ -31,8 +31,8 @@ const NonUserCommissionApplyDetailPage: React.FC<{ params: { applyId: string } }
             />
         </div>
         <ApplyArea applyVO={applyVO} applyId={applyVO.id} />
-        <PayRequestArea />
-        <div>
+        <PayRequestArea applyId={applyId}/>
+        {/* <div>
             <div className="flex items-center py-5">
                 <h1 className="text-2xl font-bold">결제 내역</h1>
                 <button>
@@ -54,7 +54,7 @@ const NonUserCommissionApplyDetailPage: React.FC<{ params: { applyId: string } }
                 </> : payRequestVO ? <PaymentRequestForm data={payRequestVO} /> : <div className="py-5">결제 요청서가 있어야 결제할 수 있습니다.</div>
                 }
             </div>
-        </div>
+        </div> */}
     </div >
 }
 

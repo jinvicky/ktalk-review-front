@@ -9,9 +9,9 @@ const BankTransferPayForm = ({ ownerName }: { ownerName?: string }) => {
     const [name, setName] = useState(ownerName);
 
     return <>
-        <p className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
             <h2 className="text-xl font-semibold text-black">계좌이체</h2><span>아래 계좌로 이체 후 입금자명을 제출해 주세요</span>
-        </p>
+        </div>
         <div className="flex flex-wrap items-center gap-3 pt-3 text-gray-700">
             <p className="text-lg">남궁진 하나은행 32591038729807</p>
             <CopyToClipboard
