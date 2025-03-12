@@ -28,8 +28,8 @@ const ReviewWriteButton = ({ applyId, afterSubmit }: NonUserReviewModalButtonPro
         },
         contentMaxLength: {
             value: contentLength,
-            validConditions: [Validators.maxLength(2000)],
-            message: "리뷰는 2000자를 초과할 수 없습니다.",
+            validConditions: [Validators.max(2000)],
+            message: "리뷰는 2000자까지만 적을 수 있습니다.",
             failure: false,
         }
     };

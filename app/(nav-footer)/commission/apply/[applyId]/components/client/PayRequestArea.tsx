@@ -18,13 +18,18 @@ const PayRequestArea = async ({ applyId }: PayRequestProps) => {
             </a>
             <div id="pay-request-section" className="[&>div]:font-bold [&>div]:text-gray-500 [&>div]:py-3">
                 <PayRequestResult data={data}/>
-                <MemberPointUseForm />
+                {/* <MemberPointUseForm />
                 <div className="flex items-center space-x-2 text-lg font-semibold">
                     <span className="text-gray-600">결제하기</span>
                 </div>
                 <div className="p-3">
                     <BankTransferPayForm />
-                </div>
+                </div> */}
+            </div>
+            <a className="flex items-center py-5" href="#payment-section">
+                <h1 className="text-2xl font-bold">결제하기</h1>
+            </a>
+            <div id="payment-section" className="[&>div]:font-bold [&>div]:text-gray-500 [&>div]:py-3">
             </div>
         </div>
     </>
