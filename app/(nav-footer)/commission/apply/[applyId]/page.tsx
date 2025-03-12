@@ -20,9 +20,9 @@ const NonUserCommissionApplyDetailPage: React.FC<{ params: { applyId: string } }
     return <div className="p-5">
         <div className="">
             <h1 className="text-2xl font-bold">{applyVO.title}</h1>
-            <div className="py-3 text-gray-500 font-bold">
+            {/* <div className="py-3 text-gray-500 font-bold">
                 * 비회원 신청서는 보안을 위해 작업이 완료된 후 2일 내로 삭제됩니다.
-            </div>
+            </div> */}
         </div>
         <div>
             <ReviewArea

@@ -1,5 +1,4 @@
-import BankTransferPayForm from "@/components/payment/BankTransferPayForm";
-import MemberPointUseForm from "./MemberPointUseForm";
+import PaymentForm from "./PaymentForm";
 import PayRequestResult from "./PayRequestResult";
 
 interface PayRequestProps {
@@ -30,6 +29,7 @@ const PayRequestArea = async ({ applyId }: PayRequestProps) => {
                 <h1 className="text-2xl font-bold">결제하기</h1>
             </a>
             <div id="payment-section" className="[&>div]:font-bold [&>div]:text-gray-500 [&>div]:py-3">
+                <PaymentForm />
             </div>
         </div>
     </>

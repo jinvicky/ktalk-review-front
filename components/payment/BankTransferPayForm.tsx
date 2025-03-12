@@ -8,9 +8,12 @@ const BankTransferPayForm = ({ ownerName }: { ownerName?: string }) => {
     const [copied, setCopied] = useState(false);
     const [name, setName] = useState(ownerName);
 
-    return <>
-        <div className="flex flex-wrap items-center gap-3">
-            <h2 className="text-xl font-semibold text-black">계좌이체</h2><span>아래 계좌로 이체 후 입금자명을 제출해 주세요</span>
+    return <div>
+        <div className="flex flex-wrap items-center">
+            <h2 className="text-lg font-semibold text-black">계좌이체</h2>
+        </div>
+        <div className="text-black py-2">
+            1. 아래 계좌번호를 클릭해 복사한 뒤 금액을 입금해 주세요.
         </div>
         <div className="flex flex-wrap items-center gap-3 pt-3 text-gray-700">
             <p className="text-lg">남궁진 하나은행 32591038729807</p>
@@ -23,6 +26,9 @@ const BankTransferPayForm = ({ ownerName }: { ownerName?: string }) => {
                 </button>
             </CopyToClipboard>
             {copied && <span className="text-sm">복사되었습니다</span>}
+        </div>
+        <div className="text-black py-2">
+            2. 본인 확인을 위해 입금자명을 입력해주세요.
         </div>
         <div className="flex gap-3 pt-3">
             <TextField
@@ -38,7 +44,7 @@ const BankTransferPayForm = ({ ownerName }: { ownerName?: string }) => {
                 제출
             </button>
         </div>
-    </>
+    </div>
 }
 
 export default BankTransferPayForm;
