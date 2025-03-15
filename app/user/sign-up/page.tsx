@@ -75,7 +75,7 @@ const SignUpPage = () => {
 
         const data = await resp.json() as NextApiResult;
 
-        if (data.status === "200") {
+        if (data.status === 200) {
             alert("회원가입이 완료되었습니다.");
             router.push(referer ? referer : "/")
         }

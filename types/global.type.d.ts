@@ -1,17 +1,11 @@
 declare global {
   interface ApiResult<T> {
-    status: string;
+    status: number;
     message: string;
     data: T;
   }
 
   type NextApiResult = Pick<ApiResult<unknown>, "status" | "message">;
-
-  interface ApiError {
-    status: string;
-    message: string;
-    data: string | Record<string, string>;
-  }
 
   interface PageInfo {
     page: number;
