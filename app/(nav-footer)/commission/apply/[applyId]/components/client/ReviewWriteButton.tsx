@@ -4,6 +4,8 @@ import { useState } from "react";
 
 import { insertCommissionReview } from "@/api/commissionReviewApi";
 
+import { ServerResponsecode } from "@/types/api.type";
+
 import { UseForm, Validators } from "@/utils/validation/validationUtil";
 
 import Modal from "@/components/Modal";
@@ -19,6 +21,8 @@ const ReviewWriteButton = ({ applyId, afterSubmit }: NonUserReviewModalButtonPro
     const [reviewContent, setReviewContent] = useState<string>("");
     const [contentLength, setContentLength] = useState<number>(0);
 
+    const maxReviewLength = 2000;
+
     const validationForm = {
         content: {
             value: reviewContent,
@@ -28,7 +32,7 @@ const ReviewWriteButton = ({ applyId, afterSubmit }: NonUserReviewModalButtonPro
         },
         contentMaxLength: {
             value: contentLength,
-            validConditions: [Validators.max(2000)],
+            validConditions: [Validators.max(maxReviewLength)],
             message: "리뷰는 2000자까지만 적을 수 있습니다.",
             failure: false,
         }
@@ -42,11 +46,9 @@ const ReviewWriteButton = ({ applyId, afterSubmit }: NonUserReviewModalButtonPro
             return;
         }
         const resp = await insertCommissionReview({ applyId: applyId, content: reviewContent }) as ApiResult<number>;
-
-        if (resp.status === "200") {
+        if (resp.status === ServerResponsecode.Success) {
             alert("리뷰가 등록되었습니다.");
             setModalOpen(false);
-
             afterSubmit();
         }
     }
@@ -63,7 +65,7 @@ const ReviewWriteButton = ({ applyId, afterSubmit }: NonUserReviewModalButtonPro
                 <div className="flex flex-col">
                     <h1 className="flex justify-between items-end text-lg font-bold">
                         리뷰 등록하기
-                        <LetterCounter limit={2000} letters={reviewContent} />
+                        <LetterCounter limit={maxReviewLength} letters={reviewContent} />
                     </h1>
                     <textarea
                         className="w-full h-40 border border-gray-300 rounded-lg my-4 p-3 outline-none resize-none"

@@ -1,3 +1,5 @@
+import { ClientResponseCode } from "@/types/api.type";
+
 export const selectOneApplyById = async (id: string) => {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 10000);
@@ -15,7 +17,7 @@ export const selectOneApplyById = async (id: string) => {
         return await resp.json();
     } catch {
         return {
-            status: 999,
+            status: ClientResponseCode.FetchFailed,
             message: '[FETCH ERROR] selectCommissionApplyById',
             data: null
         }

@@ -4,11 +4,10 @@ import Image from 'next/image';
 import { CheckCircle, Cancel } from '@mui/icons-material';
 
 interface ApplyAreaProps {
-    applyId: string;
-    applyVO: any;
+    applyVO: CommissionApply;
 }
 
-const ApplyArea = ({ applyId, applyVO }: ApplyAreaProps) => {
+const ApplyArea = ({ applyVO }: ApplyAreaProps) => {
     return <div>
         <a className="flex items-center py-5" href="#apply-section">
             <h1 className="text-2xl font-bold">신청서</h1>
