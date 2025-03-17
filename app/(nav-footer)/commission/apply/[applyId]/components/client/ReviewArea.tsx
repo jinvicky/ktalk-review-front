@@ -8,6 +8,7 @@ import { ServerResponseCode } from "@/types/api.type";
 import ReviewWriteButton from "./ReviewWriteButton";
 
 import { selectReviewByApplyId } from "@/api/commissionReviewApi";
+import FetchErrorScreen from "@/components/error/FetchErrorScreen";
 
 interface ReviewAreaProps {
     applyId: string;
@@ -15,18 +16,23 @@ interface ReviewAreaProps {
 
 const ReviewArea = ({ applyId }: ReviewAreaProps) => {
     const [review, setReview] = useState<Review | null>(null);
+    const [error, setError] = useState<boolean>(false);
 
     // 리뷰 데이터 재호출 후 데이터 업데이트
     const refreshReviewData = useCallback(async () => {
         const resp = await selectReviewByApplyId(applyId);
         if (resp.status === ServerResponseCode.Success) {
             setReview(resp.data);
+        } else {
+            setError(true);
         }
     }, [applyId]);
 
     useEffect(() => {
         refreshReviewData();
     }, [refreshReviewData]);
+
+    if (error) return <FetchErrorScreen />;
 
     return <div>
         <div className="flex items-center pt-5">
