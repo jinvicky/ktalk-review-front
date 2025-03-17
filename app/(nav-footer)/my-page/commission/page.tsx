@@ -1,3 +1,4 @@
+import { ServerResponseCode } from "@/types/api.type";
 import { cookies } from "next/headers";
 import Link from "next/link";
 
@@ -13,14 +14,12 @@ const CommissionApplyListPage = async () => {
         },
     });
 
-    const data = await resp.json() as ApiResult<CommissionApply[]>;
+    const {status, data, message } = await resp.json() as ApiResult<CommissionApply[]>;
 
-    if (data.status !== "200") {
-        alert(data.message);
+    if (status !== ServerResponseCode.Success) {
+        alert(message);
     }
-
-    console.log('resp:', data);
-
+    
     return <>
         <div>
             <h1>커미션 신청 목록</h1>
@@ -35,7 +34,7 @@ const CommissionApplyListPage = async () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {data.data.map((commission: CommissionApply, index: number) => (
+                        {data.map((commission: CommissionApply, index: number) => (
                             <tr key={commission.id} className="hover:bg-gray-50 [&>td]:text-center">
                                 <td className="px-4 py-2 border border-gray-300">{index + 1}</td>
                                 <td className="px-4 py-2 border border-gray-300">

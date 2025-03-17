@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import { insertCommissionReview } from "@/api/commissionReviewApi";
 
-import { ServerResponsecode } from "@/types/api.type";
+import { ServerResponseCode } from "@/types/api.type";
 
 import { UseForm, Validators } from "@/utils/validation/validationUtil";
 
@@ -46,11 +46,13 @@ const ReviewWriteButton = ({ applyId, afterSubmit }: NonUserReviewModalButtonPro
             return;
         }
         const resp = await insertCommissionReview({ applyId: applyId, content: reviewContent }) as ApiResult<number>;
-        if (resp.status === ServerResponsecode.Success) {
+        if (resp.status === ServerResponseCode.Success) {
             alert("리뷰가 등록되었습니다.");
-            setModalOpen(false);
             afterSubmit();
+        } else {
+            alert(resp.message);
         }
+        setModalOpen(false);
     }
 
     const toggleModal = () => setModalOpen(!modalOpen);

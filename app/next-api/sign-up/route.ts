@@ -5,7 +5,7 @@ export async function POST(request: NextRequest) {
     const form = await request.json();
     const respFromBoot = await signUp(form) as ApiResult<string>;
 
-    if (respFromBoot.status !== "200") {
+    if (respFromBoot.status !== 200) {
         return new NextResponse(
             JSON.stringify({ message: respFromBoot.data , status: respFromBoot.status }),
             {

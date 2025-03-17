@@ -2,6 +2,7 @@ import { signOut } from "@/api/userApi";
 import { NextResponse } from "next/server";
 
 import { cookies } from "next/headers";
+import { ServerResponseCode } from "@/types/api.type";
 
 export async function POST() {
     const cookieStore = cookies();
@@ -21,7 +22,7 @@ export async function POST() {
 
     const respFromBoot = await signOut(userSession) as ApiResult<boolean>;
 
-    if (respFromBoot.status !== "200") {
+    if (respFromBoot.status !== ServerResponseCode.Success) {
         return new NextResponse(
             JSON.stringify({ message: respFromBoot.data, status: respFromBoot.status }),
             {

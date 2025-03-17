@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 import { Review } from "@/types/review.type";
-import { ServerResponsecode } from "@/types/api.type";
+import { ServerResponseCode } from "@/types/api.type";
 
 import ReviewWriteButton from "./ReviewWriteButton";
 
@@ -19,7 +19,7 @@ const ReviewArea = ({ applyId }: ReviewAreaProps) => {
     // 리뷰 데이터 재호출 후 데이터 업데이트
     const refreshReviewData = async () => {
         const resp = await selectReviewByApplyId(applyId);
-        if (resp.status === ServerResponsecode.Success) {
+        if (resp.status === ServerResponseCode.Success) {
             setReview(resp.data);
         }
     }

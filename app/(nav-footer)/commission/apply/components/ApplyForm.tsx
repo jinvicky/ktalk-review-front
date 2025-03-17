@@ -17,7 +17,7 @@ import LetterCounter from "@/components/LetterCounter";
 
 import { TextField, Typography, Box, FormControlLabel, Radio, RadioGroup, FormLabel } from "@mui/material";
 import ClearIcon from '@mui/icons-material/Clear';
-import { ResponseStatus } from "@/types/api.type";
+import { ServerResponseCode } from "@/types/api.type";
 
 const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
     const [loading, setLoading] = useState<boolean>(false);
@@ -107,7 +107,7 @@ const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
         setLoading(true);
         const respJson = await insertNewApply(formData);
 
-        if (Number(respJson.status) === ResponseStatus.Success) {
+        if (Number(respJson.status) === ServerResponseCode.Success) {
 
             if (form.files.length > 0) {
                 const fileListForm = new FormData();
@@ -132,7 +132,7 @@ const ApplyForm = ({ userInfo }: { userInfo: UserSessonObj | null }) => {
                 files: [] as File[],
             });
         } else {
-            alert(respJson.data.message ? respJson.data.message : "요청 도중 오류가 발생했습니다. 재시도해주세요");
+            alert(respJson.message ? respJson.message : "요청 도중 오류가 발생했습니다. 재시도해주세요");
         }
         setLoading(false);
     }

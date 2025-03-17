@@ -75,7 +75,7 @@ const PaymentForm = ({ totalPrice }: PaymentFormProps) => {
     }).then(async (resp) => {
       const data = (await resp.json()) as ApiResult<number>;
 
-      if (data.status === "OK" && data.data > 0) {
+      if (data.status === 200 && data.data > 0) {
         onSubmitPayment();
       }
     });

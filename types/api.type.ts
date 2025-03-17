@@ -1,5 +1,5 @@
 /** 서버에서 주는 status 응답값 입니다. */
-export enum ServerResponsecode {
+export enum ServerResponseCode {
     Success = 200,
     ApiNotFound = 404,
 }
@@ -15,7 +15,7 @@ export enum ClientResponseCode {
 
 /** api 응답 기본 데이터 형식입니다. todo:: 추후 삭제 */
 export interface ResponseData {
-    status: ServerResponsecode;
+    status: ServerResponseCode;
     data: {
         message: string;
     };

@@ -10,7 +10,7 @@ const HeaderServer = () => {
     const menuListWithoutAuth = [
         { path: '/user/sign-in', alias: <>로그인</> },
         { path: '/user/sign-up', alias: <>회원가입</> },
-        { path: '/non-user/purchase/search', alias : <>비회원 조회</>}
+        // { path: '/non-user/purchase/search', alias : <>비회원 조회</>}
     ];
 
     const menuListWithAuth = [
