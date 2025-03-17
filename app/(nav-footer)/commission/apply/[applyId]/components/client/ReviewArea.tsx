@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { Review } from "@/types/review.type";
 import { ServerResponseCode } from "@/types/api.type";
@@ -17,16 +17,16 @@ const ReviewArea = ({ applyId }: ReviewAreaProps) => {
     const [review, setReview] = useState<Review | null>(null);
 
     // 리뷰 데이터 재호출 후 데이터 업데이트
-    const refreshReviewData = async () => {
+    const refreshReviewData = useCallback(async () => {
         const resp = await selectReviewByApplyId(applyId);
         if (resp.status === ServerResponseCode.Success) {
             setReview(resp.data);
         }
-    }
+    }, [applyId]);
 
     useEffect(() => {
         refreshReviewData();
-    }, []);
+    }, [refreshReviewData]);
 
     return <div>
         <div className="flex items-center pt-5">
