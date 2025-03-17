@@ -2,7 +2,7 @@
 
 import ReviewArea from "./components/client/ReviewArea";
 import ApplyArea from "./components/server/ApplyArea";
-import PayRequestArea from "./components/client/PayRequestArea";
+// import PayRequestArea from "./components/client/PayRequestArea";
 import { selectOneApplyById } from "@/api/applyApi";
 import FetchErrorScreen from "@/components/error/FetchErrorScreen";
 import DataNotFoundScreen from "@/components/error/DataNotFoundScreen";
@@ -12,7 +12,7 @@ import DataNotFoundScreen from "@/components/error/DataNotFoundScreen";
  */
 const NonUserCommissionApplyDetailPage: React.FC<{ params: { applyId: string } }> = async ({ params }) => {
     const applyId = params.applyId;
-    const { status, message, data } = await selectOneApplyById(applyId);
+    const { status, data } = await selectOneApplyById(applyId);
     const applyData = data as CommissionApply;
 
     if (status !== 200) return <FetchErrorScreen />;

@@ -12,7 +12,7 @@ export const selectCommissionReviewList = async () => {
 /**
  * 신규 커미션 리뷰 등록
  */
-export const insertCommissionReview = async (review: CommissionReviewReg) => {
+export const insertCommissionReview = async (review: CommissionReviewReg): Promise<ApiResult<number>> => {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 10000);
     try {
@@ -28,7 +28,7 @@ export const insertCommissionReview = async (review: CommissionReviewReg) => {
         return {
             status: ClientResponseCode.FetchFailed,
             message: '[FETCH ERROR] insertCommissionReview',
-            data: null
+            data: 0
         }
     } finally {
         clearTimeout(timeoutId);
